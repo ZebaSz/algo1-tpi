@@ -33,3 +33,4 @@ bin/
 *.cbp
 *.depend
 sonar-project.properties
+*.layout
