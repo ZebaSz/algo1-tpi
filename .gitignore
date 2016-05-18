@@ -28,9 +28,8 @@
 *.app
 
 # Ignores de Seba
+obj/
 bin/
-.sonar/
-*.cbp
-*.depend
 sonar-project.properties
-*.layout
+.sonar
+.vscode
