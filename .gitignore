@@ -33,3 +33,5 @@ bin/
 sonar-project.properties
 .sonar
 .vscode
+.idea
+CMakeLists.txt
