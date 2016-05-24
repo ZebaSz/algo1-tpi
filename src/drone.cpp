@@ -4,7 +4,7 @@ Drone::Drone()
 {
 }
 
-Drone::Drone(ID i, const std::vector<Producto>& ps)
+Drone::Drone(ID i, const std::vector<Producto>& ps) : _id(i), _productos(ps), _bateria(100), _enVuelo(false)
 {
 }
 
@@ -30,7 +30,8 @@ const Secuencia<Posicion>& Drone::vueloRealizado() const
 
 Posicion Drone::posicionActual() const
 {
-	return _trayectoria[_trayectoria.size() - 1];
+	// TODO y si no hay trayectoria?
+	return _trayectoria.back();
 }
 
 const Secuencia<Producto>& Drone::productosDisponibles() const
@@ -40,7 +41,22 @@ const Secuencia<Producto>& Drone::productosDisponibles() const
 
 bool Drone::vueloEscalerado() const
 {
-	return false;
+	bool escalerado = _enVuelo;
+	int dirx, diry;
+	if(_trayectoria.size() > 2) {
+		dirx = _trayectoria[0].x - _trayectoria[2].x;
+		diry = _trayectoria[0].y - _trayectoria[2].y;
+		if(dirx == 0 || diry == 0) {
+			escalerado = false;
+		} else {
+			int i = 0;
+			while(i < _trayectoria.size() - 2) {
+				if(_trayectoria[i].x - _trayectoria[i + 2].x != dirx) escalerado = false;
+				if(_trayectoria[i].y - _trayectoria[i + 2].y != diry) escalerado = false;
+			}
+		}
+	}
+	return escalerado;
 }
 
 Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
@@ -67,5 +83,6 @@ bool Drone::operator==(const Drone & otroDrone) const
 
 std::ostream & operator<<(std::ostream & os, const Drone & d)
 {
+	d.mostrar(os);
 	return os;
 }
