@@ -4,7 +4,7 @@ SRCDIR=src
 OBJDIR=obj
 BINDIR=bin
 
-CFLAGS = -c -Wall
+CFLAGS = -c -std=c++11
 SOURCES = $(SRCDIR)/campo.cpp $(SRCDIR)/drone.cpp $(SRCDIR)/sistema.cpp
 OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 TARGET = main

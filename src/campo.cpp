@@ -70,6 +70,40 @@ void Campo::guardar(std::ostream & os) const
 void Campo::cargar(std::istream & is)
 {
 	// TODO implementar
+	std::string dimen;
+	std::getline(is, dimen, '[');
+	std::getline(is, dimen, ',');
+	_dimension.ancho = atoi (dimen.c_str());
+	std::getline(is, dimen, ']');
+	_dimension.largo = atoi (dimen.c_str());
+
+	_grilla = Grilla<Parcela>(_dimension);
+
+	std::string parcelastr;
+	std::getline(is, parcelastr, '[');
+	int i = 0;
+	while(i < _dimension.ancho) {
+		std::getline(is, parcelastr, '[');
+		int j = 0;
+		while(j < _dimension.largo) {
+			if(_dimension.largo - j == 1) {
+				std::getline(is, parcelastr, ']');
+			} else {
+				std::getline(is, parcelastr, ',');
+			}
+			Parcela parcela;
+			if(parcelastr == "Cultivo") {
+				parcela = Cultivo;
+			} else if(parcelastr == "Casa") {
+				parcela = Casa;
+			} else if(parcelastr == "Granero") {
+				parcela = Granero;
+			}
+			_grilla.parcelas[i][j] = parcela;
+			++j;
+		}
+		++i;
+	}
 }
 
 bool Campo::operator==(const Campo & otroCampo) const
