@@ -5,7 +5,7 @@ Sistema::Sistema()
 {
 }
 
-Sistema::Sistema(const Campo & c, const Secuencia<Drone>& ds)
+Sistema::Sistema(const Campo & c, const Secuencia<Drone>& ds) : _campo(c), _enjambre(ds), _estado(c.dimensiones())
 {
 }
 
@@ -59,10 +59,45 @@ void Sistema::volarYSensar(const Drone & d)
 
 void Sistema::mostrar(std::ostream & os) const
 {
+	os << "Sistema" << std::endl;
+	os << "Campo del sistema: " << _campo << std::endl;
+	os << "Lista de drones:" << std::endl;
+	int i = 0;
+	while(i < _enjambre.size()) {
+		os << _enjambre[i] << std::endl;
+		++i;
+	}
 }
 
 void Sistema::guardar(std::ostream & os) const
 {
+	os << "{ S" << std::endl;
+	_campo.guardar(os);
+	os << std::endl << "[";
+	int i = 0;
+	while(i < _enjambre.size()) {
+		_enjambre[i].guardar(os);
+		++i;
+	}
+	os << "]" << std::endl << "[";
+	i = 0;
+	while(i < _estado.parcelas.size()) {
+		os << "[";
+		int j = 0;
+		while(j < _estado.parcelas[i].size()) {
+			os << _estado.parcelas[i][j];
+			++j;
+			if(j != _estado.parcelas[i].size()) {
+				os << ",";
+			}
+		}
+		os << "]";
+		++i;
+		if(i != _estado.parcelas.size()) {
+			os << ", ";
+		}
+	}
+	os << "]" << std::endl << "}";
 }
 
 void Sistema::cargar(std::istream & is)
