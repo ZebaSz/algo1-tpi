@@ -52,6 +52,7 @@ bool Drone::vueloEscalerado() const
 			while(i < _trayectoria.size() - 2) {
 				if(_trayectoria[i].x - _trayectoria[i + 2].x != dirx) escalerado = false;
 				if(_trayectoria[i].y - _trayectoria[i + 2].y != diry) escalerado = false;
+				++i;
 			}
 		}
 	}
@@ -136,6 +137,8 @@ void Drone::cargar(std::istream & is)
 		_trayectoria.push_back(pos);
 		std::getline(is, posicion, ']');
 	}
+
+	_enVuelo = _trayectoria.size() > 0;
 
 	_productos.clear();
 	std::string listaprods;
