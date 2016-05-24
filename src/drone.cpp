@@ -42,10 +42,9 @@ const Secuencia<Producto>& Drone::productosDisponibles() const
 bool Drone::vueloEscalerado() const
 {
 	bool escalerado = _enVuelo;
-	int dirx, diry;
 	if(_trayectoria.size() > 2) {
-		dirx = _trayectoria[0].x - _trayectoria[2].x;
-		diry = _trayectoria[0].y - _trayectoria[2].y;
+		int dirx = _trayectoria[0].x - _trayectoria[2].x;
+		int diry = _trayectoria[0].y - _trayectoria[2].y;
 		if(dirx == 0 || diry == 0) {
 			escalerado = false;
 		} else {
