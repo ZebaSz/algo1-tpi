@@ -7,6 +7,7 @@ using namespace std;
 
 int main()
 {
+    // Inicializar posiciones para un campo
     Posicion posG;
     posG.x = 15;
     posG.y = 3;
@@ -14,19 +15,20 @@ int main()
     posC.x = 5;
     posC.y = 7;
 
+    // Crear campo, mostrar en pantalla, guardar
     Campo campo(posG, posC);
     cout << campo << endl;
 
-    ofstream out("test.txt");
-    if(out.is_open()) {
-        campo.guardar(out);
-        out.close();
+    ofstream campoout("campo.txt");
+    if(campoout.is_open()) {
+        campo.guardar(campoout);
+        campoout.close();
     }
 
-    ifstream in("test.txt");
-
+    // Cargar mismo campo en otroCampo, mostrar, comparar
+    ifstream campoin("campo.txt");
     Campo otroCampo;
-    otroCampo.cargar(in);
+    otroCampo.cargar(campoin);
     cout << campo << endl;
 
     if(campo == otroCampo) {
@@ -35,7 +37,13 @@ int main()
         cout << "No son el mismo" << endl;
     }
 
-    Drone drone(1, std::vector<Producto>());
+    cout << endl;
+
+    // Cargar drone de archivo, mostrar
+    Drone drone;
+    ifstream dronein("drone-test.txt");
+    drone.cargar(dronein);
+    cout << drone << endl;
 
     if(!drone.vueloEscalerado()) {
         cout << "Vuelo no escalerado" << endl;

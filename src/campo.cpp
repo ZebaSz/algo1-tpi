@@ -69,13 +69,12 @@ void Campo::guardar(std::ostream & os) const
 
 void Campo::cargar(std::istream & is)
 {
-	// TODO implementar
 	std::string dimen;
 	std::getline(is, dimen, '[');
 	std::getline(is, dimen, ',');
-	_dimension.ancho = atoi (dimen.c_str());
+	_dimension.ancho = atoi(dimen.c_str());
 	std::getline(is, dimen, ']');
-	_dimension.largo = atoi (dimen.c_str());
+	_dimension.largo = atoi(dimen.c_str());
 
 	_grilla = Grilla<Parcela>(_dimension);
 
