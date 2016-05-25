@@ -16,27 +16,27 @@ enum Producto {Fertilizante, Plaguicida, PlaguicidaBajoConsumo, Herbicida, Herbi
 enum EstadoCultivo {RecienSembrado, EnCrecimiento, ListoParaCosechar, ConMaleza, ConPlaga, NoSensado};
 
 struct Posicion {
-    int x;
-    int y;
+	int x;
+	int y;
 };
 
 struct Dimension {
-    Ancho ancho;
-    Largo largo;
+	Ancho ancho;
+	Largo largo;
 };
 
 template<class T>
 struct Grilla {
-    Grilla() {}
+	Grilla() {}
 	Grilla(Dimension d)	{
-		parcelas.resize(d.ancho, std::vector<T>(d.largo, Cultivo));
+		parcelas.resize(d.ancho, std::vector<T>(d.largo, static_cast<T>(0)));
 	}
-    std::vector< std::vector<T> > parcelas;
+	std::vector< std::vector<T> > parcelas;
 };
 
 struct InfoVueloCruzado {
-    Posicion posicion;
-    int cantidadCruces;
+	Posicion posicion;
+	int cantidadCruces;
 };
 
 #endif /*TIPOS_H*/

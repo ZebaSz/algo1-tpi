@@ -26,12 +26,21 @@ class Drone{
 
         bool operator==(const Drone& otroDrone) const;
 
+		void moverA(const Posicion pos);
+		void setBateria(const Carga c);
+		void borrarVueloRealizado();
+		void cambiarPosicionActual(const Posicion p);
+		void sacarProducto(const Producto p);
+
+		bool mismosProductos(Secuencia<Producto> otraLista) const;
+
 	private:
 		ID _id;
 		Carga _bateria;
 		Secuencia<Posicion> _trayectoria;
 		Secuencia<Producto> _productos;
 		bool _enVuelo;
+		Posicion _posicionActual;
 };
 
 // Definirlo usando mostrar, para poder usar << con este tipo.
