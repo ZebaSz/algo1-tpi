@@ -1,0 +1,12 @@
+Campo
+	Cargar
+	_grilla.parcelas (parcelas es una función?)
+	nota: corregí las variables que se comparaban con size, pero misteriosamente en drone no tira error
+
+Drone
+	const antes de vector, const despues de vector
+	Secuencia <InfoVueloCruzado> ¿no hay que definir nada?
+
+Sistema
+	crecer: ¿como se pasa una posición? (x,y) [x][y]
+
