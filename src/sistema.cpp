@@ -53,7 +53,18 @@ void Sistema::seVinoLaMaleza(const Secuencia<Posicion>& ps)
 
 void Sistema::seExpandePlaga()
 {
-	// TODO implementar
+	int y = 0;
+	Secuencia<Posicion> lista;
+	while (_campo.dimensiones().largo > y) {
+		int x = 0;
+		while (_campo.dimensiones().ancho > x) {
+			if (_estado.parcelas[x][y] == ConPlaga) {
+				
+
+			++x;
+		}
+		++y;
+	}
 }
 
 void Sistema::despegar(const Drone & d)
