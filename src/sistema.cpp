@@ -27,21 +27,18 @@ const Secuencia<Drone>& Sistema::enjambreDrones() const
 
 void Sistema::crecer()
 {
-	int x = 0;
 	int y = 0;
-	while (campo.dimensiones().largo > y) {
-				while (campo.dimensiones().ancho > x) {
-					if (estadoDelCultivo(x,y) == RecienSembrado) {
-						estadoDelCultivo(x,y) = EnCrecimiento;
-					} else {
-						if (estadoDelCultivo(x,y) == EnCrecimiento) {
-							estadoDelCultivo(x, y) = ListoParaCosechar;
-							}
-						}
-					x++;
-				}
-		x = 0;
-		y++;
+	while (_campo.dimensiones().largo > y) {
+		int x = 0;
+		while (_campo.dimensiones().ancho > x) {
+			if (_estado.parcelas[x][y] == RecienSembrado) {
+				_estado.parcelas[x][y] = EnCrecimiento;
+			} else if (_estado.parcelas[x][y] == EnCrecimiento) {
+				_estado.parcelas[x][y] = ListoParaCosechar;
+			}
+			++x;
+		}
+		++y;
 	}
 	// TODO revisar :)
 }
