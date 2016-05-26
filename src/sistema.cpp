@@ -27,7 +27,6 @@ const Secuencia<Drone>& Sistema::enjambreDrones() const
 
 void Sistema::crecer()
 {
-<<<<<<< HEAD
 	int x = 0;
 	int y = 0;
 	while (campo.dimensiones().largo > y) {
@@ -44,22 +43,17 @@ void Sistema::crecer()
 		x = 0;
 		y++;
 	}
-=======
-	// TODO implementar
->>>>>>> origin/master
+	// TODO revisar :)
 }
 
 void Sistema::seVinoLaMaleza(const Secuencia<Posicion>& ps)
 {
-<<<<<<< HEAD
-	i=0;
+	int i=0;
 	while (i < ps.size()){
 		estadoDelCultivo(ps[i]) = ConMaleza;
 		i++;
 	}
-=======
-	// TODO implementar
->>>>>>> origin/master
+	// TODO revisar :)
 }
 
 void Sistema::seExpandePlaga()
