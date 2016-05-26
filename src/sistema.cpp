@@ -85,7 +85,7 @@ void Sistema::seExpandePlaga()
 
 void Sistema::despegar(const Drone & d)
 {
-	// TODO implementar
+	d._enVuelo = True 
 }
 
 bool Sistema::listoParaCosechar() const
