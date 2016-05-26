@@ -54,18 +54,34 @@ void Sistema::seVinoLaMaleza(const Secuencia<Posicion>& ps)
 void Sistema::seExpandePlaga()
 {
 	int y = 0;
-	Secuencia<Posicion> lista;
+	Secuencia<Posicion> plagados;
 	while (_campo.dimensiones().largo > y) {
 		int x = 0;
 		while (_campo.dimensiones().ancho > x) {
 			if (_estado.parcelas[x][y] == ConPlaga) {
-				
-
+				plagados.push_back(Posicion(x,y))
 			++x;
-		}
+			}
 		++y;
+		}
 	}
-}
+	int i = 0;
+	while (plagados.size() > i) {
+		if (plagados[i].x != 0) {
+			_estado.parcelas[plagados[i].x - 1][plagados[i].y] = ConMaleza
+		}
+		if (plagados[i].x != _campo.dimensiones().ancho - 1) {
+			_estado.parcelas[plagados[i].x + 1][plagados[i].y] = ConMaleza
+		}
+		if (plagados[i].y != 0) {
+			_estado.parcelas[plagados[i].x][plagados[i].y - 1] = ConMaleza
+		}
+		if (plagados[i].y != _campo.dimensiones().largo - 1){
+			_estado.parcelas[plagados[i].x][plagados[i].y + 1] = ConMaleza
+		}
+		++i;
+	}
+}	
 
 void Sistema::despegar(const Drone & d)
 {
