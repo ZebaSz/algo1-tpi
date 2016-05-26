@@ -31,11 +31,11 @@ void Sistema::crecer()
 	int y = 0;
 	while (campo.dimensiones().largo > y) {
 				while (campo.dimensiones().ancho > x) {
-					if (estadoDelCultivo([x][y]) == RecienSembrado) {
-						estadoDelCultivo([x][y]) = EnCrecimiento;
+					if (estadoDelCultivo(x,y) == RecienSembrado) {
+						estadoDelCultivo(x,y) = EnCrecimiento;
 					} else {
-						if (estadoDelCultivo([x][y]) == EnCrecimiento) {
-							estadoDelCultivo([x][y]) = ListoParaCosechar;
+						if (estadoDelCultivo(x,y) == EnCrecimiento) {
+							estadoDelCultivo(x, y) = ListoParaCosechar;
 							}
 						}
 					x++;

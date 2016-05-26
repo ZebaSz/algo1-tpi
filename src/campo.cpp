@@ -26,9 +26,9 @@ void Campo::mostrar(std::ostream & os) const
 {
 	os << "Campo con dimensiones [" << _dimension.ancho << "," << _dimension.largo << "]:" << std::endl;
 	int i = 0;
-	while((unsigned)i < _grilla.parcelas.size()) {
+	while(i < _grilla.parcelas.size()) {
 		int j = 0;
-		while((unsigned)j < _grilla.parcelas[i].size()) {
+		while(j < _grilla.parcelas[i].size()) {
 			os << _grilla.parcelas[i][j];
 			if(_dimension.largo - j > 1) {
 				os << "\t";
@@ -44,10 +44,10 @@ void Campo::guardar(std::ostream & os) const
 {
 	os << "{ C [" << _dimension.ancho << "," << _dimension.largo << "] [";
 	int i = 0;
-	while((unsigned)i < _grilla.parcelas.size()) {
+	while(i < _grilla.parcelas.size()) {
 		os << "[";
 		int j = 0;
-		while((unsigned)j < _grilla.parcelas[i].size()) {
+		while(j < _grilla.parcelas[i].size()) {
 			os << _grilla.parcelas[i][j];
 			if(_dimension.largo - j > 1) {
 				os << ",";
@@ -77,10 +77,10 @@ void Campo::cargar(std::istream & is)
 	std::string parcelastr;
 	std::getline(is, parcelastr, '[');
 	int i = 0;
-	while((unsigned)i < _dimension.ancho) {
+	while(i < _dimension.ancho) {
 		std::getline(is, parcelastr, '[');
 		int j = 0;
-		while((unsigned)j < _dimension.largo) {
+		while(j < _dimension.largo) {
 			if(_dimension.largo - j == 1) {
 				std::getline(is, parcelastr, ']');
 			} else {
@@ -106,9 +106,9 @@ bool Campo::operator==(const Campo & otroCampo) const
 		iguales = false;
 	} else {
 		int i = 0;
-		while((unsigned)i < _grilla.parcelas.size()) {
+		while(i < _grilla.parcelas.size()) {
 			int j = 0;
-			while((unsigned)j < _grilla.parcelas[i].size()) {
+			while(j < _grilla.parcelas[i].size()) {
 				Posicion pos;
 				pos.x = i;
 				pos.y = j;

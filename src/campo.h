@@ -2,7 +2,6 @@
 #define CAMPO_H_INCLUDED
 
 #include "tipos.h"
-#include <stdlib.h>
 
 class Campo {
 	public:
