@@ -90,14 +90,34 @@ void Sistema::despegar(const Drone & d)
 
 bool Sistema::listoParaCosechar() const
 {
-	// TODO implementar
-	return false;
+	int cantCosechables = 0;
+	int cantCultivos = (_campo.dimensiones().ancho * _campo.dimensiones().largo) -2;
+	int y = 0;
+	while (_campo.dimensiones().largo > y) {
+		int x = 0;
+		while(_campo.dimensiones().ancho > x) {
+			if(_estado.parcelas[x][y] == ListoParaCosechar) {
+				++cantCosechables;
+			}
+			++x;
+		}
+		++y;
+	}
+	return (cantCosechables /(float) cantCultivos >= 0.9);
 }
 
 void Sistema::aterrizarYCargarBaterias(Carga b)
 {
-	// TODO implementar
+	int i=0;
+	while (_enjambre.size() > i){
+		if (_enjambre[i].bateria() < b){
+			_enjambre[i].setBateria(100);
+			_enjambre[i].cambiarPosicionActual(posicionGranero());
+			_enjambre[i].borrarVueloRealizado();
+		}
+	}
 }
+	//TODO problema con los requiere de cambiarPosicionActual
 
 void Sistema::fertilizarPorFilas()
 {
