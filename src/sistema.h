@@ -52,6 +52,7 @@ class Sistema {
 };
 
 // Definirlo usando mostrar, para poder usar << con este tipo.
-std::ostream & operator<<(std::ostream & os,const Sistema & s);
+std::ostream & operator<<(std::ostream & os, const Sistema & s);
+std::ostream & operator<<(std::ostream & os, const EstadoCultivo & e);
 
 #endif // SISTEMA_H_INCLUDED

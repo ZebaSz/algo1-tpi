@@ -15,6 +15,9 @@ enum Parcela {Cultivo, Granero, Casa};
 enum Producto {Fertilizante, Plaguicida, PlaguicidaBajoConsumo, Herbicida, HerbicidaLargoAlcance};
 enum EstadoCultivo {RecienSembrado, EnCrecimiento, ListoParaCosechar, ConMaleza, ConPlaga, NoSensado};
 
+static const char* TipoParcela[] = {"Cultivo", "Granero", "Casa"};
+static const char* TipoProducto[] = {"Fertilizante", "Plaguicida", "PlaguicidaBajoConsumo", "Herbicida", "HerbicidaLargoAlcance"};
+static const char* TipoEstado[] = {"RecienSembrado", "EnCrecimiento", "ListoParaCosechar", "ConMaleza", "ConPlaga", "NoSensado"};
 
 // TODO preguntar sobre constructores
 // Agregué algunos que eran útiles, tal vez no corresponde
