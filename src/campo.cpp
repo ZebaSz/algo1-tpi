@@ -5,12 +5,8 @@ Campo::Campo()
 }
 
 Campo::Campo(const Posicion &posG, const Posicion &posC)
+		: _dimension(std::max(posG.x, posC.x) + 1, std::max(posG.y, posC.y) + 1), _grilla(_dimension)
 {
-	_dimension.ancho = std::max(posG.x, posC.x) + 1;
-	_dimension.largo = std::max(posG.y, posC.y) + 1;
-
-	_grilla = Grilla<Parcela>(_dimension);
-
 	_grilla.parcelas[posG.x][posG.y] = Granero;
 	_grilla.parcelas[posC.x][posC.y] = Casa;
 
@@ -91,13 +87,10 @@ void Campo::cargar(std::istream & is)
 				std::getline(is, parcelastr, ',');
 			}
 			Parcela parcela;
-			if(parcelastr == "Cultivo") {
-				parcela = Cultivo;
-			} else if(parcelastr == "Casa") {
-				parcela = Casa;
-			} else if(parcelastr == "Granero") {
-				parcela = Granero;
-			}
+			if(parcelastr == "Cultivo") parcela = Cultivo;
+			if(parcelastr == "Casa") parcela = Casa;
+			if(parcelastr == "Granero") parcela = Granero;
+
 			_grilla.parcelas[i][j] = parcela;
 			++j;
 		}
@@ -107,28 +100,27 @@ void Campo::cargar(std::istream & is)
 
 bool Campo::operator==(const Campo & otroCampo) const
 {
-	if(this == &otroCampo) {
-		return true;
-	}
+	bool iguales  = true;
 	if(_dimension.ancho != otroCampo.dimensiones().ancho
 	   || _dimension.largo != otroCampo.dimensiones().largo) {
-		return false;
-	}
-	int i = 0;
-	while(i < _grilla.parcelas.size()) {
-		int j = 0;
-		while(j < _grilla.parcelas[i].size()) {
-			Posicion pos;
-			pos.x = i;
-			pos.y = j;
-			if(_grilla.parcelas[i][j] != otroCampo.contenido(pos)) {
-				return false;
+		iguales = false;
+	} else {
+		int i = 0;
+		while(i < _grilla.parcelas.size()) {
+			int j = 0;
+			while(j < _grilla.parcelas[i].size()) {
+				Posicion pos;
+				pos.x = i;
+				pos.y = j;
+				if(_grilla.parcelas[i][j] != otroCampo.contenido(pos)) {
+					iguales = false;
+				}
+				++j;
 			}
-			++j;
+			++i;
 		}
-		++i;
 	}
-	return true;
+	return iguales;
 }
 
 std::ostream & operator<<(std::ostream & os, const Campo & c)
@@ -136,6 +128,12 @@ std::ostream & operator<<(std::ostream & os, const Campo & c)
 	c.mostrar(os);
 	return os;
 }
+
+// TODO preguntar sobre estos operadores
+// Algunos no corresponden a campo, deberían estar en otro lado
+
+// TODO separar las comparaciones a aux
+// o pregunar si hay mejor manera de pasar enum a string
 
 std::ostream & operator<<(std::ostream & os, const Parcela & p)
 {
