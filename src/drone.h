@@ -31,8 +31,6 @@ class Drone{
 		void cambiarPosicionActual(const Posicion p);
 		void sacarProducto(const Producto p);
 
-		bool mismosProductos(Secuencia<Producto> otraLista) const;
-
 	private:
 		ID _id;
 		Carga _bateria;
@@ -40,6 +38,9 @@ class Drone{
 		Secuencia<Producto> _productos;
 		bool _enVuelo;
 		Posicion _posicionActual;
+
+		bool mismosProductos(Secuencia<Producto> otraLista) const;
+		static int posEnLista(const Posicion& p, const Secuencia<InfoVueloCruzado>& cruces);
 };
 
 // Definirlo usando mostrar, para poder usar << con este tipo.

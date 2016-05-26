@@ -52,5 +52,20 @@ int main()
     cout << "escalerado" << endl;
 
 
+    // Cargar drone de archivo, mostrar
+    Drone otroDrone;
+    ifstream otrodronein("drone-test-2.txt");
+    otroDrone.cargar(otrodronein);
+    cout << otroDrone << endl;
+
+    Secuencia<Drone> listadrones;
+    listadrones.push_back(drone);
+    listadrones.push_back(otroDrone);
+
+    Secuencia<InfoVueloCruzado> cruces = Drone::vuelosCruzados(listadrones);
+    for (int i = 0; i < cruces.size(); ++i) {
+        cout << "[" << cruces[i].posicion.x << "," << cruces[i].posicion.y << "] - " << cruces[i].cantidadCruces << endl;
+    }
+
     return 0;
 }

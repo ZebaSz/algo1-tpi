@@ -59,20 +59,49 @@ bool Drone::vueloEscalerado() const
 	return escalerado;
 }
 
+// TODO preguntar sobre especificacion
+// choques en el mismo lugar en momentos distintos?
 Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 {
 	int i = 0;
 	size_t n = ds[0].vueloRealizado().size();
-	Secuencia<InfoVueloCruzado> cruces;
+	Secuencia<InfoVueloCruzado> crucesTotales;
 	while(i < n) {
+		Secuencia<InfoVueloCruzado> crucesEnMomento;
 		int d = 0;
 		while(d < ds.size()) {
-			// TODO completar
+			Posicion pos = ds[d].vueloRealizado()[i];
+			int cruce = posEnLista(pos, crucesEnMomento);
+			if(cruce == -1) {
+				crucesEnMomento.push_back(InfoVueloCruzado(pos, 1));
+			} else {
+				++crucesEnMomento[cruce].cantidadCruces;
+			}
 			++d;
 		}
+		size_t c = 0;
+		while(c < crucesEnMomento.size()) {
+			if(crucesEnMomento[c].cantidadCruces == 1) {
+				crucesEnMomento.erase(crucesEnMomento.begin() + c);
+			} else {
+				++c;
+			}
+		}
+		crucesTotales.insert(crucesTotales.end(), crucesEnMomento.begin(), crucesEnMomento.end());
 		++i;
 	}
-	return cruces;
+	return crucesTotales;
+}
+
+int Drone::posEnLista(const Posicion& p, const Secuencia<InfoVueloCruzado>& cruces)
+{
+	int i = 0;
+	int encontrado = -1;
+	while(i < cruces.size() && encontrado == -1) {
+		if(cruces[i].posicion.x == p.x && cruces[i].posicion.y == p.y) encontrado = i;
+		++i;
+	}
+	return encontrado;
 }
 
 void Drone::mostrar(std::ostream & os) const

@@ -46,6 +46,8 @@ struct Grilla {
 };
 
 struct InfoVueloCruzado {
+	InfoVueloCruzado() {}
+	InfoVueloCruzado(Posicion p, int c) : posicion(p.x, p.y), cantidadCruces(c) {}
 	Posicion posicion;
 	int cantidadCruces;
 };
