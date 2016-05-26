@@ -67,7 +67,7 @@ Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 	while(i < n) {
 		int d = 0;
 		while(d < ds.size()) {
-			// TODO completar
+			
 			++d;
 		}
 		++i;
