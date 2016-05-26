@@ -5,7 +5,8 @@ Sistema::Sistema()
 {
 }
 
-Sistema::Sistema(const Campo & c, const Secuencia<Drone>& ds) : _campo(c), _enjambre(ds), _estado(c.dimensiones())
+Sistema::Sistema(const Campo & c, const Secuencia<Drone>& ds)
+		: _campo(c), _enjambre(ds), _estado(c.dimensiones())
 {
 }
 
@@ -26,6 +27,7 @@ const Secuencia<Drone>& Sistema::enjambreDrones() const
 
 void Sistema::crecer()
 {
+<<<<<<< HEAD
 	int x = 0;
 	int y = 0;
 	while (campo.dimensiones().largo > y) {
@@ -42,40 +44,53 @@ void Sistema::crecer()
 		x = 0;
 		y++;
 	}
+=======
+	// TODO implementar
+>>>>>>> origin/master
 }
 
 void Sistema::seVinoLaMaleza(const Secuencia<Posicion>& ps)
 {
+<<<<<<< HEAD
 	i=0;
 	while (i < ps.size()){
 		estadoDelCultivo(ps[i]) = ConMaleza;
 		i++;
 	}
+=======
+	// TODO implementar
+>>>>>>> origin/master
 }
 
 void Sistema::seExpandePlaga()
 {
+	// TODO implementar
 }
 
 void Sistema::despegar(const Drone & d)
 {
+	// TODO implementar
 }
 
 bool Sistema::listoParaCosechar() const
 {
+	// TODO implementar
 	return false;
 }
 
 void Sistema::aterrizarYCargarBaterias(Carga b)
 {
+	// TODO implementar
 }
 
 void Sistema::fertilizarPorFilas()
 {
+	// TODO implementar
 }
 
 void Sistema::volarYSensar(const Drone & d)
 {
+	// TODO implementar
 }
 
 void Sistema::mostrar(std::ostream & os) const
@@ -125,9 +140,50 @@ void Sistema::cargar(std::istream & is)
 {
 }
 
+// TODO preguntar sobre implementación de estos métodos
+// Cuando subieron la v3, estas implementaciones no estaban (ni vacías)
+bool Sistema::enRango(int x, int y) const {
+	return x < _campo.dimensiones().largo && y < _campo.dimensiones().ancho;
+}
+bool Sistema::enRango(const Posicion p) const {
+	return enRango(p.x, p.y);
+}
+bool Sistema::enRangoConPlaga(int x, int y) const {
+	return false;
+}
+Posicion Sistema::posicionGranero() const {
+	return Posicion();
+}
+bool Sistema::enRangoCultivable(int x, int y) const {
+	return false;
+}
+bool Sistema::enRangoCultivableLibre(int x, int y) const {
+	return false;
+}
+bool Sistema::parcelaLibre(int x, int y) const {
+	return false;
+}
+static Posicion Sistema::vecinoAlOeste(const Posicion &p) {
+	return Posicion();
+}
+
+static bool Sistema::tieneUnProducto(const Secuencia<Producto> &ps, const Producto &productoABuscar) {
+	return false;
+}
+void Sistema::split(const std::string &s, char delim, std::vector<std::string> &elems) {
+}
+std::vector<std::string> Sistema::split(const std::string &s, char delim) {
+	return std::vector<std::string>();
+}
+
 bool Sistema::operator==(const Sistema & otroSistema) const
 {
-	return false;
+	// TODO implementar mismoEnjambre
+	bool iguales = _campo == otroSistema.campo() /* && mismoEnjambre(otroSistema) */;
+	if(iguales) {
+		// TODO implementar comparaciones de estado de cultivo
+	}
+	return iguales;
 }
 
 std::ostream & operator<<(std::ostream & os, const Sistema & s)

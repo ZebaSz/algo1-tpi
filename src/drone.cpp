@@ -4,7 +4,8 @@ Drone::Drone()
 {
 }
 
-Drone::Drone(ID i, const std::vector<Producto>& ps) : _id(i), _productos(ps), _bateria(100), _enVuelo(false)
+Drone::Drone(ID i, const std::vector<Producto>& ps)
+		: _id(i), _productos(ps), _bateria(100), _enVuelo(false), _posicionActual(-1,-1)
 {
 }
 
@@ -30,8 +31,7 @@ const Secuencia<Posicion>& Drone::vueloRealizado() const
 
 Posicion Drone::posicionActual() const
 {
-	// TODO y si no hay trayectoria?
-	return _trayectoria.back();
+	return _posicionActual;
 }
 
 const Secuencia<Producto>& Drone::productosDisponibles() const
@@ -61,7 +61,18 @@ bool Drone::vueloEscalerado() const
 
 Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 {
-	return Secuencia<InfoVueloCruzado>();
+	int i = 0;
+	size_t n = ds[0].vueloRealizado().size();
+	Secuencia<InfoVueloCruzado> cruces;
+	while(i < n) {
+		int d = 0;
+		while(d < ds.size()) {
+			// TODO completar
+			++d;
+		}
+		++i;
+	}
+	return cruces;
 }
 
 void Drone::mostrar(std::ostream & os) const
@@ -169,31 +180,85 @@ void Drone::cargar(std::istream & is)
 
 void Drone::moverA(const Posicion pos)
 {
+	_enVuelo = true;
+	_trayectoria.push_back(pos);
+	_posicionActual = pos;
 }
 
 void Drone::setBateria(const Carga c)
 {
+	_bateria = c;
 }
 
 void Drone::borrarVueloRealizado()
 {
+	_trayectoria.clear();
 }
 
 void Drone::cambiarPosicionActual(const Posicion p)
 {
+	_posicionActual = p;
 }
 
 void Drone::sacarProducto(const Producto p)
 {
+	int i = 0;
+	while(i < _productos.size() && _productos[i] != p) {
+		++i;
+	}
+	if(i < _productos.size()) {
+		_productos.erase(_productos.begin() + i);
+	}
 }
 
 bool Drone::operator==(const Drone & otroDrone) const
 {
-	return false;
+	bool iguales = _id == otroDrone.id() && _bateria == otroDrone.bateria()
+				   && _enVuelo == otroDrone.enVuelo() && _posicionActual.x == otroDrone.posicionActual().x
+				   && _posicionActual.y == otroDrone.posicionActual().y;
+	if(iguales) {
+		iguales = mismosProductos(otroDrone.productosDisponibles());
+		if(_enVuelo) {
+			if(_trayectoria.size() == otroDrone.vueloRealizado().size()) {
+				int i = 0;
+				while(i < _trayectoria.size() && iguales) {
+					if(_trayectoria[i].x != otroDrone.vueloRealizado()[i].x
+					   || _trayectoria[i].y != otroDrone.vueloRealizado()[i].y) {
+						iguales = false;
+					}
+					++i;
+				}
+			} else {
+				iguales = false;
+			}
+		}
+	}
+	return iguales;
 }
 
 std::ostream & operator<<(std::ostream & os, const Drone & d)
 {
 	d.mostrar(os);
 	return os;
+}
+
+bool Drone::mismosProductos(Secuencia<Producto> otraLista) const
+{
+	bool iguales = _productos.size() == otraLista.size();
+	if(iguales) {
+		Secuencia<int> cuentaLista(5, 0);
+		Secuencia<int> cuentaOtraLista(5, 0);
+		int i = 0;
+		while(i < _productos.size()) {
+			++cuentaLista[_productos[i]];
+			++cuentaOtraLista[otraLista[i]];
+			++i;
+		}
+		i = 0;
+		while(iguales && i < 5) {
+			if(cuentaLista[i] != cuentaOtraLista[i]) iguales = false;
+			++i;
+		}
+	}
+	return iguales;
 }
