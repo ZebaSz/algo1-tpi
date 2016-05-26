@@ -45,9 +45,11 @@ int main()
     drone.cargar(dronein);
     cout << drone << endl;
 
+    cout << "El dron tiene vuelo ";
     if(!drone.vueloEscalerado()) {
-        cout << "Vuelo no escalerado" << endl;
+        cout << "NO ";
     }
+    cout << "escalerado" << endl;
 
 
     return 0;
