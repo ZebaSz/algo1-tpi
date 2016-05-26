@@ -40,17 +40,15 @@ void Sistema::crecer()
 		}
 		++y;
 	}
-	// TODO revisar :)
 }
 
 void Sistema::seVinoLaMaleza(const Secuencia<Posicion>& ps)
 {
 	int i=0;
 	while (i < ps.size()){
-		estadoDelCultivo(ps[i]) = ConMaleza;
-		i++;
+		_estado.parcelas[ps[i].x][ps[i].y] = ConMaleza;
+		++i;
 	}
-	// TODO revisar :)
 }
 
 void Sistema::seExpandePlaga()
