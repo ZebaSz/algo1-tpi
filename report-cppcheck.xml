@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+  <cppcheck version="1.61"/>
+  <errors>
+  <error id="unusedFunction" severity="style" msg="The function 'aterrizarYCargarBaterias' is never used." verbose="The function 'aterrizarYCargarBaterias' is never used.">
+    <location file="src/sistema.cpp" line="49"/>
+  </error>
+  <error id="unusedFunction" severity="style" msg="The function 'crecer' is never used." verbose="The function 'crecer' is never used.">
+    <location file="src/sistema.cpp" line="28"/>
+  </error>
+  <error id="unusedFunction" severity="style" msg="The function 'despegar' is never used." verbose="The function 'despegar' is never used.">
+    <location file="src/sistema.cpp" line="40"/>
+  </error>
+  <error id="unusedFunction" severity="style" msg="The function 'enVuelo' is never used." verbose="The function 'enVuelo' is never used.">
+    <location file="src/drone.cpp" line="21"/>
+  </error>
+  <error id="unusedFunction" severity="style" msg="The function 'estadoDelCultivo' is never used." verbose="The function 'estadoDelCultivo' is never used.">
+    <location file="src/sistema.cpp" line="18"/>
+  </error>
+  <error id="unusedFunction" severity="style" msg="The function 'fertilizarPorFilas' is never used." verbose="The function 'fertilizarPorFilas' is never used.">
+    <location file="src/sistema.cpp" line="53"/>
+  </error>
+  <error id="unusedFunction" severity="style" msg="The function 'listoParaCosechar' is never used." verbose="The function 'listoParaCosechar' is never used.">
+    <location file="src/sistema.cpp" line="44"/>
+  </error>
+  <error id="unusedFunction" severity="style" msg="The function 'posicionActual' is never used." verbose="The function 'posicionActual' is never used.">
+    <location file="src/drone.cpp" line="31"/>
+  </error>
+  <error id="unusedFunction" severity="style" msg="The function 'seExpandePlaga' is never used." verbose="The function 'seExpandePlaga' is never used.">
+    <location file="src/sistema.cpp" line="36"/>
+  </error>
+  <error id="unusedFunction" severity="style" msg="The function 'seVinoLaMaleza' is never used." verbose="The function 'seVinoLaMaleza' is never used.">
+    <location file="src/sistema.cpp" line="32"/>
+  </error>
+  <error id="unusedFunction" severity="style" msg="The function 'volarYSensar' is never used." verbose="The function 'volarYSensar' is never used.">
+    <location file="src/sistema.cpp" line="57"/>
+  </error>
+  </errors>
+</results>
