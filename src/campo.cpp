@@ -137,35 +137,7 @@ std::ostream & operator<<(std::ostream & os, const Campo & c)
 
 std::ostream & operator<<(std::ostream & os, const Parcela & p)
 {
-	std::string pstring;
-	if(p == Casa) pstring = "Casa";
-	if(p == Granero) pstring = "Granero";
-	if(p == Cultivo) pstring = "Cultivo";
+	std::string pstring = TipoParcela[p];
 	os << pstring;
-	return os;
-}
-
-std::ostream & operator<<(std::ostream & os, const Producto & p)
-{
-	std::string pstring;
-	if(p == Fertilizante) pstring = "Fertilizante";
-	if(p == Plaguicida) pstring = "Plaguicida";
-	if(p == PlaguicidaBajoConsumo) pstring = "PlaguicidaBajoConsumo";
-	if(p == Herbicida) pstring = "Herbicida";
-	if(p == HerbicidaLargoAlcance) pstring = "HerbicidaLargoAlcance";
-	os << pstring;
-	return os;
-}
-
-std::ostream & operator<<(std::ostream & os, const EstadoCultivo & e)
-{
-	std::string estring;
-	if(e == RecienSembrado) estring = "RecienSembrado";
-	if(e == EnCrecimiento) estring = "EnCrecimiento";
-	if(e == ListoParaCosechar) estring = "ListoParaCosechar";
-	if(e == ConMaleza) estring = "ConMaleza";
-	if(e == ConPlaga) estring = "ConPlaga";
-	if(e == NoSensado) estring = "NoSensado";
-	os << estring;
 	return os;
 }

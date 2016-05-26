@@ -242,6 +242,13 @@ std::ostream & operator<<(std::ostream & os, const Drone & d)
 	return os;
 }
 
+std::ostream & operator<<(std::ostream & os, const Producto & p)
+{
+	std::string pstring = TipoProducto[p];
+	os << pstring;
+	return os;
+}
+
 bool Drone::mismosProductos(Secuencia<Producto> otraLista) const
 {
 	bool iguales = _productos.size() == otraLista.size();

@@ -179,11 +179,11 @@ bool Sistema::enRangoCultivableLibre(int x, int y) const {
 bool Sistema::parcelaLibre(int x, int y) const {
 	return false;
 }
-static Posicion Sistema::vecinoAlOeste(const Posicion &p) {
+Posicion Sistema::vecinoAlOeste(const Posicion &p) {
 	return Posicion();
 }
 
-static bool Sistema::tieneUnProducto(const Secuencia<Producto> &ps, const Producto &productoABuscar) {
+bool Sistema::tieneUnProducto(const Secuencia<Producto> &ps, const Producto &productoABuscar) {
 	return false;
 }
 void Sistema::split(const std::string &s, char delim, std::vector<std::string> &elems) {
@@ -205,5 +205,12 @@ bool Sistema::operator==(const Sistema & otroSistema) const
 std::ostream & operator<<(std::ostream & os, const Sistema & s)
 {
 	s.mostrar(os);
+	return os;
+}
+
+std::ostream & operator<<(std::ostream & os, const EstadoCultivo & e)
+{
+	std::string estring = TipoEstado[e];
+	os << estring;
 	return os;
 }
