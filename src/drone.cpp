@@ -222,6 +222,8 @@ void Drone::setBateria(const Carga c)
 void Drone::borrarVueloRealizado()
 {
 	_trayectoria.clear();
+	_posicionActual = Posicion(-1,-1);
+	_enVuelo = false;
 }
 
 void Drone::cambiarPosicionActual(const Posicion p)

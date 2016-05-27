@@ -25,9 +25,9 @@ Parcela Campo::contenido(const Posicion & p) const
 void Campo::mostrar(std::ostream & os) const
 {
 	os << "Campo con dimensiones [" << _dimension.ancho << "," << _dimension.largo << "]:" << std::endl;
-	int i = 0;
+	size_t i = 0;
 	while(i < _grilla.parcelas.size()) {
-		int j = 0;
+		size_t j = 0;
 		while(j < _grilla.parcelas[i].size()) {
 			os << _grilla.parcelas[i][j];
 			if(_dimension.largo - j > 1) {
@@ -43,10 +43,10 @@ void Campo::mostrar(std::ostream & os) const
 void Campo::guardar(std::ostream & os) const
 {
 	os << "{ C [" << _dimension.ancho << "," << _dimension.largo << "] [";
-	int i = 0;
+	size_t i = 0;
 	while(i < _grilla.parcelas.size()) {
 		os << "[";
-		int j = 0;
+		size_t j = 0;
 		while(j < _grilla.parcelas[i].size()) {
 			os << _grilla.parcelas[i][j];
 			if(_dimension.largo - j > 1) {
