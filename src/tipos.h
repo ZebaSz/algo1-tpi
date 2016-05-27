@@ -13,11 +13,11 @@ typedef int Largo;
 
 enum Parcela {Cultivo, Granero, Casa};
 enum Producto {Fertilizante, Plaguicida, PlaguicidaBajoConsumo, Herbicida, HerbicidaLargoAlcance};
-enum EstadoCultivo {RecienSembrado, EnCrecimiento, ListoParaCosechar, ConMaleza, ConPlaga, NoSensado};
+enum EstadoCultivo {NoSensado, RecienSembrado, EnCrecimiento, ListoParaCosechar, ConMaleza, ConPlaga};
 
 static const char* TipoParcela[] = {"Cultivo", "Granero", "Casa"};
 static const char* TipoProducto[] = {"Fertilizante", "Plaguicida", "PlaguicidaBajoConsumo", "Herbicida", "HerbicidaLargoAlcance"};
-static const char* TipoEstado[] = {"RecienSembrado", "EnCrecimiento", "ListoParaCosechar", "ConMaleza", "ConPlaga", "NoSensado"};
+static const char* TipoEstado[] = {"NoSensado", "RecienSembrado", "EnCrecimiento", "ListoParaCosechar", "ConMaleza", "ConPlaga"};
 
 // TODO preguntar sobre constructores
 // Agregué algunos que eran útiles, tal vez no corresponde
