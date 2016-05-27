@@ -131,10 +131,9 @@ std::ostream & operator<<(std::ostream & os, const Campo & c)
 
 // TODO preguntar sobre estos operadores
 // Algunos no corresponden a campo, deberían estar en otro lado
+// Preguntar a De Cristóforis
 
-// TODO separar las comparaciones a aux
-// o pregunar si hay mejor manera de pasar enum a string
-
+static const char* TipoParcela[] = {"Cultivo", "Granero", "Casa"};
 std::ostream & operator<<(std::ostream & os, const Parcela & p)
 {
 	std::string pstring = TipoParcela[p];

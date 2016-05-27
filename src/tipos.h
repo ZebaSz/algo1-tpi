@@ -15,12 +15,7 @@ enum Parcela {Cultivo, Granero, Casa};
 enum Producto {Fertilizante, Plaguicida, PlaguicidaBajoConsumo, Herbicida, HerbicidaLargoAlcance};
 enum EstadoCultivo {NoSensado, RecienSembrado, EnCrecimiento, ListoParaCosechar, ConMaleza, ConPlaga};
 
-static const char* TipoParcela[] = {"Cultivo", "Granero", "Casa"};
-static const char* TipoProducto[] = {"Fertilizante", "Plaguicida", "PlaguicidaBajoConsumo", "Herbicida", "HerbicidaLargoAlcance"};
-static const char* TipoEstado[] = {"NoSensado", "RecienSembrado", "EnCrecimiento", "ListoParaCosechar", "ConMaleza", "ConPlaga"};
-
-// TODO preguntar sobre constructores
-// Agregué algunos que eran útiles, tal vez no corresponde
+// FIXME galimba dice no modificar tipos.h, revertir y refactorizar
 struct Posicion {
 	Posicion() {}
 	Posicion(int X, int Y) : x(X), y(Y) {}
@@ -35,7 +30,6 @@ struct Dimension {
 	Largo largo;
 };
 
-// TODO preguntar que se puede modificar
 template<class T>
 struct Grilla {
 	Grilla() {}

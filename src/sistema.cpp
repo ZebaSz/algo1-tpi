@@ -85,7 +85,8 @@ void Sistema::seExpandePlaga()
 
 void Sistema::despegar(const Drone & d)
 {
-	//TODO const?
+	// d es const porque buscamos un dron que sea igual
+	// d en sí no está en el enjambre
 }
 
 bool Sistema::listoParaCosechar() const
@@ -117,16 +118,18 @@ void Sistema::aterrizarYCargarBaterias(Carga b)
 		}
 	}
 }
-	//TODO problema con los requiere de cambiarPosicionActual
+
+//TODO problema con los requiere de cambiarPosicionActual
+// por qué requiere no(enVuelo)?
 
 void Sistema::fertilizarPorFilas()
 {
-	// TODO implementar
+	// FIXME implementar
 }
 
 void Sistema::volarYSensar(const Drone & d)
 {
-	// TODO implementar
+	// FIXME implementar
 }
 
 void Sistema::mostrar(std::ostream & os) const
@@ -174,6 +177,7 @@ void Sistema::guardar(std::ostream & os) const
 
 void Sistema::cargar(std::istream & is)
 {
+	// FIXME completar
 }
 
 // TODO preguntar sobre implementación de estos métodos
@@ -214,10 +218,10 @@ std::vector<std::string> Sistema::split(const std::string &s, char delim) {
 
 bool Sistema::operator==(const Sistema & otroSistema) const
 {
-	// TODO implementar mismoEnjambre
+	// FIXME implementar mismoEnjambre
 	bool iguales = _campo == otroSistema.campo() /* && mismoEnjambre(otroSistema) */;
 	if(iguales) {
-		// TODO implementar comparaciones de estado de cultivo
+		// FIXME implementar comparaciones de estado de cultivo
 	}
 	return iguales;
 }
@@ -228,6 +232,7 @@ std::ostream & operator<<(std::ostream & os, const Sistema & s)
 	return os;
 }
 
+static const char* TipoEstado[] = {"NoSensado", "RecienSembrado", "EnCrecimiento", "ListoParaCosechar", "ConMaleza", "ConPlaga"};
 std::ostream & operator<<(std::ostream & os, const EstadoCultivo & e)
 {
 	std::string estring = TipoEstado[e];

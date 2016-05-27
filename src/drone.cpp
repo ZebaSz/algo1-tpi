@@ -61,6 +61,7 @@ bool Drone::vueloEscalerado() const
 
 // TODO preguntar sobre especificacion
 // choques en el mismo lugar en momentos distintos?
+// preguntarle a De Cristóforis
 Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 {
 	int i = 0;
@@ -273,6 +274,7 @@ std::ostream & operator<<(std::ostream & os, const Drone & d)
 	return os;
 }
 
+static const char* TipoProducto[] = {"Fertilizante", "Plaguicida", "PlaguicidaBajoConsumo", "Herbicida", "HerbicidaLargoAlcance"};
 std::ostream & operator<<(std::ostream & os, const Producto & p)
 {
 	std::string pstring = TipoProducto[p];
