@@ -59,7 +59,10 @@ void Sistema::seExpandePlaga()
 		int x = 0;
 		while(_campo.dimensiones().ancho > x) {
 			if(_estado.parcelas[x][y] == ConPlaga) {
-				plagados.push_back(Posicion(x, y));
+				Posicion pos;
+				pos.x = x;
+				pos.y = y;
+				plagados.push_back(pos);
 			}
 			++x;
 		}

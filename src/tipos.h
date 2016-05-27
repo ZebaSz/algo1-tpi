@@ -14,18 +14,17 @@ typedef int Largo;
 enum Parcela {Cultivo, Granero, Casa};
 enum Producto {Fertilizante, Plaguicida, PlaguicidaBajoConsumo, Herbicida, HerbicidaLargoAlcance};
 enum EstadoCultivo {NoSensado, RecienSembrado, EnCrecimiento, ListoParaCosechar, ConMaleza, ConPlaga};
+// TODO NoSensado debería ser default, pero estaba último?
+// Lo cambié, pregunar a De Cristóforis
+
 
 // FIXME galimba dice no modificar tipos.h, revertir y refactorizar
 struct Posicion {
-	Posicion() {}
-	Posicion(int X, int Y) : x(X), y(Y) {}
 	int x;
 	int y;
 };
 
 struct Dimension {
-	Dimension() {}
-	Dimension(Ancho a, Largo l) : ancho(a), largo (l) {}
 	Ancho ancho;
 	Largo largo;
 };
@@ -40,8 +39,6 @@ struct Grilla {
 };
 
 struct InfoVueloCruzado {
-	InfoVueloCruzado() {}
-	InfoVueloCruzado(Posicion p, int c) : posicion(p.x, p.y), cantidadCruces(c) {}
 	Posicion posicion;
 	int cantidadCruces;
 };

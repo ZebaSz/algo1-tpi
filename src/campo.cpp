@@ -5,8 +5,10 @@ Campo::Campo()
 }
 
 Campo::Campo(const Posicion &posG, const Posicion &posC)
-		: _dimension(std::max(posG.x, posC.x) + 1, std::max(posG.y, posC.y) + 1), _grilla(_dimension)
 {
+	_dimension.ancho = std::max(posG.x, posC.x) + 1;
+	_dimension.largo = std::max(posG.y, posC.y) + 1;
+	_grilla = Grilla<Parcela>(_dimension);
 	_grilla.parcelas[posG.x][posG.y] = Granero;
 	_grilla.parcelas[posC.x][posC.y] = Casa;
 

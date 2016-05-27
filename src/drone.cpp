@@ -5,7 +5,7 @@ Drone::Drone()
 }
 
 Drone::Drone(ID i, const std::vector<Producto>& ps)
-		: _id(i), _productos(ps), _bateria(100), _enVuelo(false), _posicionActual(-1,-1)
+		: _id(i), _productos(ps), _bateria(100), _enVuelo(false)
 {
 }
 
@@ -74,7 +74,10 @@ Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 			Posicion pos = ds[d].vueloRealizado()[i];
 			int cruce = posEnLista(pos, crucesEnMomento);
 			if(cruce == -1) {
-				crucesEnMomento.push_back(InfoVueloCruzado(pos, 1));
+				InfoVueloCruzado infoCruce;
+				infoCruce.posicion = pos;
+				infoCruce.cantidadCruces = 1;
+				crucesEnMomento.push_back(infoCruce);
 			} else {
 				++crucesEnMomento[cruce].cantidadCruces;
 			}
@@ -223,7 +226,6 @@ void Drone::setBateria(const Carga c)
 void Drone::borrarVueloRealizado()
 {
 	_trayectoria.clear();
-	_posicionActual = Posicion(-1,-1);
 	_enVuelo = false;
 }
 
