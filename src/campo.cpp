@@ -88,8 +88,7 @@ void Campo::cargar(std::istream & is)
 			} else {
 				std::getline(is, parcelastr, ',');
 			}
-			Parcela parcela;
-			if(parcelastr == "Cultivo") parcela = Cultivo;
+			Parcela parcela = Cultivo;
 			if(parcelastr == "Casa") parcela = Casa;
 			if(parcelastr == "Granero") parcela = Granero;
 

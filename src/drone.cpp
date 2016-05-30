@@ -112,6 +112,14 @@ void Drone::mostrar(std::ostream & os) const
 {
 	os << "Drone ID " << _id << std::endl;
 	os << "Carga: " << _bateria << std::endl;
+	os << "En vuelo? ";
+	if(_enVuelo) {
+		os << "SI";
+	} else {
+		os << "NO";
+	}
+	os << std::endl;
+	os << "Posición actual: [" << _posicionActual.x << "," << _posicionActual.y << "]" << std::endl;
 	os << "Viaje realizado: ";
 	int i = 0;
 	while (i < _trayectoria.size()) {
@@ -157,13 +165,19 @@ void Drone::guardar(std::ostream & os) const
 			os << ",";
 		}
 	}
-	os << "]}";
+	os << "] ";
+	if(_enVuelo) {
+		os << "true";
+	} else {
+		os << "false";
+	}
+	os << " [" << _posicionActual.x << "," << _posicionActual.y << "]}";
 }
 
 void Drone::cargar(std::istream & is)
 {
 	std::string id;
-	std::getline(is, id, ' ');
+	std::getline(is, id, 'D');
 	std::getline(is, id, ' ');
 	std::getline(is, id, ' ');
 	_id = atoi(id.c_str());
@@ -182,32 +196,37 @@ void Drone::cargar(std::istream & is)
 		std::getline(is, posicion, ']');
 	}
 
-	_enVuelo = _trayectoria.size() > 0;
-
 	_productos.clear();
 	std::string listaprods;
 	std::getline(is, listaprods, '[');
 	std::getline(is, listaprods, ']');
 
-	if(listaprods.size() != 0) {
-		size_t pos = 0;
-		while(pos != std::string::npos) {
-			size_t proxcoma = listaprods.find(',', pos);
-			std::string prodstr = listaprods.substr(pos,proxcoma - pos);
+	std::vector<std::string> prods = split(listaprods,',');
 
-			Producto prod;
-			if(prodstr == "Fertilizante") prod = Fertilizante;
-			if(prodstr == "Herbicida") prod = Herbicida;
-			if(prodstr == "HerbicidaLargoAlcance") prod = HerbicidaLargoAlcance;
-			if(prodstr == "Plaguicida") prod = Plaguicida;
-			if(prodstr == "PlaguicidaBajoConsumo") prod = PlaguicidaBajoConsumo;
+	size_t i = 0;
+	while(i < prods.size()) {
+		if(prods[i][0] == ' ') prods[i] = prods[i].substr(1);
+		Producto prod = Fertilizante;
+		if(prods[i] == "Herbicida") prod = Herbicida;
+		if(prods[i] == "HerbicidaLargoAlcance") prod = HerbicidaLargoAlcance;
+		if(prods[i] == "Plaguicida") prod = Plaguicida;
+		if(prods[i] == "PlaguicidaBajoConsumo") prod = PlaguicidaBajoConsumo;
 
-			_productos.push_back(prod);
+		_productos.push_back(prod);
 
-			if(proxcoma == std::string::npos) pos = proxcoma;
-			else pos = proxcoma + 2;
-		}
+		++i;
 	}
+
+	std::string volando;
+	std::getline(is, volando, ' ');
+	std::getline(is, volando, ' ');
+	if(volando == "true") _enVuelo = true;
+	else _enVuelo = false;
+
+	std::string posact;
+	std::getline(is, posact, ']');
+	_posicionActual.x = atoi(&posact[1]);
+	_posicionActual.y = atoi(&posact[3]);
 }
 
 
