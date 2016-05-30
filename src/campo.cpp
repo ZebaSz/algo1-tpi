@@ -130,10 +130,6 @@ std::ostream & operator<<(std::ostream & os, const Campo & c)
 	return os;
 }
 
-// TODO preguntar sobre estos operadores
-// Algunos no corresponden a campo, deberían estar en otro lado
-// Preguntar a De Cristóforis
-
 static const char* TipoParcela[] = {"Cultivo", "Granero", "Casa"};
 std::ostream & operator<<(std::ostream & os, const Parcela & p)
 {

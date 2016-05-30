@@ -109,13 +109,12 @@ void Sistema::despegar(const Drone & d)
 				--pos.x;
 			}
             _enjambre[i].cambiarPosicionActual(pos);
+
+            // FIXME hay que agregar la nueva pos al vuelo realizado
 		}
 		++i;
 	}
 }
-	//TODO que pasa con vuelo realizado?
-	// d es const porque buscamos un dron que sea igual
-	// d en sí no está en el enjambre
 
 bool Sistema::listoParaCosechar() const
 {
@@ -141,14 +140,13 @@ void Sistema::aterrizarYCargarBaterias(Carga b)
 	while (_enjambre.size() > i){
 		if (_enjambre[i].bateria() < b){
 			_enjambre[i].setBateria(100);
-			_enjambre[i].cambiarPosicionActual(posicionGranero()); //posicionGranero es un aux de Sistema. ¿No se rompe?
+			_enjambre[i].cambiarPosicionActual(posicionGranero());
+            // Se requiere no(enVuelo) porque no hay que usarla si está volando
+            // porque volando se usa batería. Es más semántico que otra cosa
 			_enjambre[i].borrarVueloRealizado();
 		}
 	}
 }
-
-//TODO problema con los requiere de cambiarPosicionActual
-// por qué requiere no(enVuelo)?
 
 void Sistema::fertilizarPorFilas()
 {
@@ -186,8 +184,8 @@ void Sistema::mostrar(std::ostream & os) const
     }
 }
 
-// TODO el formato no queda 100% claro del pdf
-// los drones van todos en la misma linea?
+// FIXME el formato no debería depender del whitespacing
+// buscar más sobre parsers
 
 void Sistema::guardar(std::ostream & os) const
 {
@@ -267,8 +265,6 @@ void Sistema::cargar(std::istream & is)
     }
 }
 
-// TODO preguntar sobre implementación de estos métodos
-// Cuando subieron la v3, estas implementaciones no estaban (ni vacías)
 bool Sistema::enRango(int x, int y) const {
 	return x < _campo.dimensiones().largo && y < _campo.dimensiones().ancho;
 }
@@ -279,7 +275,7 @@ bool Sistema::enRangoConPlaga(int x, int y) const {
     Posicion pos;
     pos.x = x;
     pos.y = y;
-    return enRango(x, y) && _estado[x][y] == ConPlaga;
+    return enRango(x, y) && _estado.parcelas[x][y] == ConPlaga;
 }
 Posicion Sistema::posicionGranero() const {
     Posicion posG;
@@ -293,11 +289,13 @@ Posicion Sistema::posicionGranero() const {
     }
 	return posG;
 }
+
+// FIXME enRangoCultivableLibre = parcelaLibre && enRangoCultivable
 bool Sistema::enRangoCultivable(int x, int y) const {
     Posicion pos;
     pos.x = x;
     pos.y = y;
-    return enRango(x, y) && _campo.contenido(pos) == Cultivo);
+    return enRango(x, y) && _campo.contenido(pos) == Cultivo;
 }
 
 bool Sistema::enRangoCultivableLibre(int x, int y) const {
@@ -331,8 +329,7 @@ bool Sistema::tieneUnProducto(const Secuencia<Producto> &ps, const Producto &pro
     return i < ps.size();
 }
 
-// TODO estas ahora tienen sus headers en tipos.h
-// está bien? tienen que ser globales
+// FIXME crear auxiliares.h y .cpp para funciones globales
 
 void split(const std::string &s, char delim, std::vector<std::string> &elems) {;
     elems.clear();
