@@ -107,9 +107,6 @@ void Sistema::despegar(const Drone & d)
 		++i;
 	}
 }
-	//TODO que pasa con vuelo realizado?
-	// d es const porque buscamos un dron que sea igual
-	// d en sí no está en el enjambre
 
 bool Sistema::listoParaCosechar() const
 {
