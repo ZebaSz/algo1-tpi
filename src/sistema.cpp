@@ -8,6 +8,11 @@ Sistema::Sistema()
 Sistema::Sistema(const Campo & c, const Secuencia<Drone>& ds)
 		: _campo(c), _enjambre(ds), _estado(c.dimensiones())
 {
+    int i = 0;
+    while(i < _enjambre.size()) {
+        _enjambre[i].cambiarPosicionActual(posicionGranero());
+        ++i;
+    }
 }
 
 const Campo & Sistema::campo() const
