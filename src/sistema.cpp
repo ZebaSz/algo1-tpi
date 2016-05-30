@@ -276,8 +276,10 @@ bool Sistema::enRango(const Posicion p) const {
 	return enRango(p.x, p.y);
 }
 bool Sistema::enRangoConPlaga(int x, int y) const {
-    // FIXME implementar
-	return false;
+    Posicion pos;
+    pos.x = x;
+    pos.y = y;
+    return enRango(x, y) && _estado[x][y] == ConPlaga;
 }
 Posicion Sistema::posicionGranero() const {
     Posicion posG;
@@ -292,19 +294,23 @@ Posicion Sistema::posicionGranero() const {
 	return posG;
 }
 bool Sistema::enRangoCultivable(int x, int y) const {
-    // FIXME implementar
-	return false;
+    Posicion pos;
+    pos.x = x;
+    pos.y = y;
+    return enRango(x, y) && _campo.contenido(pos) == Cultivo);
 }
+
 bool Sistema::enRangoCultivableLibre(int x, int y) const {
-    // FIXME implementar
-	return false;
+    return enRangoCultivable (x, y) && parcelaLibre (x,y));
+    // aca hay un problema: parcelaLibre y enRangoCultivableLibre hacen lo mismo, pero sería raro poner una "parcelaLibre" que no sea cultivo
+    // de este modo, deberíamos reemplazar el criterio de "cultivable" o bien dar por hecho que un granero vacio es una "parcelaLibre"
 }
 bool Sistema::parcelaLibre(int x, int y) const {
     size_t i = 0;
     Posicion pos;
     pos.x = x;
     pos.y = y;
-    bool libre = _campo.contenido() == Cultivo;
+    bool libre = _campo.contenido(pos) == Cultivo;
     while(i < _enjambre.size() && libre) {
         Posicion posDrone = _enjambre[i].posicionActual();
         libre = (posDrone.x != x || posDrone.y != y);
