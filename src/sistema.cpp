@@ -211,31 +211,72 @@ bool Sistema::enRango(const Posicion p) const {
 	return enRango(p.x, p.y);
 }
 bool Sistema::enRangoConPlaga(int x, int y) const {
+    // FIXME implementar
 	return false;
 }
 Posicion Sistema::posicionGranero() const {
-	return Posicion();
+    Posicion posG;
+    posG.x = 0;
+    posG.y = 0;
+    while(posG.x < _campo.dimensiones().ancho && _campo.contenido(posG) != Granero) {
+        while(posG.y < _campo.dimensiones().ancho && _campo.contenido(posG) != Granero) {
+            ++posG.y;
+        }
+        ++posG.x;
+    }
+	return posG;
 }
 bool Sistema::enRangoCultivable(int x, int y) const {
+    // FIXME implementar
 	return false;
 }
 bool Sistema::enRangoCultivableLibre(int x, int y) const {
+    // FIXME implementar
 	return false;
 }
 bool Sistema::parcelaLibre(int x, int y) const {
+    bool libre = true;
+    size_t i = 0;
+    while(i < _enjambre.size() && libre) {
+        Posicion posDrone = _enjambre[i].posicionActual();
+        libre = posDrone.x != x || posDrone.y != y;
+        ++i;
+    }
 	return false;
 }
 Posicion Sistema::vecinoAlOeste(const Posicion &p) {
+    // FIXME implementar
 	return Posicion();
 }
 
 bool Sistema::tieneUnProducto(const Secuencia<Producto> &ps, const Producto &productoABuscar) {
-	return false;
+    size_t i = 0;
+    while(i < ps.size() && ps[i] != productoABuscar) {
+        ++i;
+    }
+    return i < ps.size();
 }
-void Sistema::split(const std::string &s, char delim, std::vector<std::string> &elems) {
+
+// TODO estas ahora tienen sus headers en tipos.h
+// está bien? tienen que ser globales
+
+void split(const std::string &s, char delim, std::vector<std::string> &elems) {;
+    elems.clear();
+    elems.resize(1);
+    size_t i = 0;
+    while(i < s.size()) {
+        if(s[i] == delim) {
+            elems.push_back(std::string());
+        } else {
+            elems[elems.size() - 1].push_back(s[i]);
+        }
+        ++i;
+    }
 }
-std::vector<std::string> Sistema::split(const std::string &s, char delim) {
-	return std::vector<std::string>();
+std::vector<std::string> split(const std::string &s, char delim) {
+    std::vector<std::string> elems;
+    split(s, delim, elems);
+    return elems;
 }
 
 bool Sistema::operator==(const Sistema & otroSistema) const

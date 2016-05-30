@@ -46,13 +46,12 @@ class Sistema {
 		static Posicion vecinoAlOeste(const Posicion &p);
 
 		static bool tieneUnProducto(const Secuencia<Producto> &ps, const Producto &productoABuscar);
-		// solución --> deberíamos agregarla como funciones globales en tipos.h
-		void split(const std::string &s, char delim, std::vector<std::string> &elems);
-		std::vector<std::string> split(const std::string &s, char delim);
+
 };
 
 // Definirlo usando mostrar, para poder usar << con este tipo.
 std::ostream & operator<<(std::ostream & os, const Sistema & s);
 std::ostream & operator<<(std::ostream & os, const EstadoCultivo & e);
+
 
 #endif // SISTEMA_H_INCLUDED
