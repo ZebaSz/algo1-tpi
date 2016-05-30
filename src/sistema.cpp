@@ -1,5 +1,6 @@
 #include "sistema.h"
 #include <algorithm>
+#include <sstream>
 
 Sistema::Sistema()
 {
@@ -164,12 +165,29 @@ void Sistema::mostrar(std::ostream & os) const
 	os << "Sistema" << std::endl;
 	os << "Campo del sistema: " << _campo << std::endl;
 	os << "Lista de drones:" << std::endl;
-	int i = 0;
+	size_t i = 0;
 	while(i < _enjambre.size()) {
 		os << _enjambre[i] << std::endl;
 		++i;
 	}
+    os << "Estado de los cultivos: " << std::endl;
+    i = 0;
+    while(i < _estado.parcelas.size()) {
+        size_t j = 0;
+        while(j < _estado.parcelas[i].size()) {
+            os << _estado.parcelas[i][j];
+            ++j;
+            if(j != _estado.parcelas[i].size()) {
+                os << "\t";
+            }
+        }
+        os << std::endl;
+        ++i;
+    }
 }
+
+// TODO el formato no queda 100% claro del pdf
+// los drones van todos en la misma linea?
 
 void Sistema::guardar(std::ostream & os) const
 {
@@ -204,7 +222,49 @@ void Sistema::guardar(std::ostream & os) const
 
 void Sistema::cargar(std::istream & is)
 {
-	// FIXME completar
+	std::string campo;
+	std::getline(is, campo);
+	std::getline(is, campo);
+	std::istringstream cs(campo);
+	_campo.cargar(cs);
+
+    _enjambre.clear();
+	std::string listadrones;
+	std::getline(is, listadrones);
+    std::vector<std::string> drones = split(listadrones,'}');
+    int i = 0;
+    while(i < drones.size() - 1) {
+        Drone d;
+        std::istringstream ds(drones[i]);
+        d.cargar(ds);
+        _enjambre.push_back(d);
+        ++i;
+    }
+
+    _estado = Grilla<EstadoCultivo>(_campo.dimensiones());
+    std::string estadostr;
+    std::getline(is, estadostr, '[');
+    i = 0;
+    while(i < _campo.dimensiones().ancho) {
+        std::getline(is, estadostr, '[');
+        int j = 0;
+        while(j < _campo.dimensiones().largo) {
+            if(_campo.dimensiones().largo - j == 1) {
+                std::getline(is, estadostr, ']');
+            } else {
+                std::getline(is, estadostr, ',');
+            }
+            EstadoCultivo estado = NoSensado;
+            if(estadostr == "RecienSembrado") estado = RecienSembrado;
+            if(estadostr == "EnCrecimiento") estado = EnCrecimiento;
+            if(estadostr == "ListoParaCosechar") estado = ListoParaCosechar;
+            if(estadostr == "ConMaleza") estado = ConMaleza;
+            if(estadostr == "ConPlaga") estado = ConPlaga;
+            _estado.parcelas[i][j] = estado;
+            ++j;
+        }
+        ++i;
+    }
 }
 
 // TODO preguntar sobre implementación de estos métodos

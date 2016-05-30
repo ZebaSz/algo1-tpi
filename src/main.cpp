@@ -2,6 +2,7 @@
 #include <fstream>
 #include "campo.h"
 #include "drone.h"
+#include "sistema.h"
 
 using namespace std;
 
@@ -66,6 +67,13 @@ int main()
     for (int i = 0; i < cruces.size(); ++i) {
         cout << "[" << cruces[i].posicion.x << "," << cruces[i].posicion.y << "] - " << cruces[i].cantidadCruces << endl;
     }
+
+    cout << endl;
+
+    ifstream sistemain("sistema-test.txt");
+    Sistema sistema;
+    sistema.cargar(sistemain);
+    cout << sistema;
 
     return 0;
 }
