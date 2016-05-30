@@ -51,73 +51,58 @@ void Sistema::seVinoLaMaleza(const Secuencia<Posicion>& ps)
 	}
 }
 
-void Sistema::seExpandePlaga()
-{
-	int y = 0;
-	Secuencia<Posicion> plagados;
-	while (_campo.dimensiones().largo > y) {
-		int x = 0;
-		while(_campo.dimensiones().ancho > x) {
-			if(_estado.parcelas[x][y] == ConPlaga) {
-				Posicion pos;
-				pos.x = x;
-				pos.y = y;
-				plagados.push_back(pos);
-			}
-			++x;
-		}
-		++y;
-	}
-	int i = 0;
-	while (plagados.size() > i) {
-		if (plagados[i].x != 0) {
-			_estado.parcelas[plagados[i].x - 1][plagados[i].y] = ConMaleza;
-		}
-		if (plagados[i].x != _campo.dimensiones().ancho - 1) {
-			_estado.parcelas[plagados[i].x + 1][plagados[i].y] = ConMaleza;
-		}
-		if (plagados[i].y != 0) {
-			_estado.parcelas[plagados[i].x][plagados[i].y - 1] = ConMaleza;
-		}
-		if (plagados[i].y != _campo.dimensiones().largo - 1) {
-			_estado.parcelas[plagados[i].x][plagados[i].y + 1] = ConMaleza;
-		}
-		++i;
-	}
-}	
+void Sistema::seExpandePlaga() {
+    int y = 0;
+    Secuencia<Posicion> plagados;
+    while (_campo.dimensiones().largo > y) {
+        int x = 0;
+        while (_campo.dimensiones().ancho > x) {
+            if (_estado.parcelas[x][y] == ConPlaga) {
+                Posicion pos;
+                pos.x = x;
+                pos.y = y;
+                plagados.push_back(pos);
+            }
+            ++x;
+        }
+        ++y;
+    }
+    int i = 0;
+    while (plagados.size() > i) {
+        if (plagados[i].x != 0) {
+            _estado.parcelas[plagados[i].x - 1][plagados[i].y] = ConMaleza;
+        }
+        if (plagados[i].x != _campo.dimensiones().ancho - 1) {
+            _estado.parcelas[plagados[i].x + 1][plagados[i].y] = ConMaleza;
+        }
+        if (plagados[i].y != 0) {
+            _estado.parcelas[plagados[i].x][plagados[i].y - 1] = ConMaleza;
+        }
+        if (plagados[i].y != _campo.dimensiones().largo - 1) {
+            _estado.parcelas[plagados[i].x][plagados[i].y + 1] = ConMaleza;
+        }
+        ++i;
+    }
+}
 
 void Sistema::despegar(const Drone & d)
 {
-	int i=0;
+	int i = 0;
 	while (i < _enjambre.size()){
-		if (_enjambre[i].id() == d.id()){
+		if (_enjambre[i] == d){
+            Posicion pos;
+            pos.x = posicionGranero().x;
+            pos.y = posicionGranero().y;
 			if (parcelaLibre(posicionGranero().x, posicionGranero().y - 1)){
-				Posicion pos;
-				pos.x = posicionGranero().x;
-				pos.y = posicionGranero().y - 1;
-				_enjambre[i].cambiarPosicionActual(pos);
-			} else {
-				if (parcelaLibre(posicionGranero().x + 1, posicionGranero().y)){
-					Posicion pos;
-					pos.x = posicionGranero().x + 1;
-					pos.y = posicionGranero().y;
-					_enjambre[i].cambiarPosicionActual(pos);
-				} else {
-					if (parcelaLibre(posicionGranero().x, posicionGranero().y + 1)){
-						Posicion pos;
-						pos.x = posicionGranero().x;
-						pos.y = posicionGranero().y + 1;
-						_enjambre[i].cambiarPosicionActual(pos);
-					} else {
-						if (parcelaLibre(posicionGranero().x - 1, posicionGranero().y)){
-							Posicion pos;
-							pos.x = posicionGranero().x - 1;
-							pos.y = posicionGranero().y;
-							_enjambre[i].cambiarPosicionActual(pos);
-						}
-					}
-				}
+				--pos.y;
+			} else if (parcelaLibre(posicionGranero().x + 1, posicionGranero().y)){
+				++pos.x;
+			} else if (parcelaLibre(posicionGranero().x, posicionGranero().y + 1)){
+				++pos.y;
+			} else if (parcelaLibre(posicionGranero().x - 1, posicionGranero().y)){
+				--pos.x;
 			}
+            _enjambre[i].cambiarPosicionActual(pos);
 		}
 		++i;
 	}
