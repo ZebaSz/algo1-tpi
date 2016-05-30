@@ -300,14 +300,17 @@ bool Sistema::enRangoCultivableLibre(int x, int y) const {
 	return false;
 }
 bool Sistema::parcelaLibre(int x, int y) const {
-    bool libre = true;
     size_t i = 0;
+    Posicion pos;
+    pos.x = x;
+    pos.y = y;
+    bool libre = _campo.contenido() == Cultivo;
     while(i < _enjambre.size() && libre) {
         Posicion posDrone = _enjambre[i].posicionActual();
-        libre = posDrone.x != x || posDrone.y != y;
+        libre = (posDrone.x != x || posDrone.y != y);
         ++i;
     }
-	return false;
+	return libre;
 }
 Posicion Sistema::vecinoAlOeste(const Posicion &p) {
     // FIXME implementar
