@@ -88,9 +88,43 @@ void Sistema::seExpandePlaga()
 
 void Sistema::despegar(const Drone & d)
 {
+	int i=0;
+	while (i < _enjambre.size()){
+		if (_enjambre[i].id() == d.id()){
+			if (parcelaLibre(posicionGranero().x, posicionGranero().y - 1)){
+				Posicion pos;
+				pos.x = posicionGranero().x;
+				pos.y = posicionGranero().y - 1;
+				_enjambre[i].cambiarPosicionActual(pos);
+			} else {
+				if (parcelaLibre(posicionGranero().x + 1, posicionGranero().y)){
+					Posicion pos;
+					pos.x = posicionGranero().x + 1;
+					pos.y = posicionGranero().y;
+					_enjambre[i].cambiarPosicionActual(pos);
+				} else {
+					if (parcelaLibre(posicionGranero().x, posicionGranero().y + 1)){
+						Posicion pos;
+						pos.x = posicionGranero().x;
+						pos.y = posicionGranero().y + 1;
+						_enjambre[i].cambiarPosicionActual(pos);
+					} else {
+						if (parcelaLibre(posicionGranero().x - 1, posicionGranero().y)){
+							Posicion pos;
+							pos.x = posicionGranero().x - 1;
+							pos.y = posicionGranero().y;
+							_enjambre[i].cambiarPosicionActual(pos);
+						}
+					}
+				}
+			}
+		}
+		++i;
+	}
+}
+	//TODO que pasa con vuelo realizado?
 	// d es const porque buscamos un dron que sea igual
 	// d en sí no está en el enjambre
-}
 
 bool Sistema::listoParaCosechar() const
 {
@@ -116,7 +150,7 @@ void Sistema::aterrizarYCargarBaterias(Carga b)
 	while (_enjambre.size() > i){
 		if (_enjambre[i].bateria() < b){
 			_enjambre[i].setBateria(100);
-			_enjambre[i].cambiarPosicionActual(posicionGranero());
+			_enjambre[i].cambiarPosicionActual(posicionGranero()); //posicionGranero es un aux de Sistema. ¿No se rompe?
 			_enjambre[i].borrarVueloRealizado();
 		}
 	}
