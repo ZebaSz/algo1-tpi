@@ -108,9 +108,7 @@ void Sistema::despegar(const Drone & d)
 			} else if (parcelaLibre(posicionGranero().x - 1, posicionGranero().y)){
 				--pos.x;
 			}
-            _enjambre[i].cambiarPosicionActual(pos);
-
-            // FIXME hay que agregar la nueva pos al vuelo realizado
+            _enjambre[i].moverA(pos);
 		}
 		++i;
 	}
@@ -290,7 +288,6 @@ Posicion Sistema::posicionGranero() const {
 	return posG;
 }
 
-// FIXME enRangoCultivableLibre = parcelaLibre && enRangoCultivable
 bool Sistema::enRangoCultivable(int x, int y) const {
     Posicion pos;
     pos.x = x;
@@ -299,16 +296,11 @@ bool Sistema::enRangoCultivable(int x, int y) const {
 }
 
 bool Sistema::enRangoCultivableLibre(int x, int y) const {
-    return enRangoCultivable (x, y) && parcelaLibre (x,y));
-    // aca hay un problema: parcelaLibre y enRangoCultivableLibre hacen lo mismo, pero sería raro poner una "parcelaLibre" que no sea cultivo
-    // de este modo, deberíamos reemplazar el criterio de "cultivable" o bien dar por hecho que un granero vacio es una "parcelaLibre"
+    return enRangoCultivable (x, y) && parcelaLibre (x,y);
 }
 bool Sistema::parcelaLibre(int x, int y) const {
     size_t i = 0;
-    Posicion pos;
-    pos.x = x;
-    pos.y = y;
-    bool libre = _campo.contenido(pos) == Cultivo;
+    bool libre = true;
     while(i < _enjambre.size() && libre) {
         Posicion posDrone = _enjambre[i].posicionActual();
         libre = (posDrone.x != x || posDrone.y != y);
