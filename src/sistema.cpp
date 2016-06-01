@@ -9,11 +9,14 @@ Sistema::Sistema()
 Sistema::Sistema(const Campo & c, const Secuencia<Drone>& ds)
 		: _campo(c), _enjambre(ds), _estado(c.dimensiones())
 {
+    // TODO el test rompe si movemos los drones
+    /*
     int i = 0;
     while(i < _enjambre.size()) {
         _enjambre[i].cambiarPosicionActual(posicionGranero());
         ++i;
     }
+     */
 }
 
 const Campo & Sistema::campo() const
@@ -76,16 +79,16 @@ void Sistema::seExpandePlaga() {
     int i = 0;
     while (plagados.size() > i) {
         if (plagados[i].x != 0) {
-            _estado.parcelas[plagados[i].x - 1][plagados[i].y] = ConMaleza;
+            _estado.parcelas[plagados[i].x - 1][plagados[i].y] = ConPlaga;
         }
         if (plagados[i].x != _campo.dimensiones().ancho - 1) {
-            _estado.parcelas[plagados[i].x + 1][plagados[i].y] = ConMaleza;
+            _estado.parcelas[plagados[i].x + 1][plagados[i].y] = ConPlaga;
         }
         if (plagados[i].y != 0) {
-            _estado.parcelas[plagados[i].x][plagados[i].y - 1] = ConMaleza;
+            _estado.parcelas[plagados[i].x][plagados[i].y - 1] = ConPlaga;
         }
         if (plagados[i].y != _campo.dimensiones().largo - 1) {
-            _estado.parcelas[plagados[i].x][plagados[i].y + 1] = ConMaleza;
+            _estado.parcelas[plagados[i].x][plagados[i].y + 1] = ConPlaga;
         }
         ++i;
     }
@@ -96,16 +99,14 @@ void Sistema::despegar(const Drone & d)
 	int i = 0;
 	while (i < _enjambre.size()){
 		if (_enjambre[i] == d){
-            Posicion pos;
-            pos.x = posicionGranero().x;
-            pos.y = posicionGranero().y;
-			if (parcelaLibre(posicionGranero().x, posicionGranero().y - 1)){
+            Posicion pos = posicionGranero();
+			if (enRangoCultivableLibre(pos.x, pos.y - 1)){
 				--pos.y;
-			} else if (parcelaLibre(posicionGranero().x + 1, posicionGranero().y)){
+			} else if (enRangoCultivableLibre(pos.x + 1, pos.y)){
 				++pos.x;
-			} else if (parcelaLibre(posicionGranero().x, posicionGranero().y + 1)){
+			} else if (enRangoCultivableLibre(pos.x, pos.y + 1)){
 				++pos.y;
-			} else if (parcelaLibre(posicionGranero().x - 1, posicionGranero().y)){
+			} else if (enRangoCultivableLibre(pos.x - 1, pos.y)) {
 				--pos.x;
 			}
             _enjambre[i].moverA(pos);
@@ -118,18 +119,18 @@ bool Sistema::listoParaCosechar() const
 {
 	int cantCosechables = 0;
 	int cantCultivos = (_campo.dimensiones().ancho * _campo.dimensiones().largo) -2;
-	int y = 0;
-	while (_campo.dimensiones().largo > y) {
-		int x = 0;
-		while(_campo.dimensiones().ancho > x) {
+	int x = 0;
+	while (_campo.dimensiones().ancho > x) {
+		int y = 0;
+		while(_campo.dimensiones().largo > y) {
 			if(_estado.parcelas[x][y] == ListoParaCosechar) {
 				++cantCosechables;
 			}
-			++x;
+			++y;
 		}
-		++y;
+		++x;
 	}
-	return (cantCosechables /(float) cantCultivos >= 0.9);
+	return (cantCosechables /(double) cantCultivos >= 0.9);
 }
 
 void Sistema::aterrizarYCargarBaterias(Carga b)
@@ -260,12 +261,12 @@ void Sistema::cargar(std::istream & is)
             } else {
                 std::getline(is, estadostr, ',');
             }
-            EstadoCultivo estado = NoSensado;
-            if(estadostr == "RecienSembrado") estado = RecienSembrado;
+            EstadoCultivo estado = RecienSembrado;
             if(estadostr == "EnCrecimiento") estado = EnCrecimiento;
             if(estadostr == "ListoParaCosechar") estado = ListoParaCosechar;
             if(estadostr == "ConMaleza") estado = ConMaleza;
             if(estadostr == "ConPlaga") estado = ConPlaga;
+            if(estadostr == "NoSensado") estado = NoSensado;
             _estado.parcelas[i][j] = estado;
             ++j;
         }
@@ -274,47 +275,41 @@ void Sistema::cargar(std::istream & is)
 }
 
 bool Sistema::enRango(int x, int y) const {
-	return x < _campo.dimensiones().largo && y < _campo.dimensiones().ancho;
+	return x >= 0 && y >= 0 && x < _campo.dimensiones().ancho && y < _campo.dimensiones().largo;
 }
 bool Sistema::enRango(const Posicion p) const {
 	return enRango(p.x, p.y);
 }
 bool Sistema::enRangoConPlaga(int x, int y) const {
-    Posicion pos;
-    pos.x = x;
-    pos.y = y;
     return enRango(x, y) && _estado.parcelas[x][y] == ConPlaga;
 }
 Posicion Sistema::posicionGranero() const {
-    Posicion posG;
-    posG.x = 0;
-    posG.y = 0;
+    Posicion posG = {0,0};
     while(posG.x < _campo.dimensiones().ancho && _campo.contenido(posG) != Granero) {
-        while(posG.y < _campo.dimensiones().ancho && _campo.contenido(posG) != Granero) {
+        while(posG.y < _campo.dimensiones().largo && _campo.contenido(posG) != Granero) {
             ++posG.y;
         }
-        ++posG.x;
+        if(posG.y == _campo.dimensiones().largo) posG.y = 0;
+        if(_campo.contenido(posG) != Granero) ++posG.x;
     }
 	return posG;
 }
 
 bool Sistema::enRangoCultivable(int x, int y) const {
-    Posicion pos;
-    pos.x = x;
-    pos.y = y;
-    return enRango(x, y) && _campo.contenido(pos) == Cultivo && (_estado.parcelas[x][y] == RecienSembrado || _estado.parcelas[x][y] == EnCrecimiento);
-   	//En realidad este aux se fija si la posicion es fertilizable segun los criterios de "fertilizarPorFilas" (asegura enRangoFertilizable)
+    return enRango(x, y) && _campo.contenido({x,y}) == Cultivo;
 }
 
 bool Sistema::enRangoCultivableLibre(int x, int y) const {
-    return enRangoCultivable (x, y) && parcelaLibre (x,y);
+    return enRangoCultivable (x,y) && parcelaLibre (x,y);
 }
 bool Sistema::parcelaLibre(int x, int y) const {
     size_t i = 0;
-    bool libre = true;
+    Posicion parcela;
+    parcela.x = x;
+    parcela.y = y;
+    bool libre = enRango(parcela);
     while(i < _enjambre.size() && libre) {
-        Posicion posDrone = _enjambre[i].posicionActual();
-        libre = (posDrone.x != x || posDrone.y != y);
+        libre = !(_enjambre[i].posicionActual() == parcela);
         ++i;
     }
 	return libre;

@@ -7,6 +7,8 @@ Drone::Drone()
 Drone::Drone(ID i, const std::vector<Producto>& ps)
 		: _id(i), _productos(ps), _bateria(100), _enVuelo(false)
 {
+	_posicionActual.x = 0;
+	_posicionActual.y = 0;
 }
 
 ID Drone::id() const
@@ -59,6 +61,10 @@ bool Drone::vueloEscalerado() const
 	return escalerado;
 }
 
+// FIXME los distintos choques se SUMAN
+// eg: un choque entre 3 y uno entre 2 en el mismo lugar
+// dan un InfoVueloCruzado (pos, 5)
+// FIXME tiene que estar ordenado por la cant de choques
 Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 {
 	int i = 0;
@@ -86,13 +92,18 @@ Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 				crucesEnMomento.erase(crucesEnMomento.begin() + c);
 			} else {
 				size_t j = 0;
-				while (j < crucesTotales.size()){
+				bool agregado = false;
+				while (j < crucesTotales.size() && !agregado){
 					if(crucesEnMomento[c].posicion == crucesTotales[j].posicion){
-						crucesTotales[j].cantidadCruces == crucesTotales[j].cantidadCruces + crucesEnMomento[c].cantidadCruces;
+						crucesTotales[j].cantidadCruces = crucesTotales[j].cantidadCruces + crucesEnMomento[c].cantidadCruces;
 						crucesEnMomento.erase(crucesEnMomento.begin() + c);
+						agregado = true;
 					} else {
-					++c;
+						++j;
 					}
+				}
+				if(!agregado) {
+					++c;
 				}
 			}
 		}		
@@ -101,14 +112,13 @@ Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 	}
 	return crucesTotales;
 }
-//FIXME tiene que estar ordenado por la cant de choques
 
 int Drone::posEnLista(const Posicion& p, const Secuencia<InfoVueloCruzado>& cruces)
 {
 	int i = 0;
 	int encontrado = -1;
 	while(i < cruces.size() && encontrado == -1) {
-		if(cruces[i].posicion.x == p.x && cruces[i].posicion.y == p.y) encontrado = i;
+		if(cruces[i].posicion == p) encontrado = i;
 		++i;
 	}
 	return encontrado;
@@ -273,23 +283,15 @@ void Drone::sacarProducto(const Producto p)
 bool Drone::operator==(const Drone & otroDrone) const
 {
 	bool iguales = _id == otroDrone.id() && _bateria == otroDrone.bateria()
-				   && _enVuelo == otroDrone.enVuelo() && _posicionActual.x == otroDrone.posicionActual().x
-				   && _posicionActual.y == otroDrone.posicionActual().y;
-	if(iguales) {
-		iguales = mismosProductos(otroDrone.productosDisponibles());
-		if(_enVuelo) {
-			if(_trayectoria.size() == otroDrone.vueloRealizado().size()) {
-				int i = 0;
-				while(i < _trayectoria.size() && iguales) {
-					if(_trayectoria[i].x != otroDrone.vueloRealizado()[i].x
-					   || _trayectoria[i].y != otroDrone.vueloRealizado()[i].y) {
-						iguales = false;
-					}
-					++i;
-				}
-			} else {
-				iguales = false;
-			}
+				   && _enVuelo == otroDrone.enVuelo() && _posicionActual == otroDrone.posicionActual()
+				   && mismosProductos(otroDrone.productosDisponibles());
+
+	if(iguales && _enVuelo) {
+		iguales = _trayectoria.size() == otroDrone.vueloRealizado().size();
+		int i = 0;
+		while(iguales && i < _trayectoria.size()) {
+			iguales = _trayectoria[i] == otroDrone.vueloRealizado()[i];
+			++i;
 		}
 	}
 	return iguales;
