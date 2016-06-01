@@ -108,25 +108,17 @@ void Campo::cargar(std::istream & is)
 
 bool Campo::operator==(const Campo & otroCampo) const
 {
-	bool iguales  = true;
-	if(_dimension.ancho != otroCampo.dimensiones().ancho
-	   || _dimension.largo != otroCampo.dimensiones().largo) {
-		iguales = false;
-	} else {
-		int i = 0;
-		while(i < _grilla.parcelas.size()) {
-			int j = 0;
-			while(j < _grilla.parcelas[i].size()) {
-				Posicion pos;
-				pos.x = i;
-				pos.y = j;
-				if(_grilla.parcelas[i][j] != otroCampo.contenido(pos)) {
-					iguales = false;
-				}
-				++j;
-			}
-			++i;
+	bool iguales  = _dimension.ancho == otroCampo.dimensiones().ancho
+					&& _dimension.largo == otroCampo.dimensiones().largo;
+	int i = 0;
+	while(iguales && i < _grilla.parcelas.size()) {
+		int j = 0;
+		while(iguales && j < _grilla.parcelas[i].size()) {
+			Posicion pos = {i, j};
+			iguales = _grilla.parcelas[i][j] == otroCampo.contenido(pos);
+			++j;
 		}
+		++i;
 	}
 	return iguales;
 }

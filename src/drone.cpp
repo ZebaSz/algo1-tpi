@@ -202,14 +202,21 @@ void Drone::cargar(std::istream & is)
 	_bateria = atoi(bateria.c_str());
 
 	_trayectoria.clear();
-	std::string posicion;
-	std::getline(is, posicion, ']');
-	while(posicion.length() == 5) {
-		Posicion pos;
-		pos.x = atoi(&posicion.at(2));
-		pos.y = atoi(&posicion.at(4));
-		_trayectoria.push_back(pos);
-		std::getline(is, posicion, ']');
+	std::string vuelorealizado;
+	std::getline(is, vuelorealizado, ' ');
+	vuelorealizado = vuelorealizado.substr(1,vuelorealizado.length() - 2);
+	if(vuelorealizado.length() > 0) {
+		std::vector<std::string> posicionesdelvuelo = split(vuelorealizado,'[');
+		size_t p = 1;
+		while(p < posicionesdelvuelo.size()) {
+			std::vector<std::string> posicionacargar = split(posicionesdelvuelo[p], ',');
+			posicionacargar[1] = posicionacargar[1].substr(0,posicionacargar[1].length() - 1);
+			Posicion pos;
+			pos.x = atoi(posicionacargar[0].c_str());
+			pos.y = atoi(posicionacargar[1].c_str());
+			_trayectoria.push_back(pos);
+			++p;
+		}
 	}
 
 	_productos.clear();
@@ -236,13 +243,14 @@ void Drone::cargar(std::istream & is)
 	std::string volando;
 	std::getline(is, volando, ' ');
 	std::getline(is, volando, ' ');
-	if(volando == "true") _enVuelo = true;
-	else _enVuelo = false;
+	_enVuelo = volando == "true";
 
 	std::string posact;
+	std::getline(is, posact, '[');
 	std::getline(is, posact, ']');
-	_posicionActual.x = atoi(&posact[1]);
-	_posicionActual.y = atoi(&posact[3]);
+	std::vector<std::string> listaposactual = split(posact, ',');
+	_posicionActual.x = atoi(listaposactual[0].c_str());
+	_posicionActual.y = atoi(listaposactual[1].c_str());
 }
 
 
