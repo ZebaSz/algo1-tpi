@@ -138,10 +138,8 @@ void Sistema::aterrizarYCargarBaterias(Carga b)
 	while (_enjambre.size() > i){
 		if (_enjambre[i].bateria() < b){
 			_enjambre[i].setBateria(100);
-			_enjambre[i].cambiarPosicionActual(posicionGranero());
-            // Se requiere no(enVuelo) porque no hay que usarla si está volando
-            // porque volando se usa batería. Es más semántico que otra cosa
 			_enjambre[i].borrarVueloRealizado();
+			_enjambre[i].cambiarPosicionActual(posicionGranero());
 		}
 	}
 }

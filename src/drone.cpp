@@ -88,14 +88,23 @@ Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 			if(crucesEnMomento[c].cantidadCruces == 1) {
 				crucesEnMomento.erase(crucesEnMomento.begin() + c);
 			} else {
-				++c;
+				size_t j = 0;
+				while (j < crucesTotales.size()){
+					if(crucesEnMomento[c].posicion == crucesTotales[j].posicion){
+						crucesTotales[j].cantidadCruces == crucesTotales[j].cantidadCruces + crucesEnMomento[c].cantidadCruces;
+						crucesEnMomento.erase(crucesEnMomento.begin() + c);
+					} else {
+					++c;
+					}
+				}
 			}
-		}
+		}		
 		crucesTotales.insert(crucesTotales.end(), crucesEnMomento.begin(), crucesEnMomento.end());
 		++i;
 	}
 	return crucesTotales;
 }
+//FIXME tiene que estar ordenado por la cant de choques
 
 int Drone::posEnLista(const Posicion& p, const Secuencia<InfoVueloCruzado>& cruces)
 {
