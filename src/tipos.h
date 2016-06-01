@@ -24,6 +24,8 @@ struct Posicion {
 	int y;
 };
 
+const bool operator==(const Posicion &p1, const Posicion &p2);
+
 struct Dimension {
 	Ancho ancho;
 	Largo largo;
@@ -42,6 +44,8 @@ struct InfoVueloCruzado {
 	Posicion posicion;
 	int cantidadCruces;
 };
+
+const bool operator==(const InfoVueloCruzado &a, const InfoVueloCruzado &b);
 
 std::ostream & operator<<(std::ostream & os, const Parcela & p);
 std::ostream & operator<<(std::ostream & os, const Producto & p);
