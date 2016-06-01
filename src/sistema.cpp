@@ -146,12 +146,24 @@ void Sistema::aterrizarYCargarBaterias(Carga b)
 
 void Sistema::fertilizarPorFilas()
 {
-	// FIXME implementar
+	int d = 0;
+	while (d < _enjambre.size() && _enjambre[d].enVuelo()){
+		Posicion actual = _enjambre[d].posicionActual();
+		while (actual.x > (-1) && cantFertilizantes(_enjambre[d]) > 0  && _enjambre[d].bateria() > 0 && _campo.contenido(actual) == Cultivo){
+			if (enRangoCultivable (actual.x, actual.y)){
+				_estado.parcelas[actual.x][actual.y] = ListoParaCosechar;
+				_enjambre[d].sacarProducto(Fertilizante);
+			}
+			_enjambre[d].setBateria(_enjambre[d].bateria() - 1);
+			--actual.x;
+		}
+		++d; 
+	}
 }
 
 void Sistema::volarYSensar(const Drone & d)
-{
-	// FIXME implementar
+{ 
+
 }
 
 void Sistema::mostrar(std::ostream & os) const
@@ -290,7 +302,8 @@ bool Sistema::enRangoCultivable(int x, int y) const {
     Posicion pos;
     pos.x = x;
     pos.y = y;
-    return enRango(x, y) && _campo.contenido(pos) == Cultivo;
+    return enRango(x, y) && _campo.contenido(pos) == Cultivo && (_estado.parcelas[x][y] == RecienSembrado || _estado.parcelas[x][y] == EnCrecimiento);
+   	//En realidad este aux se fija si la posicion es fertilizable segun los criterios de "fertilizarPorFilas" (asegura enRangoFertilizable)
 }
 
 bool Sistema::enRangoCultivableLibre(int x, int y) const {
@@ -308,6 +321,7 @@ bool Sistema::parcelaLibre(int x, int y) const {
 }
 Posicion Sistema::vecinoAlOeste(const Posicion &p) {
     // FIXME implementar
+
 	return Posicion();
 }
 
@@ -317,6 +331,17 @@ bool Sistema::tieneUnProducto(const Secuencia<Producto> &ps, const Producto &pro
         ++i;
     }
     return i < ps.size();
+}
+
+int Sistema::cantFertilizantes(const Drone &d){
+	int i = 0;
+	int contador = 0;
+	while (i < d.productosDisponibles().size()){
+		if (d.productosDisponibles()[i] == Fertilizante){
+			++contador;
+		}
+		++i;
+	}
 }
 
 bool Sistema::operator==(const Sistema & otroSistema) const
