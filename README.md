@@ -8,21 +8,31 @@ Es decir, pueden hacer `make` y ya está.
 
 Dentro de `src` está el Makefile original que vino con el template del TP. Tengan cuidado al compilar usando este Makefile o cualquier IDE que no organice los archivos así (ver Consideraciones).
 
+Se puede ejecutar ese `bin/main`, pero ya no hace falta porque ¡tests!
+
 ## Cómo correr los tests
 
-1. mkdir build && cd build
-2. cmake ..
-3. make
-4. ./tests/correrTests
+Hay dos maneras: la geek y la cool.
 
-Para volver a compilar, simplemente correr "make" de nuevo.
+### La geek
+
+1. `mkdir build && cd build`
+2. `cmake ..`
+3. `make`
+4. `./tests/correrTests`
+
+Para volver a compilar, simplemente correr `make` de nuevo.
 
 En caso de que no funcione correctamente la compilación, pueden borrar 
-el directorio "build" y volver a realizar los 4 pasos.
+el directorio `build` y volver a realizar los 4 pasos.
 
-### Seba! Me arruinaste el proyecto de CLion
+### La cool
 
-Culpa de los profes. Ellos usan CMake, así que te pisa el archivo CMakeLists.
+CLion reconoce los tests. Entre las configuraciones de ejecución (arriba a la derecha) debería figurar "correrTests". Elíjanlo, denle correr y disfruten la manera visual linda de ver los resultados.
+
+### ¿CLion? Yo tenía un proyecto de CLion
+
+Los profes nos dieron su propio  `CMakeLists.txt`. Pros: tests en CLion lindos. Cons: chau configuraciones viejas. Igual lo vale, ya no hace falta usar main.
 
 ## Consideraciones
 
