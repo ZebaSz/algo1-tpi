@@ -58,6 +58,7 @@ class Sistema {
 		bool parcelaLibre(int x, int y) const;
 		static Posicion vecinoAlOeste(const Posicion &p);
 		static bool tieneUnProducto(const Secuencia<Producto> &ps, const Producto &productoABuscar);
+		bool enRangoFertilizable(int x, int y) const;
 		int cantFertilizantes(const Drone &d);
 
 };
