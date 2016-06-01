@@ -5,15 +5,16 @@ OBJDIR=obj
 BINDIR=bin
 
 CFLAGS = -c -std=c++11
-SOURCES = $(SRCDIR)/campo.cpp $(SRCDIR)/drone.cpp $(SRCDIR)/sistema.cpp
+SOURCES = $(SRCDIR)/campo.cpp $(SRCDIR)/drone.cpp $(SRCDIR)/sistema.cpp $(SRCDIR)/tipos.cpp $(SRCDIR)/aux.cpp
 OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 TARGET = main
-INCLUDES = $(SRCDIR)/tipos.h
 
 
 .PHONY: all clean
 
 all: $(BINDIR)/$(TARGET)
+
+$(TARGET): $(BINDIR)/$(TARGET)
 
 clean:
 	rm -f $(OBJDIR)/*

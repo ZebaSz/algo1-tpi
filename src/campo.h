@@ -6,6 +6,9 @@
 class Campo {
 	public:
 		Campo();
+
+		Campo(const Posicion &posG, const Posicion &posC, Dimension dimension);
+
 		Campo(const Posicion &posG, const Posicion &posC);
 
 		Dimension dimensiones() const;
@@ -24,5 +27,5 @@ class Campo {
 
 // Definirlo usando mostrar, para poder usar << con este tipo.
 std::ostream & operator<<(std::ostream & os, const Campo & c);
-std::ostream & operator<<(std::ostream & os, const Parcela & p);
+
 #endif // CAMPO_H_INCLUDED

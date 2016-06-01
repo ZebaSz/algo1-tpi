@@ -15,6 +15,10 @@ enum Parcela {Cultivo, Granero, Casa};
 enum Producto {Fertilizante, Plaguicida, PlaguicidaBajoConsumo, Herbicida, HerbicidaLargoAlcance};
 enum EstadoCultivo {NoSensado, RecienSembrado, EnCrecimiento, ListoParaCosechar, ConMaleza, ConPlaga};
 
+static const char* TipoParcela[] = {"Cultivo", "Granero", "Casa"};
+static const char* TipoProducto[] = {"Fertilizante", "Plaguicida", "PlaguicidaBajoConsumo", "Herbicida", "HerbicidaLargoAlcance"};
+static const char* TipoEstado[] = {"NoSensado", "RecienSembrado", "EnCrecimiento", "ListoParaCosechar", "ConMaleza", "ConPlaga"};
+
 struct Posicion {
 	int x;
 	int y;
@@ -39,7 +43,8 @@ struct InfoVueloCruzado {
 	int cantidadCruces;
 };
 
-void split(const std::string &s, char delim, std::vector<std::string> &elems);
-std::vector<std::string> split(const std::string &s, char delim);
+std::ostream & operator<<(std::ostream & os, const Parcela & p);
+std::ostream & operator<<(std::ostream & os, const Producto & p);
+std::ostream & operator<<(std::ostream & os, const EstadoCultivo & e);
 
 #endif /*TIPOS_H*/

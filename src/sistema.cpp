@@ -321,27 +321,6 @@ bool Sistema::tieneUnProducto(const Secuencia<Producto> &ps, const Producto &pro
     return i < ps.size();
 }
 
-// FIXME crear auxiliares.h y .cpp para funciones globales
-
-void split(const std::string &s, char delim, std::vector<std::string> &elems) {;
-    elems.clear();
-    elems.resize(1);
-    size_t i = 0;
-    while(i < s.size()) {
-        if(s[i] == delim) {
-            elems.push_back(std::string());
-        } else {
-            elems[elems.size() - 1].push_back(s[i]);
-        }
-        ++i;
-    }
-}
-std::vector<std::string> split(const std::string &s, char delim) {
-    std::vector<std::string> elems;
-    split(s, delim, elems);
-    return elems;
-}
-
 bool Sistema::operator==(const Sistema & otroSistema) const
 {
 	// FIXME implementar mismoEnjambre
@@ -355,13 +334,5 @@ bool Sistema::operator==(const Sistema & otroSistema) const
 std::ostream & operator<<(std::ostream & os, const Sistema & s)
 {
 	s.mostrar(os);
-	return os;
-}
-
-static const char* TipoEstado[] = {"NoSensado", "RecienSembrado", "EnCrecimiento", "ListoParaCosechar", "ConMaleza", "ConPlaga"};
-std::ostream & operator<<(std::ostream & os, const EstadoCultivo & e)
-{
-	std::string estring = TipoEstado[e];
-	os << estring;
 	return os;
 }

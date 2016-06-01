@@ -2,6 +2,7 @@
 #define DRONE_H_INCLUDED
 
 #include "tipos.h"
+#include "aux.h"
 #include <vector>
 
 class Drone{
@@ -45,6 +46,5 @@ class Drone{
 
 // Definirlo usando mostrar, para poder usar << con este tipo.
 std::ostream & operator<<(std::ostream & os, const Drone & d);
-std::ostream & operator<<(std::ostream & os, const Producto & p);
 
 #endif // DRONE_H_INCLUDED

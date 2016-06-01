@@ -4,6 +4,13 @@ Campo::Campo()
 {
 }
 
+Campo::Campo(const Posicion &posG, const Posicion &posC, Dimension dimension) {
+	_dimension = dimension;
+	_grilla = Grilla<Parcela>(_dimension);
+	_grilla.parcelas[posG.x][posG.y] = Granero;
+	_grilla.parcelas[posC.x][posC.y] = Casa;
+}
+
 Campo::Campo(const Posicion &posG, const Posicion &posC)
 {
 	_dimension.ancho = std::max(posG.x, posC.x) + 1;
@@ -127,13 +134,5 @@ bool Campo::operator==(const Campo & otroCampo) const
 std::ostream & operator<<(std::ostream & os, const Campo & c)
 {
 	c.mostrar(os);
-	return os;
-}
-
-static const char* TipoParcela[] = {"Cultivo", "Granero", "Casa"};
-std::ostream & operator<<(std::ostream & os, const Parcela & p)
-{
-	std::string pstring = TipoParcela[p];
-	os << pstring;
 	return os;
 }
