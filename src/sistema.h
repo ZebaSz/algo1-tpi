@@ -59,7 +59,8 @@ class Sistema {
 		static Posicion vecinoAlOeste(const Posicion &p);
 		static bool tieneUnProducto(const Secuencia<Producto> &ps, const Producto &productoABuscar);
 		bool enRangoFertilizable(int x, int y) const;
-		int cantFertilizantes(const Drone &d);
+		int cantProducto(const Drone &d, const Producto &p); //funcion al pedo, corregir
+		Secuencia<Posicion> parcelasAdyacentes (const Posicion &pos);
 
 };
 

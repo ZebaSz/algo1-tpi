@@ -61,9 +61,6 @@ bool Drone::vueloEscalerado() const
 	return escalerado;
 }
 
-// FIXME los distintos choques se SUMAN
-// eg: un choque entre 3 y uno entre 2 en el mismo lugar
-// dan un InfoVueloCruzado (pos, 5)
 // FIXME tiene que estar ordenado por la cant de choques
 Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 {
