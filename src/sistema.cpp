@@ -10,6 +10,7 @@ Sistema::Sistema(const Campo & c, const Secuencia<Drone>& ds)
 		: _campo(c), _enjambre(ds), _estado(c.dimensiones())
 {
     // TODO el test rompe si movemos los drones
+	// pero el invariante asegura que estan en el campo
     /*
     int i = 0;
     while(i < _enjambre.size()) {
@@ -216,7 +217,7 @@ void Sistema::volarYSensar(const Drone & d)
 							_enjambre[i].sacarProducto(Plaguicida);
 							_enjambre[i].setBateria(_enjambre[i].bateria() - 10);
 						}
-							break;
+						break;
 					case ListoParaCosechar:
 						break;
 					default: //RecienSembrado o EnCrecimiento
@@ -257,9 +258,6 @@ void Sistema::mostrar(std::ostream & os) const
         ++i;
     }
 }
-
-// FIXME el formato no debería depender del whitespacing
-// buscar más sobre parsers
 
 void Sistema::guardar(std::ostream & os) const
 {

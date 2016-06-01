@@ -36,7 +36,6 @@ class Sistema {
 		Secuencia<Drone> _enjambre;
         Grilla<EstadoCultivo> _estado;
 
-
 		//Para correr los tests (NO TOCAR)
 		friend class test_sistema_lo_basico_crecer_funciona_ok_Test;
 		friend class test_sistema_se_vino_la_maleza_lista_vacia_no_modifica_nada_Test;
@@ -59,7 +58,8 @@ class Sistema {
 		static Posicion vecinoAlOeste(const Posicion &p);
 		static bool tieneUnProducto(const Secuencia<Producto> &ps, const Producto &productoABuscar);
 		bool enRangoFertilizable(int x, int y) const;
-		int cantProducto(const Drone &d, const Producto &p); //funcion al pedo, corregir
+		// FIXME funcion al dope
+		int cantProducto(const Drone &d, const Producto &p);
 		Secuencia<Posicion> parcelasAdyacentes (const Posicion &pos);
 
 };
