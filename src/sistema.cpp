@@ -150,21 +150,86 @@ void Sistema::fertilizarPorFilas()
 	int d = 0;
 	while (d < _enjambre.size() && _enjambre[d].enVuelo()){
 		Posicion actual = _enjambre[d].posicionActual();
-		while (actual.x > (-1) && cantFertilizantes(_enjambre[d]) > 0  && _enjambre[d].bateria() > 0 && _campo.contenido(actual) == Cultivo){
+		while (actual.x > (-1) && cantProducto(_enjambre[d], Fertilizante) > 0  && _enjambre[d].bateria() > 0 && _campo.contenido(actual) == Cultivo){
 			if (enRangoCultivable (actual.x, actual.y)){
 				_estado.parcelas[actual.x][actual.y] = ListoParaCosechar;
 				_enjambre[d].sacarProducto(Fertilizante);
 			}
 			_enjambre[d].setBateria(_enjambre[d].bateria() - 1);
+			_enjambre[d].moverA(actual);
 			--actual.x;
 		}
 		++d; 
 	}
 }
 
+//FIXME implementar aux despegar a parcela adyacente
 void Sistema::volarYSensar(const Drone & d)
 { 
+	int i = 0;
+	srand (1);
+	while (i < _enjambre.size()){
+		if (_enjambre[i] == d){
+            Posicion pos = _enjambre[i].posicionActual();
+			if (enRangoCultivableLibre(pos.x, pos.y - 1)){
+				--pos.y;
+			} else if (enRangoCultivableLibre(pos.x + 1, pos.y)){
+				++pos.x;
+			} else if (enRangoCultivableLibre(pos.x, pos.y + 1)){
+				++pos.y;
+			} else if (enRangoCultivableLibre(pos.x - 1, pos.y)) {
+				--pos.x;
+			}
+			_enjambre[i].moverA(pos);
+			_enjambre[i].setBateria(_enjambre[i].bateria() - 1);
+			if (_campo.contenido(pos) == Cultivo){
+				switch (_estado.parcelas[pos.x][pos.y]){
+					case NoSensado:
+						_estado.parcelas[pos.x][pos.y] = static_cast<EstadoCultivo>(rand()%5); //esta cosa es aleatoria porque la especificacion no pide nada especifico (pun intended)
+						break;
+					case ConMaleza:
+						if (cantProducto (_enjambre[i], Herbicida) > 0 && _enjambre[i].bateria() > 4){
+							_estado.parcelas[pos.x][pos.y] = RecienSembrado;
+							_enjambre[i].sacarProducto(Herbicida);
+							_enjambre[i].setBateria(_enjambre[i].bateria() - 5);
+						} else if (cantProducto(_enjambre[i], HerbicidaLargoAlcance) > 0 && _enjambre[i].bateria() > 4){
+							_estado.parcelas[pos.x][pos.y] = RecienSembrado;
+							int i = 0;
+							Secuencia<Posicion> adyacentes = parcelasAdyacentes(pos);
+							while (i < adyacentes.size()){
+								if (_estado.parcelas[adyacentes[i].x][adyacentes[i].y] == ConMaleza){
+									_estado.parcelas[adyacentes[i].x][adyacentes[i].y] = RecienSembrado;
+								}
+								++i;
+							}
+							_enjambre[i].sacarProducto(HerbicidaLargoAlcance);
+							_enjambre[i].setBateria(_enjambre[i].bateria() - 5);
+						}
+						break;
+					case ConPlaga:
+						if (cantProducto (_enjambre[i], PlaguicidaBajoConsumo) > 0 && _enjambre[i].bateria() > 4){
+							_estado.parcelas[pos.x][pos.y] = RecienSembrado;
+							_enjambre[i].sacarProducto(PlaguicidaBajoConsumo);
+							_enjambre[i].setBateria(_enjambre[i].bateria() - 5);
+						} else if (cantProducto (_enjambre[i], Plaguicida) > 0 && _enjambre[i].bateria() > 9){
+							_estado.parcelas[pos.x][pos.y] = RecienSembrado;
+							_enjambre[i].sacarProducto(Plaguicida);
+							_enjambre[i].setBateria(_enjambre[i].bateria() - 10);
+						}
+							break;
+					case ListoParaCosechar:
+						break;
+					default: //RecienSembrado o EnCrecimiento
+						if (cantProducto (_enjambre[i],Fertilizante) > 0) 
+							_estado.parcelas[pos.x][pos.y] = ListoParaCosechar;
+							_enjambre[i].sacarProducto(Fertilizante);
+						break;
+				}
 
+			}
+		}
+		++i;
+	}
 }
 
 void Sistema::mostrar(std::ostream & os) const
@@ -328,15 +393,51 @@ bool Sistema::tieneUnProducto(const Secuencia<Producto> &ps, const Producto &pro
     return i < ps.size();
 }
 
-int Sistema::cantFertilizantes(const Drone &d){
+bool Sistema::enRangoFertilizable(int x, int y) const {
+    Posicion pos;
+    pos.x = x;
+    pos.y = y;
+    return enRango(x, y) && _campo.contenido(pos) == Cultivo && (_estado.parcelas[x][y] == RecienSembrado || _estado.parcelas[x][y] == EnCrecimiento);
+}
+
+int Sistema::cantProducto(const Drone &d, const Producto &p){
 	int i = 0;
 	int contador = 0;
 	while (i < d.productosDisponibles().size()){
-		if (d.productosDisponibles()[i] == Fertilizante){
+		if (d.productosDisponibles()[i] == p){
 			++contador;
 		}
 		++i;
 	}
+}
+
+Secuencia<Posicion> Sistema::parcelasAdyacentes (const Posicion &pos){
+	Secuencia<Posicion> parcelas;
+	if (enRangoCultivable(pos.x, pos.y - 1)){
+		Posicion adyacente;
+		adyacente.x = pos.x;
+		adyacente.y = pos.y - 1;
+		parcelas.push_back(adyacente);
+	}
+	if (enRangoCultivable(pos.x + 1, pos.y)){
+		Posicion adyacente;
+		adyacente.x = pos.x + 1;
+		adyacente.y = pos.y;
+		parcelas.push_back(adyacente);
+	}
+	if (enRangoCultivable(pos.x, pos.y + 1)){
+		Posicion adyacente;
+		adyacente.x = pos.x;
+		adyacente.y = pos.y + 1;
+		parcelas.push_back(adyacente);
+	}
+	if (enRangoCultivable(pos.x - 1, pos.y)) {
+		Posicion adyacente;
+		adyacente.x = pos.x - 1;
+		adyacente.y = pos.y;
+		parcelas.push_back(adyacente);
+	}
+	return parcelas;
 }
 
 bool Sistema::operator==(const Sistema & otroSistema) const
