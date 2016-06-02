@@ -55,11 +55,8 @@ class Sistema {
 		bool enRangoCultivable(int x, int y) const;
 		bool enRangoCultivableLibre(int x, int y) const;
 		bool parcelaLibre(int x, int y) const;
-		static Posicion vecinoAlOeste(const Posicion &p);
 		static bool tieneUnProducto(const Secuencia<Producto> &ps, const Producto &productoABuscar);
 		bool enRangoFertilizable(int x, int y) const;
-		// FIXME funcion al dope
-		int cantProducto(const Drone &d, const Producto &p);
 		Secuencia<Posicion> parcelasAdyacentes (const Posicion &pos);
 
 };

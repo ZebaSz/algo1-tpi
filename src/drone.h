@@ -40,7 +40,6 @@ class Drone{
 		bool _enVuelo;
 		Posicion _posicionActual;
 
-		bool mismosProductos(Secuencia<Producto> otraLista) const;
 		static int posEnLista(const Posicion& p, const Secuencia<InfoVueloCruzado>& cruces);
 };
 

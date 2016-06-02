@@ -289,7 +289,7 @@ bool Drone::operator==(const Drone & otroDrone) const
 {
 	bool iguales = _id == otroDrone.id() && _bateria == otroDrone.bateria()
 				   && _enVuelo == otroDrone.enVuelo() && _posicionActual == otroDrone.posicionActual()
-				   && mismosProductos(otroDrone.productosDisponibles());
+				   && mismos(_productos, otroDrone.productosDisponibles());
 
 	if(iguales && _enVuelo) {
 		iguales = _trayectoria.size() == otroDrone.vueloRealizado().size();
@@ -306,25 +306,4 @@ std::ostream & operator<<(std::ostream & os, const Drone & d)
 {
 	d.mostrar(os);
 	return os;
-}
-
-bool Drone::mismosProductos(Secuencia<Producto> otraLista) const
-{
-	bool iguales = _productos.size() == otraLista.size();
-	if(iguales) {
-		Secuencia<int> cuentaLista(5, 0);
-		Secuencia<int> cuentaOtraLista(5, 0);
-		int i = 0;
-		while(i < _productos.size()) {
-			++cuentaLista[_productos[i]];
-			++cuentaOtraLista[otraLista[i]];
-			++i;
-		}
-		i = 0;
-		while(iguales && i < 5) {
-			if(cuentaLista[i] != cuentaOtraLista[i]) iguales = false;
-			++i;
-		}
-	}
-	return iguales;
 }
