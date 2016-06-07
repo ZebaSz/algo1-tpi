@@ -61,7 +61,6 @@ bool Drone::vueloEscalerado() const
 	return escalerado;
 }
 
-// FIXME tiene que estar ordenado por la cant de choques
 Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 {
 	int i = 0;
@@ -107,6 +106,7 @@ Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 		crucesTotales.insert(crucesTotales.end(), crucesEnMomento.begin(), crucesEnMomento.end());
 		++i;
 	}
+	ordenar(crucesTotales);
 	return crucesTotales;
 }
 
@@ -300,6 +300,18 @@ bool Drone::operator==(const Drone & otroDrone) const
 		}
 	}
 	return iguales;
+}
+
+void Drone::ordenar(Secuencia<InfoVueloCruzado> &cruces) {
+	for (int i = 0; i < cruces.size(); ++i) {
+		int minindex = i;
+		for (int j = i+1; j < cruces.size(); ++j) {
+			if(cruces[j].cantidadCruces < cruces[minindex].cantidadCruces) minindex = j;
+		}
+		InfoVueloCruzado buffer = cruces[i];
+		cruces[i] = cruces[minindex];
+		cruces[minindex] = buffer;
+	}
 }
 
 std::ostream & operator<<(std::ostream & os, const Drone & d)

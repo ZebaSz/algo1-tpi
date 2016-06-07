@@ -41,6 +41,7 @@ class Drone{
 		Posicion _posicionActual;
 
 		static int posEnLista(const Posicion& p, const Secuencia<InfoVueloCruzado>& cruces);
+		static void ordenar(Secuencia<InfoVueloCruzado>& cruces);
 };
 
 // Definirlo usando mostrar, para poder usar << con este tipo.
