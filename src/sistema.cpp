@@ -316,12 +316,11 @@ void Sistema::cargar(std::istream & is)
 bool Sistema::enRango(int x, int y) const {
 	return x >= 0 && y >= 0 && x < _campo.dimensiones().ancho && y < _campo.dimensiones().largo;
 }
+
 bool Sistema::enRango(const Posicion p) const {
 	return enRango(p.x, p.y);
 }
-bool Sistema::enRangoConPlaga(int x, int y) const {
-    return enRango(x, y) && _estado.parcelas[x][y] == ConPlaga;
-}
+
 Posicion Sistema::posicionGranero() const {
     Posicion posG = {0,0};
     while(posG.x < _campo.dimensiones().ancho && _campo.contenido(posG) != Granero) {
@@ -338,9 +337,6 @@ bool Sistema::enRangoCultivable(int x, int y) const {
     return enRango(x, y) && _campo.contenido({x,y}) == Cultivo;
 }
 
-bool Sistema::enRangoCultivableLibre(int x, int y) const {
-    return enRangoCultivable (x,y) && parcelaLibre (x,y);
-}
 bool Sistema::parcelaLibre(int x, int y) const {
     size_t i = 0;
     Posicion parcela;
@@ -373,14 +369,6 @@ bool Sistema::tieneUnProducto(const Secuencia<Producto> &ps, const Producto &pro
         ++i;
     }
     return i < ps.size();
-}
-
-bool Sistema::enRangoFertilizable(int x, int y) const {
-    Posicion pos;
-    pos.x = x;
-    pos.y = y;
-    return enRango(x, y) && _campo.contenido(pos) == Cultivo
-		   && (_estado.parcelas[x][y] == RecienSembrado || _estado.parcelas[x][y] == EnCrecimiento);
 }
 
 Secuencia<Posicion> Sistema::parcelasAdyacentes (const Posicion &pos) const {

@@ -50,14 +50,11 @@ class Sistema {
 		// --> Defina sus funciones auxiliares debajo...
 		bool enRango(int x, int y) const;
 		bool enRango(const Posicion p) const;
-		bool enRangoConPlaga(int x, int y) const;
 		Posicion posicionGranero() const;
 		bool enRangoCultivable(int x, int y) const;
-		bool enRangoCultivableLibre(int x, int y) const;
 		bool parcelaLibre(int x, int y) const;
 		Posicion elegirParcelaAdyacente(const Posicion & pos) const;
 		static bool tieneUnProducto(const Secuencia<Producto> &ps, const Producto &productoABuscar);
-		bool enRangoFertilizable(int x, int y) const;
 		Secuencia<Posicion> parcelasAdyacentes (const Posicion &pos) const;
 
 };
