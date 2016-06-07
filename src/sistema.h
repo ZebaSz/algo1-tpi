@@ -55,9 +55,10 @@ class Sistema {
 		bool enRangoCultivable(int x, int y) const;
 		bool enRangoCultivableLibre(int x, int y) const;
 		bool parcelaLibre(int x, int y) const;
+		Posicion elegirParcelaAdyacente(const Posicion & pos) const;
 		static bool tieneUnProducto(const Secuencia<Producto> &ps, const Producto &productoABuscar);
 		bool enRangoFertilizable(int x, int y) const;
-		Secuencia<Posicion> parcelasAdyacentes (const Posicion &pos);
+		Secuencia<Posicion> parcelasAdyacentes (const Posicion &pos) const;
 
 };
 
