@@ -51,23 +51,29 @@ TEST(test_sistema_despegar, si_hay_drone_o_casa_al_lado_del_granero_comienza_vue
     Campo el_campo(posG, posCasaALaDerechaDelGranero);
 
     Sistema s1(el_campo, {elDrone, otroDrone});
-    otroDrone.moverA({1,0});
+    s1.despegar(otroDrone);
     s1.despegar(elDrone);
 
     Drone elDroneEnElSistema = buscarDroneEnSistema(elDrone, s1);
+    Drone elOtroDroneEnElSistema = buscarDroneEnSistema(otroDrone, s1);
 
     EXPECT_TRUE(elDroneEnElSistema.enVuelo());
+    EXPECT_TRUE(elOtroDroneEnElSistema.enVuelo());
+
+    bool estanEnDiferentePosicion = not(elDroneEnElSistema.posicionActual() == elOtroDroneEnElSistema.posicionActual());
+    EXPECT_TRUE(estanEnDiferentePosicion);
 
     Posicion arribaDelGranero = {0, 1};
     Posicion abajoDelGranero = {2, 1};
+    Posicion izquierdaDelGranero = {1,0};
     bool estaContiguoAlGranero =
             elDroneEnElSistema.posicionActual() == arribaDelGranero ||
-            elDroneEnElSistema.posicionActual() == abajoDelGranero;
+            elDroneEnElSistema.posicionActual() == abajoDelGranero ||
+            elDroneEnElSistema.posicionActual() == izquierdaDelGranero;
     EXPECT_TRUE(estaContiguoAlGranero);
 
     EXPECT_EQ(el_campo, s1.campo());
     EXPECT_EQ(2, s1.enjambreDrones().size());
 }
-
 
 

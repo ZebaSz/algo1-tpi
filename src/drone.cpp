@@ -52,10 +52,8 @@ bool Drone::vueloEscalerado() const
 		}
 		int i = 0;
 		while(escalerado && i < _trayectoria.size() - 2) {
-			if(_trayectoria[i].x - _trayectoria[i + 2].x != dirx)
-				escalerado = false;
-			if(_trayectoria[i].y - _trayectoria[i + 2].y != diry)
-				escalerado = false;
+			escalerado = _trayectoria[i].x - _trayectoria[i + 2].x == dirx
+						 && _trayectoria[i].y - _trayectoria[i + 2].y == diry;
 			++i;
 		}
 	}
