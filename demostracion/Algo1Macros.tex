@@ -1,0 +1,675 @@
+\usepackage{ifthen}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage[absolute]{textpos}
+\makeatletter
+
+\@ifclassloaded{beamer}{%
+  \newcommand{\tocarEspacios}{%
+    \addtolength{\leftskip}{4em}%
+    \addtolength{\parindent}{-3em}%
+  }%
+}
+{%
+  \usepackage[top=1cm,bottom=2cm,left=1cm,right=1cm]{geometry}%
+  \usepackage{color}%
+  \newcommand{\tocarEspacios}{%
+    \addtolength{\leftskip}{5em}%
+    \addtolength{\parindent}{-3em}%
+  }%
+}
+
+\newcommand{\encabezadoDeProblema}[4]{%
+  % Ponemos la palabrita problema en tt
+%  \noindent%
+  {\normalfont\bfseries\ttfamily problema}%
+  % Ponemos el nombre del problema
+  \ %
+  {\normalfont\ttfamily #2}%
+  \ 
+  % Ponemos los parametros
+  (#3)%
+  \ifthenelse{\equal{#4}{}}{}{%
+  \ =\ %
+  % Ponemos el nombre del resultado
+  {\normalfont\ttfamily #1}%
+  % Por ultimo, va el tipo del resultado
+  \ : #4}
+}
+
+\newcommand{\encabezadoDeTipo}[2]{%
+  % Ponemos la palabrita tipo en tt
+  {\normalfont\bfseries\ttfamily tipo}%
+  % Ponemos el nombre del tipo
+  \ %
+  {\normalfont\ttfamily #2}%
+  \ifthenelse{\equal{#1}{}}{}{$\langle$#1$\rangle$}
+}
+
+% Primero definiciones de cosas al estilo title, author, date
+
+\def\materia#1{\gdef\@materia{#1}}
+\def\@materia{No especifi\'o la materia}
+\def\lamateria{\@materia}
+
+\def\cuatrimestre#1{\gdef\@cuatrimestre{#1}}
+\def\@cuatrimestre{No especifi\'o el cuatrimestre}
+\def\elcuatrimestre{\@cuatrimestre}
+
+\def\anio#1{\gdef\@anio{#1}}
+\def\@anio{No especifi\'o el anio}
+\def\elanio{\@anio}
+
+\def\fecha#1{\gdef\@fecha{#1}}
+\def\@fecha{\today}
+\def\lafecha{\@fecha}
+
+\def\nombre#1{\gdef\@nombre{#1}}
+\def\@nombre{No especific'o el nombre}
+\def\elnombre{\@nombre}
+
+\def\practicas#1{\gdef\@practica{#1}}
+\def\@practica{No especifi\'o el n\'umero de pr\'actica}
+\def\lapractica{\@practica}
+
+
+% Esta macro convierte el numero de cuatrimestre a palabras
+\newcommand{\cuatrimestreLindo}{
+  \ifthenelse{\equal{\elcuatrimestre}{1}}
+  {Primer cuatrimestre}
+  {\ifthenelse{\equal{\elcuatrimestre}{2}}
+  {Segundo cuatrimestre}
+  {Verano}}
+}
+
+
+\newcommand{\depto}{{UBA -- Facultad de Ciencias Exactas y Naturales --
+      Departamento de Computaci\'on}}
+
+\newcommand{\titulopractica}{
+  \centerline{\depto}
+  \vspace{1ex}
+  \centerline{{\Large\lamateria}}
+  \vspace{0.5ex}
+  \centerline{\cuatrimestreLindo de \elanio}
+  \vspace{2ex}
+  \centerline{{\huge Pr\'actica \lapractica -- \elnombre}}
+  \vspace{5ex}
+  \arreglarincisos
+  \newcounter{ejercicio}
+  \newenvironment{ejercicio}{\stepcounter{ejercicio}\textbf{Ejercicio
+      \theejercicio}%
+    \renewcommand\@currentlabel{\theejercicio}%
+  }{\vspace{0.2cm}}
+}  
+
+
+\newcommand{\titulotp}{
+  \centerline{\depto}
+  \vspace{1ex}
+  \centerline{{\Large\lamateria}}
+  \vspace{0.5ex}
+  \centerline{\cuatrimestreLindo de \elanio}
+  \vspace{0.5ex}
+  \centerline{\lafecha}
+  \vspace{2ex}
+  \centerline{{\huge\elnombre}}
+  \vspace{5ex}
+}
+
+
+%practicas
+\newcommand{\practica}[2]{%
+    \title{Pr\'actica #1 \\ #2}
+    \author{Algoritmos y Estructuras de Datos I}
+    \date{Segundo Cuatrimestre 2015}
+
+    \maketitlepractica{#1}{#2}
+}
+
+\newcommand \maketitlepractica[2] {%
+\begin{center}
+\begin{tabular}{r cr}
+ \begin{tabular}{c}
+{\large\bf\textsf{\ Algoritmos y Estructuras de Datos I\ }}\\ 
+Segundo Cuatrimestre 2015\\
+\title{\normalsize Gu\'ia Pr\'actica #1 \\ \textbf{#2}}\\
+\@title
+\end{tabular} &
+\begin{tabular}{@{} p{1.6cm} @{}}
+\includegraphics[width=1.6cm]{logodpt.jpg}
+\end{tabular} &
+\begin{tabular}{l @{}}
+ \emph{Departamento de Computaci\'on} \\
+ \emph{Facultad de Ciencias Exactas y Naturales} \\
+ \emph{Universidad de Buenos Aires} \\
+\end{tabular} 
+\end{tabular}
+\end{center}
+
+\bigskip
+}
+
+
+% Simbolos varios
+
+\newcommand{\ent}{\ensuremath{\mathbb{Z}}}
+\newcommand{\float}{\ensuremath{\mathbb{R}}}
+\newcommand{\bool}{\ensuremath{\mathsf{Bool}}}
+\newcommand{\True}{\ensuremath{\mathrm{True}}}
+\newcommand{\False}{\ensuremath{\mathrm{False}}}
+\newcommand{\Then}{\ensuremath{\rightarrow}}
+\newcommand{\Iff}{\ensuremath{\leftrightarrow}}
+\newcommand{\implica}{\ensuremath{\longrightarrow}}
+\newcommand{\IfThenElse}[3]{\ensuremath{\mathsf{if}\ #1\ \mathsf{then}\ #2\ \mathsf{else}\ #3}}
+
+
+\newcommand{\rango}[2]{[#1\twodots#2]}
+\newcommand{\comp}[2]{[\,#1\,|\,#2\,]}
+
+\newcommand{\rangoac}[2]{(#1\twodots#2]}
+\newcommand{\rangoca}[2]{[#1\twodots#2)}
+\newcommand{\rangoaa}[2]{(#1\twodots#2)}
+
+%ejercicios
+\newtheorem{exercise}{Ejercicio}
+\newenvironment{ejercicio}{\begin{exercise}\rm}{\end{exercise} \vspace{0.2cm}}
+\newenvironment{items}{\begin{enumerate}[i)]}{\end{enumerate}}
+\newenvironment{subitems}{\begin{enumerate}[a)]}{\end{enumerate}}
+\newcommand{\sugerencia}[1]{\noindent \textbf{Sugerencia:} #1}
+
+%tipos basicos
+\newcommand{\rea}{\ensuremath{\mathsf{Float}}}
+\newcommand{\cha}{\ensuremath{\mathsf{Char}}}
+
+\newcommand{\mcd}{\mathrm{mcd}}
+\newcommand{\prm}[1]{\ensuremath{\mathsf{prm}(#1)}}
+\newcommand{\sgd}[1]{\ensuremath{\mathsf{sgd}(#1)}}
+
+%listas
+\newcommand{\TLista}[1]{[#1]}
+\newcommand{\lvacia}{\ensuremath{[\ ]}}
+\newcommand{\lv}{\ensuremath{[\ ]}}
+\newcommand{\longitud}[1]{\left| #1 \right|}
+\newcommand{\cons}[1]{\ensuremath{\mathsf{cons}}(#1)}
+\newcommand{\indice}[1]{\ensuremath{\mathsf{indice}}(#1)}
+\newcommand{\conc}[1]{\ensuremath{\mathsf{conc}}(#1)}
+\newcommand{\cab}[1]{\ensuremath{\mathsf{cab}}(#1)}
+\newcommand{\cola}[1]{\ensuremath{\mathsf{cola}}(#1)}
+\newcommand{\sub}[1]{\ensuremath{\mathsf{sub}}(#1)}
+\newcommand{\en}[1]{\ensuremath{\mathsf{en}}(#1)}
+\newcommand{\cuenta}[2]{\mathsf{cuenta}\ensuremath{(#1, #2)}}
+\newcommand{\suma}[1]{\mathsf{suma}(#1)}
+\newcommand{\twodots}{\ensuremath{\mathrm{..}}}
+\newcommand{\masmas}{\ensuremath{++}}
+
+% Acumulador
+\newcommand{\acum}[1]{\ensuremath{\mathsf{acum}}(#1)}
+\newcommand{\acumselec}[3]{\ensuremath{\mathrm{acum}(#1 |  #2, #3)}}
+
+% \selector{variable}{dominio}
+\newcommand{\selector}[2]{#1~\ensuremath{\leftarrow}~#2}
+\newcommand{\selec}{\ensuremath{\leftarrow}}
+
+
+\newenvironment{problema}[4][res]{%
+  % El parametro 1 (opcional) es el nombre del resultado
+  % El parametro 2 es el nombre del problema
+  % El parametro 3 son los parametros
+  % El parametro 4 es el tipo del resultado
+  % Preambulo del ambiente problema
+  % Tenemos que definir los comandos requiere, asegura, modifica y aux
+  \newcommand{\requiere}[2][]{%
+    {\normalfont\bfseries\ttfamily requiere}%
+    \ifthenelse{\equal{##1}{}}{}{\ {\normalfont\ttfamily ##1} :}\ %
+    \ensuremath{##2}%
+    {\normalfont\bfseries\,;\par}%
+  }
+  \newcommand{\asegura}[2][]{%
+    {\normalfont\bfseries\ttfamily asegura}%
+    \ifthenelse{\equal{##1}{}}{}{\ {\normalfont\ttfamily ##1} :}\
+    \ensuremath{##2}%
+    {\normalfont\bfseries\,;\par}%
+  }
+  \newcommand{\modifica}[1]{%
+    {\normalfont\bfseries\ttfamily modifica\ }%
+    \ensuremath{##1}%
+    {\normalfont\bfseries\,;\par}%
+  }
+  \renewcommand{\aux}[4]{%
+    {\normalfont\bfseries\ttfamily aux\ }%
+    {\normalfont\ttfamily ##1}%
+    \ifthenelse{\equal{##2}{}}{}{\ (##2)}\ : ##3\, = \ensuremath{##4}%
+    {\normalfont\bfseries\,;\par}%
+  }
+  \newcommand{\res}{#1}
+  \vspace{1ex}
+  \noindent
+  \encabezadoDeProblema{#1}{#2}{#3}{#4}
+  % Abrimos la llave
+  \{\par%
+  \tocarEspacios
+}
+% Ahora viene el cierre del ambiente problema
+{
+  % Cerramos la llave
+  \noindent\}
+  \vspace{1ex}
+}
+
+
+  \newcommand{\aux}[4]{%
+    {\normalfont\bfseries\ttfamily aux\ }%
+    {\normalfont\ttfamily #1}%
+    \ifthenelse{\equal{#2}{}}{}{\ (#2)}\ : #3\, = \ensuremath{#4}%
+    {\normalfont\bfseries\,;\par}%
+  }
+
+
+\newcommand{\pre}[1]{\textsf{pre}\ensuremath{(#1)}}
+
+\newcommand{\problemanom}[1]{\textsf{#1}}
+\newcommand{\problemail}[3]{\textsf{problema #1}\ensuremath{(#2) = #3}}
+\newcommand{\problemailsinres}[2]{\textsf{problema #1}\ensuremath{(#2)}}
+\newcommand{\requiereil}[2]{\textsf{requiere #1: }\ensuremath{#2}}
+\newcommand{\asegurail}[2]{\textsf{asegura #1: }\ensuremath{#2}}
+\newcommand{\modificail}[1]{\textsf{modifica }\ensuremath{#1}}
+\newcommand{\auxil}[2]{\textsf{aux }\ensuremath{#1 = #2}}
+\newcommand{\auxilc}[4]{\textsf{aux }\ensuremath{#1( #2 ): #3 = #4}}
+\newcommand{\auxnom}[1]{\textsf{aux }\ensuremath{#1}}
+
+\newcommand{\comentario}[1]{{/*\ #1\ */}}
+
+\newcommand{\nom}[1]{\ensuremath{\mathsf{#1}}}
+
+% -----------------
+% Tipos compuestos
+% -----------------
+
+\newcommand{\Pred}[1]{\mathit{#1}}
+\newcommand{\TSet}[1]{\textsf{Conjunto}\ensuremath{\langle #1 \rangle}}
+\newcommand{\TSetFinito}[1]{\textsf{Conjunto}\ensuremath{\langle #1 \rangle}}
+\newcommand{\TRac}{\tiponom{Racional}}
+\newcommand{\TVec}{\tiponom{Vector}}
+\newcommand{\Func}[1]{\mathrm{#1}}
+\newcommand{\cardinal}[1]{\left| #1 \right|}
+
+
+\newcommand{\sinonimo}[2]{%
+  \noindent%
+  {\normalfont\bfseries\ttfamily tipo\ }%
+  #1\ =\ #2%
+  {\normalfont\bfseries\,;\par}
+}
+
+\newcommand{\enum}[2]{%
+  \noindent%
+  {\normalfont\bfseries\ttfamily tipo\ }%
+  #1\ =\ #2%
+  {\normalfont\bfseries\,;\par}
+}
+
+%~ \newenvironment{tipo}[1]{%
+    %~ \vspace{0.2cm}
+    %~ \textsf{tipo #1}\ensuremath{\{}\\
+    %~ \begin{tabular}[l]{p{0.02\textwidth} p{0.02\textwidth} p{0.82 \textwidth}}
+%~ }{%
+    %~ \end{tabular}
+%~ 
+    %~ \ensuremath{\}}
+    %~ \vspace{0.15cm}
+%~ }
+%~ 
+
+\newenvironment{tipo}[2][]{%
+  % Preambulo del ambiente tipo
+  % Tenemos que definir los comandos observador (con requiere) y aux
+  \newcommand{\observador}[3]{%
+    {\normalfont\bfseries\ttfamily observador\ }%
+    {\normalfont\ttfamily ##1}%
+    \ifthenelse{\equal{##2}{}}{}{\ (##2)}\ : ##3%
+    {\normalfont\bfseries\,;\par}%
+  }
+  \newcommand{\requiere}[2][]{{%
+    \addtolength{\leftskip}{3em}%
+    \setlength{\parindent}{-2em}%
+    {\normalfont\bfseries\ttfamily requiere}%
+    \ifthenelse{\equal{##1}{}}{}{\ {\normalfont\ttfamily ##1} :}\ 
+    \ensuremath{##2}%
+    {\normalfont\bfseries\,;\par}}
+  }
+  \newcommand{\explicacion}[1]{{%
+    \addtolength{\leftskip}{3em}%
+    \setlength{\parindent}{-2em}%
+    \par \hspace{2.3em} ##1 %
+    {\par}
+    }
+  }
+  \newcommand{\invariante}[2][]{%
+    {\normalfont\bfseries\ttfamily invariante}%
+    \ifthenelse{\equal{##1}{}}{}{\ {\normalfont\ttfamily ##1} :}\ 
+    \ensuremath{##2}%
+    {\normalfont\bfseries\,;\par}%
+  }
+  \renewcommand{\aux}[4]{%
+    {\normalfont\bfseries\ttfamily aux\ }%
+    {\normalfont\ttfamily ##1}%
+    \ifthenelse{\equal{##2}{}}{}{\ (##2)}\ : ##3\, = \ensuremath{##4}%
+    {\normalfont\bfseries\,;\par}%
+  }
+  \vspace{1ex}
+  \noindent
+  \encabezadoDeTipo{#1}{#2}
+  % Abrimos la llave
+  \{\par%
+  \tocarEspacios
+}
+% Ahora viene el cierre del ambiente tipo
+{
+  % Cerramos la llave
+  \noindent\}
+  \vspace{1ex}
+}
+
+
+%~ \newcommand{\observador}[3]{%
+    %~ & \multicolumn{2}{p{0.85\textwidth}}{\textsf{observador #1}\ensuremath{(#2):#3}}\\%
+    %~ }
+    
+%~ \newcommand{\observador}[3]{%
+    %~ {\normalfont\bfseries\ttfamily observador\ }%
+    %~ {\normalfont\ttfamily ##1}%
+    %~ \ifthenelse{\equal{##2}{}}{}{\ (##2)}\ : ##3%
+    %~ {\normalfont\bfseries\,;\par}%
+%~ }
+    
+
+%~ \newcommand{\observadorconreq}[3]{
+    %~ & \multicolumn{2}{p{0.85\textwidth}}{\textsf{observador #1}\ensuremath{(#2):#3 \{}}\\
+%~ }
+%~ \newcommand{\observadorconreqfin}{
+    %~ & \multicolumn{2}{p{0.85\textwidth}}{\ensuremath{\}}}\\
+%~ }
+%~ \newcommand{\obsrequiere}[2][]{& & \textsf{requiere #1: }\ensuremath{#2};\\}
+%~ 
+%~ \newcommand{\explicacion}[1]{&& #1 \\}
+%~ \newcommand{\invariante}[2][]{%
+    %~ & \multicolumn{2}{p{0.85\textwidth}}{\textsf{invariante #1: }\ensuremath{#2}}\\%
+%~ }
+%~ \newcommand{\auxinvariante}[2]{
+    %~ & \multicolumn{2}{p{0.85\textwidth}}{\textsf{aux }\ensuremath{#1 = #2}};\\
+%~ }
+%~ \newcommand{\auxiliar}[4]{
+    %~ & \multicolumn{2}{p{0.85\textwidth}}{\textsf{aux }\ensuremath{#1(#2): #3 = #4}};\\
+%~ }
+
+\newcommand{\tiponom}[1]{\ensuremath{\mathsf{#1}}\xspace}
+\newcommand{\obsnom}[1]{\ensuremath{\mathsf{#1}}}
+
+% -----------------
+% Ecuaciones de terminacion en funcional
+% -----------------
+
+\newenvironment{ecuaciones}{%
+    $$
+    \begin{array}{l @{\ /\ (} l @{,\ } l @{)\ =\ } l}
+}{%
+    \end{array}
+    $$
+}
+
+
+
+
+\newcommand{\ecuacion}[4]{#1 & #2 & #3 & #4\\}
+
+\newcommand{\concat}{\nom{concat}}
+
+% Listas por comprension. El primer parametro es la expresion y el
+% segundo tiene los selectores y las condiciones.
+%*\newcommand{\comp}[2]{[\,#1\,|\,#2\,]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% En las practicas/parciales usamos numeros arabigos para los ejercicios.
+% Aca cambiamos los enumerate comunes para que usen letras y numeros
+% romanos
+\newcommand{\arreglarincisos}{%
+  \renewcommand{\theenumi}{\alph{enumi}}
+  \renewcommand{\theenumii}{\roman{enumii}}
+  \renewcommand{\labelenumi}{\theenumi)}
+  \renewcommand{\labelenumii}{\theenumii)}
+}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PARCIAL %%%%%%%%%%%%%%%%%%%%%%%%
+\let\@xa\expandafter
+\newcommand{\tituloparcial}{\centerline{\depto -- \lamateria}
+  \centerline{\elnombre -- \lafecha}%
+  \setlength{\TPHorizModule}{10mm} % Fija las unidades de textpos
+  \setlength{\TPVertModule}{\TPHorizModule} % Fija las unidades de
+                                % textpos
+  \arreglarincisos
+  \newcounter{total}% Este contador va a guardar cuantos incisos hay
+                    % en el parcial. Si un ejercicio no tiene incisos,
+                    % cuenta como un inciso.
+  \newcounter{contgrilla} % Para hacer ciclos
+  \newcounter{columnainicial} % Se van a usar para los cline cuando un
+  \newcounter{columnafinal}   % ejercicio tenga incisos.
+  \newcommand{\primerafila}{}
+  \newcommand{\segundafila}{}
+  \newcommand{\rayitas}{} % Esto va a guardar los \cline de los
+                          % ejercicios con incisos, asi queda mas bonito
+  \newcommand{\anchodegrilla}{20} % Es para textpos
+  \newcommand{\izquierda}{7} % Estos dos le dicen a textpos donde colocar
+  \newcommand{\abajo}{2}     % la grilla
+  \newcommand{\anchodecasilla}{0.4cm}
+  \setcounter{columnainicial}{1}
+  \setcounter{total}{0}
+  \newcounter{ejercicio}
+  \setcounter{ejercicio}{0}
+  \renewenvironment{ejercicio}[1]
+  {%
+    \stepcounter{ejercicio}\textbf{\noindent Ejercicio \theejercicio. [##1
+      puntos]}% Formato
+    \renewcommand\@currentlabel{\theejercicio}% Esto es para las
+                                % referencias
+    \newcommand{\invariante}[2]{%
+      {\normalfont\bfseries\ttfamily invariante}%
+      \ ####1\hspace{1em}####2%
+    }%
+    \renewcommand{\problema}[5][result]{
+      \encabezadoDeProblema{####1}{####2}{####3}{####4}\hspace{1em}####5}%
+  }% Aca se termina el principio del ejercicio
+  {% Ahora viene el final
+    % Esto suma la cantidad de incisos o 1 si no hubo ninguno
+    \ifthenelse{\equal{\value{enumi}}{0}}
+    {\addtocounter{total}{1}}
+    {\addtocounter{total}{\value{enumi}}}
+    \ifthenelse{\equal{\value{ejercicio}}{1}}{}
+    {
+      \g@addto@macro\primerafila{&} % Si no estoy en el primer ej.
+      \g@addto@macro\segundafila{&}
+    }
+    \ifthenelse{\equal{\value{enumi}}{0}}
+    {% No tiene incisos
+      \g@addto@macro\primerafila{\multicolumn{1}{|c|}}
+      \bgroup% avoid overwriting somebody else's value of \tmp@a
+      \protected@edef\tmp@a{\theejercicio}% expand as far as we can
+      \@xa\g@addto@macro\@xa\primerafila\@xa{\tmp@a}%
+      \egroup% restore old value of \tmp@a, effect of \g@addto.. is
+      
+      \stepcounter{columnainicial}
+    }
+    {% Tiene incisos
+      % Primero ponemos el encabezado
+      \g@addto@macro\primerafila{\multicolumn}% Ahora el numero de items
+      \bgroup% avoid overwriting somebody else's value of \tmp@a
+      \protected@edef\tmp@a{\arabic{enumi}}% expand as far as we can
+      \@xa\g@addto@macro\@xa\primerafila\@xa{\tmp@a}%
+      \egroup% restore old value of \tmp@a, effect of \g@addto.. is
+      % global 
+      % Ahora el formato
+      \g@addto@macro\primerafila{{|c|}}%
+      % Ahora el numero de ejercicio
+      \bgroup% avoid overwriting somebody else's value of \tmp@a
+      \protected@edef\tmp@a{\theejercicio}% expand as far as we can
+      \@xa\g@addto@macro\@xa\primerafila\@xa{\tmp@a}%
+      \egroup% restore old value of \tmp@a, effect of \g@addto.. is
+      % global 
+      % Ahora armamos la segunda fila
+      \g@addto@macro\segundafila{\multicolumn{1}{|c|}{a}}%
+      \setcounter{contgrilla}{1}
+      \whiledo{\value{contgrilla}<\value{enumi}}
+      {%
+        \stepcounter{contgrilla}
+        \g@addto@macro\segundafila{&\multicolumn{1}{|c|}}
+        \bgroup% avoid overwriting somebody else's value of \tmp@a
+        \protected@edef\tmp@a{\alph{contgrilla}}% expand as far as we can
+        \@xa\g@addto@macro\@xa\segundafila\@xa{\tmp@a}%
+        \egroup% restore old value of \tmp@a, effect of \g@addto.. is
+        % global 
+      }
+      % Ahora armo las rayitas
+      \setcounter{columnafinal}{\value{columnainicial}}
+      \addtocounter{columnafinal}{-1}
+      \addtocounter{columnafinal}{\value{enumi}}
+      \bgroup% avoid overwriting somebody else's value of \tmp@a
+      \protected@edef\tmp@a{\noexpand\cline{%
+          \thecolumnainicial-\thecolumnafinal}}%
+      \@xa\g@addto@macro\@xa\rayitas\@xa{\tmp@a}%
+      \egroup% restore old value of \tmp@a, effect of \g@addto.. is
+      \setcounter{columnainicial}{\value{columnafinal}}
+      \stepcounter{columnainicial}
+    }
+    \setcounter{enumi}{0}%
+    \vspace{0.2cm}%
+  }%
+  \newcommand{\tercerafila}{}
+  \newcommand{\armartercerafila}{
+    \setcounter{contgrilla}{1}
+    \whiledo{\value{contgrilla}<\value{total}}
+    {\stepcounter{contgrilla}\g@addto@macro\tercerafila{&}}
+  }
+  \newcommand{\grilla}{%
+    \g@addto@macro\primerafila{&\textbf{TOTAL}}
+    \g@addto@macro\segundafila{&}
+    \g@addto@macro\tercerafila{&}
+    \armartercerafila
+    \ifthenelse{\equal{\value{total}}{\value{ejercicio}}}
+    {% No hubo incisos
+      \begin{textblock}{\anchodegrilla}(\izquierda,\abajo)
+        \begin{tabular}{|*{\value{total}}{p{\anchodecasilla}|}c|}
+          \hline
+          \primerafila\\
+          \hline
+          \tercerafila\\
+          \tercerafila\\
+          \hline
+        \end{tabular}
+      \end{textblock}
+    }
+    {% Hubo incisos
+      \begin{textblock}{\anchodegrilla}(\izquierda,\abajo)
+        \begin{tabular}{|*{\value{total}}{p{\anchodecasilla}|}c|}
+          \hline
+          \primerafila\\
+          \rayitas
+          \segundafila\\
+          \hline
+          \tercerafila\\
+          \tercerafila\\
+          \hline
+        \end{tabular}
+      \end{textblock}
+    }
+  }%
+  \vspace{0.4cm}
+  \textbf{Nro. de orden:}
+  
+  \textbf{LU:}
+  
+  \textbf{Apellidos:}
+  
+  \textbf{Nombres:}
+  \vspace{0.5cm}
+}
+
+
+
+% AMBIENTE CONSIGNAS
+% Se usa en el TP para ir agregando las cosas que tienen que resolver
+% los alumnos.
+% Dentro del ambiente hay que usar \item para cada consigna
+
+\newcounter{consigna}
+\setcounter{consigna}{0}
+
+\newenvironment{consignas}{%
+  \newcommand{\consigna}{\stepcounter{consigna}\textbf{\theconsigna.}}%
+  \renewcommand{\ejercicio}[1]{\item ##1 }
+  \renewcommand{\problema}[5][result]{\item
+    \encabezadoDeProblema{##1}{##2}{##3}{##4}\hspace{1em}##5}%
+  \newcommand{\invariante}[2]{\item%
+    {\normalfont\bfseries\ttfamily invariante}%
+    \ ##1\hspace{1em}##2%
+  }
+  \renewcommand{\aux}[4]{\item%
+    {\normalfont\bfseries\ttfamily aux\ }%
+    {\normalfont\ttfamily ##1}%
+    \ifthenelse{\equal{##2}{}}{}{\ (##2)}\ : ##3 \hspace{1em}##4%
+  }
+  % Comienza la lista de consignas
+  \begin{list}{\consigna}{%
+      \setlength{\itemsep}{0.5em}%
+      \setlength{\parsep}{0cm}%
+    }
+}%
+{\end{list}}
+
+
+
+% para decidir si usar && o ^
+\newcommand{\y}[0]{\ensuremath{\land}}
+
+% macros de correctitud
+\newcommand{\semanticComment}[2]{#1 \ensuremath{#2};}
+\newcommand{\namedSemanticComment}[3]{#1 #2: \ensuremath{#3};}
+
+
+\newcommand{\local}[1]{\semanticComment{local}{#1}}
+
+\newcommand{\vale}[1]{\semanticComment{vale}{#1}}
+\newcommand{\valeN}[2]{\namedSemanticComment{vale}{#1}{#2}}
+\newcommand{\impl}[1]{\semanticComment{implica}{#1}}
+\newcommand{\implN}[2]{\namedSemanticComment{implica}{#1}{#2}}
+\newcommand{\estado}[1]{\semanticComment{estado}{#1}}
+
+\newcommand{\invarianteCN}[2]{\namedSemanticComment{invariante}{#1}{#2}}
+\newcommand{\invarianteC}[1]{\semanticComment{invariante}{#1}}
+\newcommand{\varianteCN}[2]{\namedSemanticComment{variante}{#1}{#2}}
+\newcommand{\varianteC}[1]{\semanticComment{variante}{#1}}

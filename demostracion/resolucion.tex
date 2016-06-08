@@ -1,0 +1,46 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel} % Le indicamos a LaTeX que vamos a escribir en espa�ol.
+\usepackage[latin1]{inputenc} % Permite utilizar tildes y e�es normalmente
+\input{Algo1Macros}% Macros especificas para especificar problemas en AyEDI
+\usepackage{caratula} % Se puede descargar en ~> https://github.com/bcardiff/dc-tex
+
+\usepackage{listings} % Para poner codigo
+\lstset{language=C++, breaklines=true, showstringspaces=false, mathescape=false, fontadjust, tabsize=4}
+
+% Aca solo vamos a poner el esqueleto del documento, pero no vamos a especificar nada.
+
+\begin{document} % Todo lo que escribamos a partir de aca va a aparecer en el documento.
+
+% Completar los datos de la caratula
+\titulo{TPI - Agricultura con drones} 
+\fecha{\today}
+\materia{Algoritmos y Estructuras de Datos I}
+\grupo{Grupo ?}
+
+% Completar con cuantos integrantes quieran :)
+\integrante{Apellido, Nombre1}{001/01}{email1@dominio.com}
+\integrante{Apellido, Nombre2}{002/01}{email2@dominio.com}
+\integrante{Apellido, Nombre3}{003/01}{email3@dominio.com}
+\integrante{Apellido, Nombre4}{004/01}{email4@dominio.com}
+
+\maketitle
+
+\section{C\'odigo}
+\lstinputlisting{codigo.cpp} % incluimos el codigo
+
+\section{Demos}
+    \subsection{M\'etodo: foo}
+        \noindent
+        \textbf{E0}\\
+        vale: $|a| == n \land n > 0 \land a == pre(a)$ \\
+        \textbf{E1}\\
+         vale: $suma = 0 \land a == a@E0$ \\
+        \textbf{E2}\\ 
+        vale: $i == 0 \land suma == suma @E1 \land a == a@E1$ \\
+        \textbf{E3}\\ 
+        vale: $i == n \land suma == \sum a@E2 \land |a| == n \land  (\forall j \selec \rangoca{0}{n}) a_j == 0$\\
+        \textbf{E4}\\ 
+        vale: $res == suma@E3 / n \land suma == suma@E3 \land a == a@E3 \land i == i@E3$  \\
+
+\end{document} %Termin�!
