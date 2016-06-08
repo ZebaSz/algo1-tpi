@@ -9,15 +9,11 @@ Sistema::Sistema()
 Sistema::Sistema(const Campo & c, const Secuencia<Drone>& ds)
 		: _campo(c), _enjambre(ds), _estado(c.dimensiones())
 {
-    // TODO el test rompe si movemos los drones
-	// pero el invariante asegura que estan en el campo
-    /*
     int i = 0;
     while(i < _enjambre.size()) {
         _enjambre[i].cambiarPosicionActual(posicionGranero());
         ++i;
     }
-     */
 }
 
 const Campo & Sistema::campo() const
@@ -300,12 +296,12 @@ void Sistema::cargar(std::istream & is)
             } else {
                 std::getline(is, estadostr, ',');
             }
-            EstadoCultivo estado = RecienSembrado;
+            EstadoCultivo estado = NoSensado;
+			if(estadostr == "RecienSembrado") estado = RecienSembrado;
             if(estadostr == "EnCrecimiento") estado = EnCrecimiento;
             if(estadostr == "ListoParaCosechar") estado = ListoParaCosechar;
             if(estadostr == "ConMaleza") estado = ConMaleza;
             if(estadostr == "ConPlaga") estado = ConPlaga;
-            if(estadostr == "NoSensado") estado = NoSensado;
             _estado.parcelas[i][j] = estado;
             ++j;
         }
@@ -339,9 +335,7 @@ bool Sistema::enRangoCultivable(int x, int y) const {
 
 bool Sistema::parcelaLibre(int x, int y) const {
     size_t i = 0;
-    Posicion parcela;
-    parcela.x = x;
-    parcela.y = y;
+    Posicion parcela = {x,y};
     bool libre = enRango(parcela);
     while(i < _enjambre.size() && libre) {
         libre = !(_enjambre[i].posicionActual() == parcela);

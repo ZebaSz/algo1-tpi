@@ -2,7 +2,7 @@
 #define SISTEMA_H_INCLUDED
 
 #include "tipos.h"
-#include "aux.h"
+#include "auxiliares.h"
 #include "campo.h"
 #include "drone.h"
 

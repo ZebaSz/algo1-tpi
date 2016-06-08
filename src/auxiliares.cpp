@@ -1,4 +1,4 @@
-#include "aux.h"
+#include "auxiliares.h"
 
 template<class T>
 bool mismos(const std::vector<T> & lista, const std::vector<T> & otraLista) {
