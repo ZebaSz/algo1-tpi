@@ -25,7 +25,7 @@ bool Drone::vueloEscalerado() const
 			++i;
 		}
 
-// vale $ Q_c $: $ escalerado == (enVuelo(this) \land (\exists \ x, y \leftarrow [-1, 1]) (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == x $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == y)) $
+// vale $ Q_c $: $ escalerado == (enVuelo(this) \land (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) $
 	
 	}
 	return escalerado;
