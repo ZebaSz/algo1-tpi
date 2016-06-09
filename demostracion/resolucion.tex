@@ -16,13 +16,13 @@
 \titulo{TPI - Agricultura con drones} 
 \fecha{\today}
 \materia{Algoritmos y Estructuras de Datos I}
-\grupo{Grupo ?}
+\grupo{Grupo 15}
 
 % Completar con cuantos integrantes quieran :)
-\integrante{Apellido, Nombre1}{001/01}{email1@dominio.com}
-\integrante{Apellido, Nombre2}{002/01}{email2@dominio.com}
-\integrante{Apellido, Nombre3}{003/01}{email3@dominio.com}
-\integrante{Apellido, Nombre4}{004/01}{email4@dominio.com}
+\integrante{Szperling, Sebastian}{763/15}{zebaszp@gmail.com}
+\integrante{Barylko, Roni}{750/15}{ronibarylko@hotmail.com}
+\integrante{Giudice, Carlos}{694/15}{Carlosr.giudice@gmail.com}
+\integrante{Lopez Segura, Florencia}{759/13}{fsegura@dc.uba.ar}
 
 \maketitle
 
@@ -30,17 +30,28 @@
 \lstinputlisting{codigo.cpp} % incluimos el codigo
 
 \section{Demos}
-    \subsection{M\'etodo: foo}
+    \subsection{M\'etodo: vueloEscalerado}
         \noindent
-        \textbf{E0}\\
-        vale: $|a| == n \land n > 0 \land a == pre(a)$ \\
-        \textbf{E1}\\
-         vale: $suma = 0 \land a == a@E0$ \\
-        \textbf{E2}\\ 
-        vale: $i == 0 \land suma == suma @E1 \land a == a@E1$ \\
-        \textbf{E3}\\ 
-        vale: $i == n \land suma == \sum a@E2 \land |a| == n \land  (\forall j \selec \rangoca{0}{n}) a_j == 0$\\
-        \textbf{E4}\\ 
-        vale: $res == suma@E3 / n \land suma == suma@E3 \land a == a@E3 \land i == i@E3$  \\
-
+        \begin{Large}
+        {$Pc \rightarrow I$}
+        \end{Large}\\
+        \\
+        \textbf{Pc}\\
+        vale $ P_c $: $ i = 0 \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (enVuelo(this) \land \mid dirx \mid == 1 \ \land \mid diry \mid == 1) $ \\
+        \\
+		\textbf{I}\\
+        invariante:$ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \land \ escalerado == ((\forall j \leftarrow [0..i -1)) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\   
+\\ $Pc \implica 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \land [0..i-1] == []$ \\
+\\ Por lo tanto, Pc implica ambas condiciones del invariante (i pertenece al rango, y la condicion escalerado == enVuelo $\land$ $\forall j \leftarrow []$ devuelve enVuelo) \\ entonces $Pc \implica I$ \\
+\\
+\begin{Large}
+        {$I \land \neg B \implica Qc$}
+        \end{Large}\\
+        \\
+        \textbf{I}\\
+        invariante: $ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \land escalerado == ((\forall j \leftarrow [0..i -1)) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\
+        \\
+        \textbf{$\neg$B}\\
+        $\neg$escalerado$ \ \vee \ i \geq \longitud{vueloRealizado(this)} - 2$
+       
 \end{document} %Termin�!

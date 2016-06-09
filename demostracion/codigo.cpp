@@ -10,11 +10,11 @@ bool Drone::vueloEscalerado() const
 		}
 		int i = 0;
 
-// vale $ P_c $: $ escalerado == dirx \in [-1, 1] \land diry \in [-1, 1]$
+// vale $ P_c $: $ i = 0 \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (enVuelo(this) \land \mid dirx \mid == 1 \ \land \mid diry \mid == 1) $
 
 		while(escalerado && i < _trayectoria.size() - 2) {
 		
-// invariante I: $ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \land (\exists \ x, y \leftarrow [-1, 1]) (\forall j \leftarrow [0..i -1) $ $ (\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} == x $ $ \land \ \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2} == y) $
+// invariante I: $ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \land escalerado == ((\forall j \leftarrow [0..i -1) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $
 
 // variante v: $ \longitud{vueloRealizado(this)} - i - 2 $
 
@@ -42,7 +42,7 @@ bool Sistema::listoParaCosechar() const
 	while (_campo.dimensiones().ancho > x) {
 		int y = 0;
 
-// invariante $ I_1 $: $ 0 \leq x \leq prm(dimensiones(campo(this))) \land $ $ \longitud{[1| x \leftarrow [0..x), y \leftarrow [0..sgd(dimensiones(campo(this)))), pos \leftarrow (x,y), estadoDelCultivo(pos, this) == ListoParaCosechar]} $ $ == cantCosechables $
+// invariante $ I_1 $: $ 0 \leq x \leq prm(dimensiones(campo(this))) \land $ $ \longitud{[1| x \leftarrow [0..x), y \leftarrow [0..sgd(dimensiones(campo(this)))), estadoDelCultivo((x,y), this) == ListoParaCosechar]} $ $ == cantCosechables $
 
 // variante $ v_1 $: $ prm(dimensiones(campo(this)) - x $
 
@@ -52,7 +52,7 @@ bool Sistema::listoParaCosechar() const
 
 		while(_campo.dimensiones().largo > y) {
 
-// invariante $ I_2 $: $ 0 \leq y \leq sgd(dimensiones(campo(this))) \land $ $ \longitud{[1| x \leftarrow [0..x], y \leftarrow [0..y), pos \leftarrow (x,y), estadoDelCultivo(pos, this) == ListoParaCosechar]} $ $ == cantCosechables $
+// invariante $ I_2 $: $ 0 \leq y \leq sgd(dimensiones(campo(this))) \land $ $ \longitud{[1| x \leftarrow [0..x], y \leftarrow [0..y), estadoDelCultivo(((x,y)), this) == ListoParaCosechar]} $ $ == cantCosechables $
 
 // variante $ v_2 $: $ sgd(dimensiones(campo(this))) - y $
 
@@ -64,7 +64,7 @@ bool Sistema::listoParaCosechar() const
 			++y;
 		}
 
-// vale $ Qc_2 $: $ \longitud{[1| x \leftarrow [0..x], y \leftarrow [0..sgd(dimensiones(campo(this)))), pos \leftarrow (x,y), estadoDelCultivo(pos, this) == ListoParaCosechar]} $ $ == cantCosechables $
+// vale $ Qc_2 $: $ \longitud{[1| x \leftarrow [0..x], y \leftarrow [0..sgd(dimensiones(campo(this)))), estadoDelCultivo((x,y), this) == ListoParaCosechar]} $ $ == cantCosechables $
 
 		++x;
 	}
