@@ -50,7 +50,7 @@ bool Drone::vueloEscalerado() const
 		if(dirx == 0 || diry == 0) {
 			escalerado = false;
 		}
-		int i = 0;
+		int i = 1;
 		while(escalerado && i < _trayectoria.size() - 2) {
 			escalerado = _trayectoria[i].x - _trayectoria[i + 2].x == dirx
 						 && _trayectoria[i].y - _trayectoria[i + 2].y == diry;
@@ -101,7 +101,7 @@ Secuencia<InfoVueloCruzado> Drone::vuelosCruzados(const Secuencia<Drone>& ds)
 					++c;
 				}
 			}
-		}		
+		}
 		crucesTotales.insert(crucesTotales.end(), crucesEnMomento.begin(), crucesEnMomento.end());
 		++i;
 	}
