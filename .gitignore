@@ -36,6 +36,12 @@ sonar-project.properties
 .idea
 build/
 
+# Cosas de latex
+# Si hace falta agregar un pdf, agregar a mano
+*.log
+*.aux
+*.pdf
+
 
 CMakeCache.txt
 CMakeFiles
