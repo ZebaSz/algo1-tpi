@@ -35,33 +35,29 @@
         \noindent
         \begin{Large}
         {$Pc \rightarrow I$}
-        \end{Large}\\
+        \end{Large} \\
         \\
-        \textbf{Pc}\\
-        vale $ P_c $: $ i = 0 \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (enVuelo(this) \land \mid dirx \mid == 1 \ \land \mid diry \mid == 1) $ \\
+        \textbf{Pc} \\
+        vale $ P_c : i = 0 \land enVuelo(this) \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (|dirx| == 1 \ \land |diry| == 1) $ \\
         \\
-		\textbf{I}\\
-        invariante:$ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land (\forall j \leftarrow [0..i)) (\prm{vueloRealizado(this)_{j-1}} - \prm{vueloRealizado(this)_{j+1}} == dirx \land \ \sgd{vueloRealizado(this)_{j-1}} - \sgd{vueloRealizado(this)_{j+1}} == diry) \\ \land \ (i > 0) \implica (escalerado ==  (\prm{vueloRealizado(this)_{i-1}} - \prm{vueloRealizado(this)_{i+1}} == dirx \ \land \ \sgd{vueloRealizado(this)_{i-1}} - \sgd{vueloRealizado(this)_{i+1}} == diry) $ \\
-        \\ $Pc \implica 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \land [0..i-1] == \lvacia \implica 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ $\\$ escalerado == enVuelo(this)$ \\
-        \\ Por lo tanto, Pc implica ambas condiciones del invariante (i pertenece al rango, y la condicion escalerado == (enVuelo(this) $\land$ $\forall j \leftarrow \lvacia...) $ == enVuelo(this)) \\ entonces $Pc \implica I$ \\
+		\textbf{I} \\
+        $ I : 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (\forall j \leftarrow [0..i)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\   
+        \\
+        $ Pc \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \land [0..i) == [0] \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \\ \land \ escalerado == (|\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}| == 1 \land \ |\sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2}| == 1) $ \\
+        \\
+        Dado que dirx y dir y RONI AYUDA, COMPLETA ESTO \\
+        Por lo tanto, Pc implica ambas condiciones del invariante (i pertenece al rango, y la condicion $ escalerado ==  ACA TAMBIEN $) \\
+        entonces $ Pc \implica I $ \\
         \\
         \begin{Large}
         {$I \land \neg B \implica Qc$}
         \end{Large}\\
         \\
         \textbf{I}\\
-        invariante: $ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (enVuelo(this) \land (\forall j \leftarrow [0..i -1)) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\
+        invariante: $ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (enVuelo(this) \land (\forall j \leftarrow [0..i)) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\
         \\
         \textbf{$\neg$B}\\
         $\neg$escalerado$ \ \vee \ i \geq \longitud{vueloRealizado(this)} - 2$
-        \\
-        \textbf{Qc}\\
-		vale $Q_c$: $ escalerado == (enVuelo(this) \land (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) $ \\
-\\ $I \land \neg B \implica $\\
-$i == \longitud{vueloRealizado(this)} -2 \vee \neg (enVuelo(this) \land (\forall j \leftarrow [0..i -1)) $\\ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}}$\\$ == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \implica $\\
-$ $
-		     
-
 
 \newpage
 
