@@ -14,7 +14,7 @@ bool Drone::vueloEscalerado() const
 
 		while(escalerado && i < _trayectoria.size() - 2) {
 		
-// invariante I: $ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \land escalerado == ((\forall j \leftarrow [0..i -1) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $
+// invariante I: $ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \land escalerado == (enVuelo(this) \land (\forall j \leftarrow [0..i -1) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $
 
 // variante v: $ \longitud{vueloRealizado(this)} - i - 2 $
 
