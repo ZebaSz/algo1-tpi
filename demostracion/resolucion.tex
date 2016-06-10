@@ -49,21 +49,23 @@
         Por lo tanto, Pc implica ambas condiciones del invariante (i pertenece al rango, y la condicion $ escalerado ==  ACA TAMBIEN $) \\
         entonces $ Pc \implica I $ \\
         \\
+        \newpage
+        
         \begin{Large}
         {$I \land \neg B \implica Qc$}
         \end{Large}\\
         \\
         \textbf{I}\\
-        invariante: $ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (enVuelo(this) \land (\forall j \leftarrow [0..i)) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\
+		I: $ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \land escalerado == (enVuelo(this) \land (\forall j \leftarrow [0..i) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $\\
         \\
         \textbf{$\neg$B}\\
-        $\neg$escalerado$ \ \vee \ i \geq \longitud{vueloRealizado(this)} - 2$
+        $\neg$escalerado$ \ \vee \ i \geq \longitud{vueloRealizado(this)} - 2$\\
         \\ 
         \textbf{Qc}\\ 
-        vale $Q_c$: $ escalerado == (enVuelo(this) \land (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) $ \\ 
+        vale $Q_c$: $ escalerado == (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) $ \\ 
         \\ $I \land \neg B \implica $\\ 
-        $i == \longitud{vueloRealizado(this)} -2 \vee \neg (enVuelo(this) \land (\forall j \leftarrow [0..i -1)) $\\ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}}$\\$ == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \implica $\\ 
-        $ $ 
+        $i == \longitud{vueloRealizado(this)} -2 \vee \neg ((\forall j \leftarrow [0..i)) $\\ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}}$\\$ == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \implica $\\ 
+        $  $ 
 
 \newpage
 
