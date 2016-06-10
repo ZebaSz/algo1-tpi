@@ -16,7 +16,7 @@ bool Drone::vueloEscalerado() const
 
 		while(escalerado && i < _trayectoria.size() - 2) {
 		
-// invariante I: $ 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \land escalerado == (|dirx| == |diry| \land ((\forall j \leftarrow [0..i) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $
+// invariante I: $ 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \land escalerado == (|dirx| == |diry| \land (\forall j \leftarrow [0..i) $ $ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx $ $ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $
 // Funcion variante fv: $ \longitud{vueloRealizado(this)} - i - 2 $
 
 			escalerado = _trayectoria[i].x - _trayectoria[i + 2].x == dirx 
@@ -24,7 +24,7 @@ bool Drone::vueloEscalerado() const
 			++i;
 		}
 
-// vale $ Q_c : escalerado == (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx  \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $
+// vale $ Q_c : escalerado == ((\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx  \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $
 
 	}
 	return escalerado;

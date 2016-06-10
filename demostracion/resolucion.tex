@@ -48,7 +48,7 @@
         \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \\ \land escalerado == (enVuelo(this) \ \land \ |dirx| == |diry| \ \land \ (\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}) == dirx \ \land \ (\sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2}) == diry) $\\$
         \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \\ \land \ escalerado == (enVuelo(this) \ \land \ |dirx| == |diry|)$ (por definicion de dirx y diry) \\
         
-        Dado que $i=1 \implica [0..i) == [0]$ la condicion de igualdad $(\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}) == dirx$ es una tautologia, y lo mismo ocurre con diry. Por lo tanto, Pc implica ambas condiciones del invariante (i pertenece al rango, y la condicion de escalerado es la misma que en Pc (por lo dicho anteriormente)entonces $ Pc \implica I $
+        Dado que $i=1 \implica [0..i) == [0]$ la condicion de igualdad $(\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}) == dirx$ es una tautologia, y lo mismo ocurre con diry. Por lo tanto, Pc implica ambas condiciones del invariante (i pertenece al rango, y la condicion de escalerado es la misma que en Pc (por lo dicho anteriormente) entonces $ Pc \implica I $
         \newpage
         
         \begin{Large}
@@ -56,16 +56,18 @@
         \end{Large}\\
         \\
         \textbf{I}\\
-        invariante: $ 0 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (enVuelo(this) \land (\forall j \leftarrow [0..i)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\
+        $ I : 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (|dirx| == |diry| \ \land \ (\forall j \leftarrow [0..i) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \ \land \ \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\   
         \\
         \textbf{$\neg$B}\\
         $\neg$escalerado$ \ \vee \ i \geq \longitud{vueloRealizado(this)} - 2$\\
         \\ 
         \textbf{$Q_c$}\\ 
-        vale $Q_c: escalerado == (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\ 
+        vale $ Q_c : escalerado == (|dirx| == |diry| \ \land \ (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx  \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\ 
         \\ $I \land \neg B \implica $\\ 
-        $ i == \longitud{vueloRealizado(this)} -2 \vee \neg (enVuelo(this) \land (\forall j \leftarrow [0..i -1)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \\ == dirx \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \implica $\\ 
-        
+        $ i == \longitud{vueloRealizado(this)} -2 \vee \neg (|dirx| == |diry| \land (\forall j \leftarrow [0..i -1)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \\ == dirx \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \implica $\\
+        $ (i == \longitud{vueloRealizado(this)} -2 \land escalerado) \vee (i \leq \longitud{vueloRealizado(this)} -2 \land \neg escalerado)\implica $\\
+        $ escalerado == (|dirx| == |diry| \ \land \ (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) $\\$ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \ \land \ $\\$ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)$ \\
+        \\ Dado I y $\neg B$ se deduce que i = vueloRealizado(this) - 2, o que escalerado es false. Entonces, o bien escalerado es true e i = vueloRealizado(this) - 2, o bien escaleardo es false (y por lo tanto, por I, no se cumple la condicion para algun i menor). Por lo tanto, $I \land \neg B \implica Qc$
 
 \newpage
 
