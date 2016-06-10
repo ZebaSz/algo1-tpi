@@ -79,7 +79,7 @@
         \\
         \textbf{fv}\\
         Funcion variante fv: $ \longitud{vueloRealizado(this)} - i - 2 $\\
-        Cota: $0$\\
+        Cota: $1$\\
         \\
         \textbf{$\neg$B}\\
         $\neg$escalerado$ \ \vee \ i \geq \longitud{vueloRealizado(this)} - 2$\\
@@ -97,5 +97,64 @@
 
     \subsection{Demostraci\'on}
         \noindent
-       
+        \begin{large}
+       {$P_c \rightarrow I$}
+        \end{large} \\
+        \\
+        \textbf{Pc} \\
+        vale $ P_c : cantCosechables == 0 \land i == 0$ \\
+        \\
+		\textbf{I} \\
+        $ I: 0 \leq i \leq (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) $\\ $ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))) $\\ $ y \leftarrow [0.. (i-1) \ mod \ sgd(dimensiones(campo(this)))], estadoDelCultivo((x,y), this) == ListoParaCosechar]| $\\$ == cantCosechables $\\   
+\\ $Pc \implica$\\
+$i == 0 \implica$\\
+$ 0 \leq i \leq (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \land $\\$
+[1| x \leftarrow [0..0) $\\ $ y \leftarrow [0.. sgd(dimensiones(campo(this) - 1], estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables$\\
+\\ Pc asegura i==0 $ \land $ cantCosechables == 0, lo cual implica que $ [1| x \leftarrow [0..0) $\\ $ y \leftarrow [0.. sgd(dimensiones(campo(this) - 1], estadoDelCultivo((x,y), this) == ListoParaCosechar]|$ no recorra ninguna posicion ( $x \leftarrow \lvacia$) y por lo tanto longitud == 0 == cantCosechables\\
+Entonces $P_c \implica I$
+
+\newpage
+		\begin{Large}
+        {$(I \land \neg B) \implica Qc$}
+        \end{Large}\\
+        \\
+        \textbf{I}\\
+         $ I: 0 \leq i \leq (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) $\\ 	$ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))) $\\ $ y \leftarrow 	[0.. (i-1) \ mod \ sgd(dimensiones(campo(this)))], estadoDelCultivo((x,y), this) == ListoParaCosechar]| $\\$ == cantCosechables $ \\   
+        \\
+        \textbf{$\neg$B}\\
+        $(prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i$\\
+        \\ 
+        \textbf{Qc}\\
+         vale $Q_c$:$i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \land $\\ $ \longitud{[1| pos \leftarrow parcelasCultivo(campo(this)), estadoDelCultivo(pos, this) == ListoParaCosechar]} $\\ $ == cantCosechables $
+         
+$(I \land \neg B) \implica$\\
+$i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) $\\$ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))) $\\ $ y \leftarrow 	[0.. i \ mod \ sgd(dimensiones(campo(this)))), estadoDelCultivo((x,y), this) == ListoParaCosechar]| $\\$ == cantCosechables \implica$\\
+$i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) $\\$ \land | [1| x \leftarrow [0..prm(dimensiones(campo(this)))) $\\ $ y \leftarrow 	[0..sgd(dimensiones(campo(this))) - 1], estadoDelCultivo((x,y), this) == ListoParaCosechar]| $\\$ == cantCosechables \implica$\\
+$ i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) $\\$ \land | [1| x \leftarrow [0..prm(dimensiones(campo(this)))) $\\ $ y \leftarrow 	[0..sgd(dimensiones(campo(this)))), estadoDelCultivo((x,y), this) == ListoParaCosechar]| $\\$ == cantCosechables $\\
+
+$\neg B \ \land \ I$  asegura que $ i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))))$ y que cantCosechables es igual a la longitud de la lista correspondiente, pero al ser  $i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))))$ esto nos permite asegurar que las variables x e y recorren todo el campo. De este modo, tenemos el invariante extendido para todo el campo y la cantCosechables es igual a la longitud de la lista, lo que es exactamente Qc. \\
+Por lo tanto,$(I \land \neg B) \implica Qc$\\
+		\\
+        \begin{Large}
+        {$(I \land fv < cota) \implica \neg B$}
+        \end{Large}\\
+        \\
+        \textbf{I}\\
+         $ I: 0 \leq i \leq (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) $\\ 	$ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))) $\\ $ y \leftarrow 	[0.. (i-1) \ mod \ sgd(dimensiones(campo(this)))], estadoDelCultivo((x,y), this) == ListoParaCosechar]| $\\$ == cantCosechables $ \\
+        \\
+        \textbf{fv}\\
+        Funcion variante fv: $ prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) - i $\\
+        Cota: $1$\\
+        \\
+       \textbf{$\neg$B}\\
+        $(prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i$\\
+        \\
+$(I \land fv < cota) \implica$\\
+$prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) - i < 1 \implica$\\
+$prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) - i \leq 0 \implica$\\
+$prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) \leq i \ \land \ $\\$ prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) \geq i \implica$\\
+$i == prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))$\\
+\\
+$fv < cota$ implica que i sea al menos $prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))$ y el invariante, que sea menor a esa expresion. Por lo tanto, i es igual a la expresion, lo cual implica la negacion de la guarda ($\neg ((prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) > i))$
+Por lo tanto, $(I \land \neg B) \implica Qc$
 \end{document} %Termin�!
