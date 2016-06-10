@@ -37,31 +37,17 @@
         {$P_c \rightarrow I$}
         \end{Large} \\
         \\
-<<<<<<< HEAD
         \textbf{Pc} \\
-        vale $ P_c : i = 1 \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (enVuelo(this) \land |dirx| == |diry|) $ \\
+        vale $ P_c : i = 1 \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (|dirx| == |diry|) $ \\
         \\
 		\textbf{I} \\
-        $ I : 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (enVuelo(this) \ \land \ |dirx| == |diry| \ \land \ ((\forall j \leftarrow [0..i) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \ \land \ \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\   
+        $ I : 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (|dirx| == |diry| \ \land \ (\forall j \leftarrow [0..i) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \ \land \ \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\   
         \\
         $ Pc \implica $\\$
         1 \leq i \leq \longitud{vueloRealizado(this)} -2 \land [0..i) == [0] $\\$
         \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \\ \land escalerado == (enVuelo(this) \ \land \ |dirx| == |diry| \ \land \ (\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}) == dirx \ \land \ (\sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2}) == diry) $\\$
         \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \\ \land \ escalerado == (enVuelo(this) \ \land \ |dirx| == |diry|)$ (por definicion de dirx y diry) \\
-=======
-        \textbf{$P_c$} \\
-        vale $ P_c : i == 1 \land enVuelo(this) \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (|dirx| == 1 \ \land |diry| == 1) $ \\
-        \\
-		\textbf{I} \\
-        $ I : 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (\exists dirx, diry \leftarrow [-1,1]) \\ (\forall j \leftarrow [0..i)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\   
-        \\
-        $ P_c \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \land [0..i) == [0] \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \\ \land \ escalerado == (|\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}| == 1 \land \ |\sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2}| == 1) $ \\
-        \\
-        Dado que dirx y diry equivalen a RONI AYUDA, COMPLETA ESTO \\
-        Por lo tanto, Pc implica ambas condiciones del invariante (i pertenece al rango, y la condicion $ escalerado ==  ACA TAMBIEN $) \\
-        entonces $ Pc \implica I $ \\
->>>>>>> 8d6255833272966fc0a61821dee33fbd86e40bfd
-        \\
+        
         Dado que $i=1 \implica [0..i) == [0]$ la condicion de igualdad $(\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}) == dirx$ es una tautologia, y lo mismo ocurre con diry. Por lo tanto, Pc implica ambas condiciones del invariante (i pertenece al rango, y la condicion de escalerado es la misma que en Pc (por lo dicho anteriormente)entonces $ Pc \implica I $
         \newpage
         
