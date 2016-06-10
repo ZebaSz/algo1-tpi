@@ -52,7 +52,7 @@
         \newpage
         
         \begin{Large}
-        {$I \land \neg B \implica Qc$}
+        {$(I \land \neg B) \implica Qc$}
         \end{Large}\\
         \\
         \textbf{I}\\
@@ -67,8 +67,27 @@
         $ i == \longitud{vueloRealizado(this)} -2 \vee \neg (|dirx| == |diry| \land (\forall j \leftarrow [0..i -1)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \\ == dirx \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \implica $\\
         $ (i == \longitud{vueloRealizado(this)} -2 \land escalerado) \vee (i \leq \longitud{vueloRealizado(this)} -2 \land \neg escalerado)\implica $\\
         $ escalerado == (|dirx| == |diry| \ \land \ (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) $\\$ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \ \land \ $\\$ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)$ \\
-        \\ Dado I y $\neg B$ se deduce que i = vueloRealizado(this) - 2, o que escalerado es false. Entonces, o bien escalerado es true e i = vueloRealizado(this) - 2, o bien escaleardo es false y, por I, no se cumple la condicion para i $\leq$ vueloRealizado(this)-2. Por lo tanto, $I \land \neg B \implica Qc$
-
+        \\ Dado I y $\neg B$ se deduce que i = vueloRealizado(this) - 2, o que escalerado es false. Entonces, o bien escalerado es true e i = vueloRealizado(this) - 2, o bien escaleardo es false y, por I, no se cumple la condicion para i $\leq$ vueloRealizado(this)-2. Por lo tanto, $I \land \neg B \implica Qc$\\
+        \\
+        \\
+        \begin{Large}
+        {$(I \land fv < cota) \implica \neg B$}
+        \end{Large}\\
+        \\
+        \textbf{I}\\
+        $ I : 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (|dirx| == |diry| \ \land \ (\forall j \leftarrow [0..i) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \ \land \ \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\ 
+        \\
+        \textbf{fv}\\
+        Funcion variante fv: $ \longitud{vueloRealizado(this)} - i - 2 $\\
+        Cota: $0$\\
+        \\
+        \textbf{$\neg$B}\\
+        $\neg$escalerado$ \ \vee \ i \geq \longitud{vueloRealizado(this)} - 2$\\
+        \\ $I \land fv < cota \implica$\\
+        $ i \geq \longitud{vueloRealizado(this)} - 2 \implica$\\
+        $ \neg$escalerado$ \ \vee \ i \geq \longitud{vueloRealizado(this)} - 2$ (P implica P $\vee$ Q) \\
+        \\ De esta manera, $I \land fv < cota$ implica que i sea mayor o igual a $\longitud{vueloRealizado(this)} - 2$ (y de hecho, es igual) y por lo tanto, basta con saber esto para afirmar la negacion de la guarda.\\
+        De este modo, queda demostrado que $(I \land fv < cota) \implica \neg B$
 \newpage
 
 \section{listoParaCosechar}
