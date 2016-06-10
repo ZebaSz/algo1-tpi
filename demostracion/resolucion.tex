@@ -38,17 +38,17 @@
         \end{Large} \\
         \\
         \textbf{Pc} \\
-        vale $ P_c : i = 0 \land enVuelo(this) \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (|dirx| == 1 \ \land |diry| == 1) $ \\
+        vale $ P_c : i = 1 \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (enVuelo(this) \land |dirx| == |diry|) $ \\
         \\
 		\textbf{I} \\
-        $ I : 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (\forall j \leftarrow [0..i)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\   
+        $ I : 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (enVuelo(this) \ \land \ |dirx| == |diry| \ \land \ ((\forall j \leftarrow [0..i) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \ \land \ \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\   
         \\
-        $ Pc \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \land [0..i) == [0] \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \\ \land \ escalerado == (|\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}| == 1 \land \ |\sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2}| == 1) $ \\
+        $ Pc \implica $\\$
+        1 \leq i \leq \longitud{vueloRealizado(this)} -2 \land [0..i) == [0] $\\$
+        \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \\ \land escalerado == (enVuelo(this) \ \land \ |dirx| == |diry| \ \land \ (\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}) == dirx \ \land \ (\sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2}) == diry) $\\$
+        \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \\ \land \ escalerado == (enVuelo(this) \ \land \ |dirx| == |diry|)$ (por definicion de dirx y diry) \\
         \\
-        Dado que dirx y dir y RONI AYUDA, COMPLETA ESTO \\
-        Por lo tanto, Pc implica ambas condiciones del invariante (i pertenece al rango, y la condicion $ escalerado ==  ACA TAMBIEN $) \\
-        entonces $ Pc \implica I $ \\
-        \\
+        Dado que $i=1 \implica [0..i) == [0]$ la condicion de igualdad $(\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}) == dirx$ es una tautologia, y lo mismo ocurre con diry. Por lo tanto, Pc implica ambas condiciones del invariante (i pertenece al rango, y la condicion de escalerado es la misma que en Pc (por lo dicho anteriormente)entonces $ Pc \implica I $
         \newpage
         
         \begin{Large}
@@ -72,7 +72,7 @@
 \section{listoParaCosechar}
 
     \subsection{C\'odigo}
-    \lstinputlisting{listoParaCosechar.cpp}o
+    \lstinputlisting{listoParaCosechar.cpp}
 
     \subsection{Demostraci\'on}
         \noindent
