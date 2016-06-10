@@ -53,7 +53,7 @@ B: _campo.dimensiones().ancho * _campo.dimensiones().largo > i
  
 fv: _campo.dimensiones().ancho * _campo.dimensiones().largo - i
  
-cota: 0
+cota: 1
  
 I: 0 <= i <= _campo.dimensiones().ancho * _campo.dimensiones().largo ^ cantCosechables = | [ 1 | j <-- [0..i), estadoParcela(j) == ListoParaCosechar] |
  
@@ -94,6 +94,17 @@ con 4 5 y 6 se justifican 7 y 8
 ambos implican
 i == _campo.dimensiones().ancho * _campo.dimensiones().largo
 y queda probado 7
- 
+por logica de cortocircuito 7 es valido  y 5 implica 8
 
- 
+(I ^ fv < cota) ==> ¬B:
+
+fv < cota:
+9) _campo.dimensiones().ancho * _campo.dimensiones().largo - i < 1
+   _campo.dimensiones().ancho * _campo.dimensiones().largo - 1 < i
+
+con 4 y 9 se justifica 6
+
+4 ^ 9: _campo.dimensiones().ancho * _campo.dimensiones().largo - 1 < i <= _campo.dimensiones().ancho * _campo.dimensiones().largo
+implica: i == <= _campo.dimensiones().ancho * _campo.dimensiones().largo
+que es un caso particular de 6, por lo tanto se cumple ¬B
+
