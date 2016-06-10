@@ -107,16 +107,12 @@ bool Sistema::listoParaCosechar() const
 {
 	int cantCosechables = 0;
 	int cantCultivos = (_campo.dimensiones().ancho * _campo.dimensiones().largo) -2;
-	int x = 0;
-	while (_campo.dimensiones().ancho > x) {
-		int y = 0;
-		while(_campo.dimensiones().largo > y) {
-			if(_estado.parcelas[x][y] == ListoParaCosechar) {
-				++cantCosechables;
-			}
-			++y;
+	int i = 0;
+	while (_campo.dimensiones().ancho * _campo.dimensiones().largo > i) {
+		if(_estado.parcelas[i/_campo.dimensiones().largo][i % _campo.dimensiones().largo] == ListoParaCosechar) {
+			++cantCosechables;
 		}
-		++x;
+		++i;
 	}
 	return (cantCosechables /(double) cantCultivos >= 0.9);
 }
