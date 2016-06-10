@@ -61,13 +61,13 @@
         \textbf{$\neg$B}\\
         $\neg$escalerado$ \ \vee \ i \geq \longitud{vueloRealizado(this)} - 2$\\
         \\ 
-        \textbf{$Q_c$}\\ 
+        \textbf{Qc}\\ 
         vale $ Q_c : escalerado == (|dirx| == |diry| \ \land \ (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx  \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\ 
         \\ $I \land \neg B \implica $\\ 
         $ i == \longitud{vueloRealizado(this)} -2 \vee \neg (|dirx| == |diry| \land (\forall j \leftarrow [0..i -1)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \\ == dirx \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \implica $\\
         $ (i == \longitud{vueloRealizado(this)} -2 \land escalerado) \vee (i \leq \longitud{vueloRealizado(this)} -2 \land \neg escalerado)\implica $\\
         $ escalerado == (|dirx| == |diry| \ \land \ (\forall i \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) $\\$ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \ \land \ $\\$ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)$ \\
-        \\ Dado I y $\neg B$ se deduce que i = vueloRealizado(this) - 2, o que escalerado es false. Entonces, o bien escalerado es true e i = vueloRealizado(this) - 2, o bien escaleardo es false (y por lo tanto, por I, no se cumple la condicion para algun i menor). Por lo tanto, $I \land \neg B \implica Qc$
+        \\ Dado I y $\neg B$ se deduce que i = vueloRealizado(this) - 2, o que escalerado es false. Entonces, o bien escalerado es true e i = vueloRealizado(this) - 2, o bien escaleardo es false y, por I, no se cumple la condicion para i $\leq$ vueloRealizado(this)-2. Por lo tanto, $I \land \neg B \implica Qc$
 
 \newpage
 
