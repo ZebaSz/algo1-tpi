@@ -114,23 +114,32 @@
         \newpage
 
         \begin{Large}
-        {$(I \land fv < cota) \implica \neg B$}
+        {$(I \land fv \leq cota) \implica \neg B$}
         \end{Large}\\
         \\
         \textbf{I}\\
-        $ I : 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \ \land \ \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\ 
+        $ I : 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) $ \\ 
         \\
         \textbf{fv}\\
-        Funcion variante fv: $ \longitud{vueloRealizado(this)} - i - 2 $\\
-        Cota: $1$\\
+        $ f_v: \longitud{vueloRealizado(this)} - i - 2 $\\
+        Cota: $0$\\
         \\
         \textbf{$\neg$B}\\
-        $\neg$escalerado$ \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2$\\
-        \\ $I \land fv < cota \implica$\\
-        $ i \geq \longitud{vueloRealizado(this)} - 2 \implica$\\
-        $ \neg$escalerado$ \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2$ (P implica P $\lor$ Q) \\
-        \\ De esta manera, $I \land fv < cota$ implica que i sea mayor o igual a $\longitud{vueloRealizado(this)} - 2$ (y de hecho, es igual) y por lo tanto, basta con saber esto para afirmar la negacion de la guarda.\\
-        De este modo, queda demostrado que $(I \land fv < cota) \implica \neg B$
+        $\neg escalerado \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2$ \\
+        \\
+        \textbf{I $\land$ fv $\leq$ cota $\implica \neg$ B}\\
+        \\ $I \land f_v \leq cota \\
+        \implica \longitud{vueloRealizado(this)} - i - 2 \leq 0 \ \land \ 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \\ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \\
+        \explicacion{por definicion} \\
+        \implica \longitud{vueloRealizado(this)} - i - 2 \leq 0 \\
+        \explicacion{$p \land q \implica p$}\\
+        \implica i \geq \longitud{vueloRealizado(this)} - 2 \\
+        \explicacion{por inecuaciones}\\
+        \implica \neg escalerado \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2 \\
+        \explicacion{$p \implica p \lor q$} \\
+        \implica \neg B \\
+        \explicacion{por definicion} \\
+        $ \\
 \newpage
 
 \section{listoParaCosechar}
