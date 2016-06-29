@@ -137,6 +137,7 @@ void Sistema::fertilizarPorFilas()
 		Posicion actual = _enjambre[d].posicionActual();
 		while (actual.x > (-1) && tieneUnProducto(_enjambre[d].productosDisponibles(), Fertilizante) && _enjambre[d].bateria() > 0 && _campo.contenido(actual) == Cultivo){
 			if (enRangoCultivable (actual.x, actual.y)){
+			if (enRangoCultivable (actual.x, actual.y) && (_estado.parcelas[actual.x][actual.y] == RecienSembrado || _estado.parcelas[actual.x][actual.y] == EnCrecimiento)){
 				_estado.parcelas[actual.x][actual.y] = ListoParaCosechar;
 				_enjambre[d].sacarProducto(Fertilizante);
 			}
