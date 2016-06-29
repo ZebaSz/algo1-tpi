@@ -126,6 +126,7 @@ void Sistema::aterrizarYCargarBaterias(Carga b)
 			_enjambre[i].borrarVueloRealizado();
 			_enjambre[i].cambiarPosicionActual(posicionGranero());
 		}
+		i++;
 	}
 }
 
