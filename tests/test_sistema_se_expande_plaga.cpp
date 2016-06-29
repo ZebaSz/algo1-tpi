@@ -58,3 +58,31 @@ TEST(test_sistema_se_expande_plaga, si_hay_plaga_se_expande) {
     EXPECT_EQ(campo_3x3, s1.campo());
     EXPECT_TRUE(test::mismos(s1.enjambreDrones(), ds));
 }
+
+TEST(test_sistema_se_expande_plaga, si_hay_plaga_en_la_esquina_superior_se_expande_desde_ahi) {
+    Posicion posG{2, 2};
+    Campo campo_3x3(posG, {2, 1}, {3, 3});
+    Secuencia<Drone> ds = algunos_drones_en_granero(posG);
+    Sistema s1(campo_3x3, ds);
+
+    s1._estado.parcelas[0][0] = ConPlaga;
+    s1._estado.parcelas[0][1] = NoSensado;
+    s1._estado.parcelas[0][2] = NoSensado;
+    s1._estado.parcelas[1][0] = NoSensado;
+    s1._estado.parcelas[1][1] = NoSensado;
+    s1._estado.parcelas[1][2] = NoSensado;
+    s1._estado.parcelas[2][0] = NoSensado;
+
+    s1.seExpandePlaga();
+
+    EXPECT_EQ(ConPlaga, s1.estadoDelCultivo({0, 0}));
+    EXPECT_EQ(ConPlaga, s1.estadoDelCultivo({0, 1}));
+    EXPECT_EQ(NoSensado, s1.estadoDelCultivo({0, 2}));
+    EXPECT_EQ(ConPlaga, s1.estadoDelCultivo({1, 0}));
+    EXPECT_EQ(NoSensado, s1.estadoDelCultivo({1, 1}));
+    EXPECT_EQ(NoSensado, s1.estadoDelCultivo({1, 2}));
+    EXPECT_EQ(NoSensado, s1.estadoDelCultivo({2, 0}));
+
+    EXPECT_EQ(campo_3x3, s1.campo());
+    EXPECT_TRUE(test::mismos(s1.enjambreDrones(), ds));
+}

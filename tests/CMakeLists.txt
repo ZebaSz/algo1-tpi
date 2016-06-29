@@ -16,6 +16,8 @@ add_executable(correrTests
         test_sistema_se_expande_plaga.cpp
         test_sistema_despegar.cpp
         test_sistema_listo_para_cosechar.cpp
+        test_sistema_aterrizar_y_cargar_baterias.cpp
+        test_sistema_fertilizar_por_filas.cpp
         test_sistema_volar_y_sensar.cpp
         test_sistema_cargar_y_guardar.cpp)
 

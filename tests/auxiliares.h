@@ -3,6 +3,9 @@
 
 #include <vector>
 #include "tipos.h"
+#include "sistema.h"
+#include "drone.h"
+
 
 namespace test {
     template<class T>
@@ -22,6 +25,19 @@ namespace test {
         }
         return res;
     }
+
+
+		inline Drone buscarDroneEnSistema(Drone &elDrone, Sistema &s1) {
+	    Drone elDroneEnElSistema;
+	    for (int i = 0; i < s1.enjambreDrones().size(); i++) {
+	        if (s1.enjambreDrones()[i].id() == elDrone.id()) {
+	            elDroneEnElSistema = s1.enjambreDrones()[i];
+	            break;
+	        }
+	    }
+	    return elDroneEnElSistema;
+		}
+
 }
 
 #endif //TESTS_AUX_H

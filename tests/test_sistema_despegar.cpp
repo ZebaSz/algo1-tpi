@@ -3,16 +3,6 @@
 #include "factories.h"
 #include "auxiliares.h"
 
-Drone buscarDroneEnSistema(Drone &elDrone, Sistema &s1) {
-    Drone elDroneEnElSistema;
-    for (int i = 0; i < s1.enjambreDrones().size(); i++) {
-        if (s1.enjambreDrones()[i].id() == elDrone.id()) {
-            elDroneEnElSistema = s1.enjambreDrones()[i];
-            break;
-        }
-    }
-    return elDroneEnElSistema;
-}
 
 TEST(test_sistema_despegar, si_todas_estan_libres_comienza_vuelo_en_alguna_al_lado_del_granero_en_rango) {
     Posicion posG = {0, 0};
@@ -24,7 +14,7 @@ TEST(test_sistema_despegar, si_todas_estan_libres_comienza_vuelo_en_alguna_al_la
     Sistema s1(el_campo, {elDrone});
 
     s1.despegar(elDrone);
-    Drone elDroneEnElSistema = buscarDroneEnSistema(elDrone, s1);
+    Drone elDroneEnElSistema = test::buscarDroneEnSistema(elDrone, s1);
 
     EXPECT_TRUE(elDroneEnElSistema.enVuelo());
 
@@ -54,8 +44,8 @@ TEST(test_sistema_despegar, si_hay_drone_o_casa_al_lado_del_granero_comienza_vue
     s1.despegar(otroDrone);
     s1.despegar(elDrone);
 
-    Drone elDroneEnElSistema = buscarDroneEnSistema(elDrone, s1);
-    Drone elOtroDroneEnElSistema = buscarDroneEnSistema(otroDrone, s1);
+    Drone elDroneEnElSistema = test::buscarDroneEnSistema(elDrone, s1);
+    Drone elOtroDroneEnElSistema = test::buscarDroneEnSistema(otroDrone, s1);
 
     EXPECT_TRUE(elDroneEnElSistema.enVuelo());
     EXPECT_TRUE(elOtroDroneEnElSistema.enVuelo());
@@ -75,5 +65,6 @@ TEST(test_sistema_despegar, si_hay_drone_o_casa_al_lado_del_granero_comienza_vue
     EXPECT_EQ(el_campo, s1.campo());
     EXPECT_EQ(2, s1.enjambreDrones().size());
 }
+
 
 

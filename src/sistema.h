@@ -42,9 +42,12 @@ class Sistema {
 		friend class test_sistema_se_vino_la_maleza_se_pone_con_maleza_las_posiciones_de_la_lista_Test;
 		friend class test_sistema_se_expande_plaga_si_no_hay_plaga_no_cambia_Test;
 		friend class test_sistema_se_expande_plaga_si_hay_plaga_se_expande_Test;
+		friend class test_sistema_se_expande_plaga_si_hay_plaga_en_la_esquina_superior_se_expande_desde_ahi_Test;
 		friend class test_sistema_listo_para_cosechar_si_es_menos_del_90_por_ciento_retorna_false_Test;
 		friend class test_sistema_listo_para_cosechar_si_es_exactamente_el_90_por_ciento_retorna_true_Test;
 		friend class test_sistema_listo_para_cosechar_si_es_mas_del_90_por_ciento_retorna_true_Test;
+		friend class test_sistema_aterrizar_y_cargar_baterias_aterrizan_y_cargan_solo_los_que_corresponden_Test;
+		friend class test_sistema_fertilizar_por_filas_todos_fertilizan_hasta_donde_pueden_Test;
 		friend class test_sistema_volar_y_sensar_todo_libre_Test;
 
 		// --> Defina sus funciones auxiliares debajo...
