@@ -135,15 +135,19 @@ void Sistema::fertilizarPorFilas()
 	int d = 0;
 	while (d < _enjambre.size() && _enjambre[d].enVuelo()){
 		Posicion actual = _enjambre[d].posicionActual();
-		while (actual.x > (-1) && tieneUnProducto(_enjambre[d].productosDisponibles(), Fertilizante) && _enjambre[d].bateria() > 0 && _campo.contenido(actual) == Cultivo){
-			if (enRangoCultivable (actual.x, actual.y)){
-			if (enRangoCultivable (actual.x, actual.y) && (_estado.parcelas[actual.x][actual.y] == RecienSembrado || _estado.parcelas[actual.x][actual.y] == EnCrecimiento)){
+		bool continuar = tieneUnProducto(_enjambre[d].productosDisponibles(), Fertilizante);
+		while (continuar) {
+			if (_estado.parcelas[actual.x][actual.y] == RecienSembrado || _estado.parcelas[actual.x][actual.y] == EnCrecimiento) {
 				_estado.parcelas[actual.x][actual.y] = ListoParaCosechar;
 				_enjambre[d].sacarProducto(Fertilizante);
 			}
-			_enjambre[d].setBateria(_enjambre[d].bateria() - 1);
-			_enjambre[d].moverA(actual);
-			--actual.x;
+			--actual.y;
+			continuar = actual.y >= 0 && tieneUnProducto(_enjambre[d].productosDisponibles(), Fertilizante)
+						&& _enjambre[d].bateria() > 0 && _campo.contenido(actual) == Cultivo;
+			if(continuar) {
+				_enjambre[d].setBateria(_enjambre[d].bateria() - 1);
+				_enjambre[d].moverA(actual);
+			}
 		}
 		++d; 
 	}
