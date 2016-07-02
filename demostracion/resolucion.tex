@@ -5,6 +5,8 @@
 \input{Algo1Macros}% Macros especificas para especificar problemas en AyEDI
 \usepackage{caratula} % Se puede descargar en ~> https://github.com/bcardiff/dc-tex
 
+\usepackage{bm}
+
 \usepackage{listings} % Para poner codigo
 \lstset{language=C++, breaklines=true, showstringspaces=false, mathescape=true, fontadjust, tabsize=4}
 
@@ -50,11 +52,11 @@
         \textbf{Pc $\implica$ I} \\
         $ Pc \implica i == 1 \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (abs(dirx) == abs(diry)) \\ \land dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2} \\
         \explicacion{vueloRealizado(this) - 2 $\geq$ 1} \\
-        \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \land escalerado == (abs(dirx) == abs(diry)) \\ \land dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2} \\
+        \implica \bm{1 \leq i \leq \longitud{vueloRealizado(this)} -2} \land escalerado == (abs(dirx) == abs(diry)) \\ \land dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2} \\
         \explicacion{$(escalerado == p) == (escalerado == p \land true)$} \\
-        \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \\ \land \ (\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}) == dirx \\ \land \ (\sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2}) == diry) \\
+        \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \\ \bm{\land (\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}) == dirx \\ \land \ (\sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2}) == diry)} \\
         \explicacion{dado $ i == 1$, $[0..i) == [0]$} \\
-        \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i)) \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) \\
+        \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ \bm{(\forall j \leftarrow [0..i))} \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) \\
         \explicacion{por definicion} \\
         \implica I $
         
@@ -79,9 +81,9 @@
         \\
         \explicacion{$ (p \lor q) \land r \implica (p \land r) \lor (q \land r) $, y $ a \geq b \land a \leq b \implica a == b $} \\
         \\
-        \implica (\neg escalerado \land 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \\ escalerado == (abs(dirx) == abs(diry) \land \ (\forall j \leftarrow [0..i)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \\ == dirx \ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) \\
+        \implica (\bm{\neg escalerado} \land 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \\ escalerado == (abs(dirx) == abs(diry) \land \ (\forall j \leftarrow [0..i)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \\ == dirx \ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) \\
         \lor % espacio para claridad; este o logico es gigante %
-        (i == \longitud{vueloRealizado(this)} - 2 \land \\ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \\ == dirx \ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) $ \\
+        (\bm{i == \longitud{vueloRealizado(this)} - 2} \land \\ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i)) (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \\ == dirx \ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) $ \\
         \\
         Podemos dividir esto en los dos casos contemplados por $\neg B$: \\
         \\
@@ -89,21 +91,21 @@
         \\
         $ \neg escalerado \land 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \\ escalerado == (abs(dirx) == abs(diry) \land \ (\forall j \leftarrow [0..i)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \ == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \\
         \explicacion{$\neg p \implica \neg(p \land q) $} \\
-        \implica escalerado == (abs(dirx) == abs(diry) \ \land \ ((\forall j \leftarrow [0..i - 2)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) \\ \land (((\forall j \leftarrow [i..\longitud{vueloRealizado(this)} - 2)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry))) \\
+        \implica escalerado == (abs(dirx) == abs(diry) \ \land \ ((\forall j \leftarrow [0..i - 2)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) \\ \bm{\land (((\forall j \leftarrow [i..\longitud{vueloRealizado(this)} - 2)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)))} \\
         \explicacion{$\forall j \leftarrow [0..i) \land \forall j \leftarrow [i...j) \implica \forall j \leftarrow [0..j) $} \\
-        \implica escalerado == (abs(dirx) == abs(diry) \ \land \ ((\forall j \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) \\
+        \implica escalerado == (abs(dirx) == abs(diry) \ \land \ \bm{((\forall j \leftarrow [0..\longitud{vueloRealizado(this)} - 2))} \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry)) \\
         \explicacion{por definicion}$
         $\implica Q_c $\\
         \\
         \\
         \\
-       $Caso i \geq \longitud{vueloRealizado(this)} - 2$ \\
+        $Caso i \geq \longitud{vueloRealizado(this)} - 2$ \\
         \\$
-         i \geq \longitud{vueloRealizado(this)} - 2 \land 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \\ escalerado == (abs(dirx) == abs(diry) \land \ (\forall j \leftarrow [0..i)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \ == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \\
+        i \geq \longitud{vueloRealizado(this)} - 2 \land 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \\ escalerado == (abs(dirx) == abs(diry) \land \ (\forall j \leftarrow [0..i)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \ == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \\
         \explicacion{$a \leq b \land b \leq a \implica a == b$} \\
-        \implica i == \longitud{vueloRealizado(this)} - 2 \land \\ escalerado == (abs(dirx) == abs(diry) \land \ (\forall j \leftarrow [0..i)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \ == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \\
+        \implica \bm{i == \longitud{vueloRealizado(this)} - 2} \land \\ escalerado == (abs(dirx) == abs(diry) \land \ (\forall j \leftarrow [0..i)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \ == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \\
         \explicacion{$i == \longitud{vueloRealizado(this)} - 2$} \\
-        \implica escalerado == (abs(dirx) == abs(diry) \land \ (\forall j \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \ == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \\
+        \implica escalerado == (abs(dirx) == abs(diry) \land \ \bm{(\forall j \leftarrow [0..\longitud{vueloRealizado(this)} - 2))} \\ (\prm{vueloRealizado(this)_i} - \prm{vueloRealizado(this)_{i+2}} \ == dirx \\ \land \ \sgd{vueloRealizado(this)_i} - \sgd{vueloRealizado(this)_{i+2}} == diry) \\
         \explicacion{por definicion} \\
         \implica Q_c \\
         \\
@@ -133,9 +135,9 @@
         \explicacion{$p \land q \implica p$}\\
         \implica \longitud{vueloRealizado(this)} - i - 2 \leq 0 \\
         \explicacion{por inecuaciones}\\
-        \implica i \geq \longitud{vueloRealizado(this)} - 2 \\
+        \implica \longitud{vueloRealizado(this)} - 2 \bm{\leq i} \\
         \explicacion{$p \implica p \lor q$} \\
-        \implica \neg escalerado \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2 \\
+        \implica \longitud{vueloRealizado(this)} - 2 \leq i \lor \bm{\neg escalerado} \\
         \explicacion{por definicion} \\
         \implica \neg B \\
         $ \\
@@ -164,9 +166,9 @@
         $P_c \\
         \implica cantCosechables == 0 \land i == 0 \\
          \explicacion{$x \leftarrow [0], y \leftarrow [], \longitud{[]} == 0$} \\
-        \implica i == 0 \land [1| x \leftarrow [0..i) \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables\\
+        \implica i == 0 \land cantCosechables == \bm{[1| x \leftarrow [0..i) \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]|} \\
         \explicacion{$p \implica p \lor q$} \\
-        \implica 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables \\
+        \implica \bm{0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))} \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables \\
         \explicacion{por definicion} \\
         \implica I \\
         \\ $
@@ -188,29 +190,31 @@
         \\
         \textbf{(I $\land \neg$ B) $\implica$ Qc} \\
         $(I \land \neg B) \\
-        \implica (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i \\ \land 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables \\
+        \implica (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i \\ \land 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \land cantCosechables == \\ | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| \\
         \explicacion{$ a \geq b \land a \leq b \implica a == b $} \\
-        \implica (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) == i \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables \\
+        \implica \bm{(prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) == i} \land cantCosechables == \\ | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| \\
         \\
         \explicacion{$i \div sgd(dimensiones(campo(this))) == prm(dimensiones(campo(this))$} \\
         \\
-        \implica (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) == i \\ \land | [1| x \leftarrow [0..prm(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables \\
+        \implica (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) == i \land cantCosechables == \\ | [1| x \leftarrow [0..\bm{prm(dimensiones(campo(this)))}], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| \\
 		\\        
         \explicacion{$x == prm(dimensiones(campo(this))) \implica i - x * sgd(dimensiones(campo(this)))) == 0 $} \\
         \explicacion{$(\forall x \leftarrow [0..prm(dimensiones(campo(this))))) \ sgd(dimensiones(campo(this))) \leq i - x * sgd(dimensiones(campo(this)))) $} \\
         \\
-        \implica (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) == i \\ \land | [1| x \leftarrow [0..prm(dimensiones(campo(this)))), y \leftarrow [0..sgd(dimensiones(campo(this)))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables \\
+        \implica (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) == i \land cantCosechables == \\ | [1| x \leftarrow [0..prm(dimensiones(campo(this)))), y \leftarrow [0..\bm{sgd(dimensiones(campo(this)))}), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| \\
         \\
         \explicacion{$parcelasCultivo(campo(this)) == [(x,y) | x \leftarrow [0..prm(dimensiones(campo(this)))$}, \\
         \explicacion {$y \leftarrow [0..sgd(dimensiones(campo(this)))), contenido(campo(this),x,y) == Cultivo]$} \\
         \\
-        \implica i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \\ \land \longitud{[1| pos \leftarrow parcelasCultivo(campo(this)), estadoDelCultivo(pos, this) == ListoParaCosechar]} == cantCosechables \\
+        \implica i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \land cantCosechables == \\ \bm{\longitud{[1| pos \leftarrow parcelasCultivo(campo(this)), estadoDelCultivo(pos, this) == ListoParaCosechar]}} \\
         \\
         \explicacion{por definicion} \\
         \\
         \implica Q_c \\
         \\ $
-		\\
+
+        \newpage
+
         \begin{Large}
         {$(I \land fv \leq cota) \implica \neg B$}
         \end{Large}\\
@@ -231,7 +235,7 @@
         \explicacion{$p \land q \implica p$} \\
         \implica prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) - i \leq 0 \\
         \explicacion{por inecuaciones} \\
-        \implica prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) \leq i \\
+        \implica prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) \bm{\leq i} \\
         \explicacion{por definicion} \\
         \implica \neg B \\
         \\ $
