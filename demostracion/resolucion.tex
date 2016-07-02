@@ -167,7 +167,7 @@
         \implica cantCosechables == 0 \land i == 0 \\
          \explicacion{$x \leftarrow [0], y \leftarrow [], \longitud{[]} == 0$} \\
         \implica i == 0 \land cantCosechables == \bm{[1| x \leftarrow [0..i) \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]|} \\
-        \explicacion{$p \implica p \lor q$} \\
+        \explicacion{$i = 0 \implica i = 0 \lor i > 0$} \\
         \implica \bm{0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))} \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables \\
         \explicacion{por definicion} \\
         \implica I \\
