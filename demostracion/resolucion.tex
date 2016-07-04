@@ -65,20 +65,21 @@
         \bigskip
         Por otro lado, por Pc sabemos que $dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2}$ y que escalerado == (abs(dirx) == abs (diry)).
 
+        Por lo tanto, podemos afirmar que
+        
         \bigskip
-        Por lo tanto, afirmar que $escalerado == (abs(dirx)== abs (diry) \land \\ dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2})$ es simplemente afirmar que
-
-
-        $ escalerado == (abs(dirx) == abs (diry) \land true)$ (porque Pc nos asegura que, efectivamente, dirx y diry valen eso).
-
-        \bigskip
-        Luego, $escalerado == (abs(dirx)== abs (diry) \land dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2})$
+        $escalerado == (abs(dirx) == abs (diry) \land dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2})$
+        
+        (como la segunda parte es $true$, no modifica el valor de escalerado)
 
         \bigskip
-        Finalmente, como i == 1 por Pc, podemos tomar la lista [0..i) y extender la definicion de dirx y diry para todos los miembros de la lista, puesto que i == 1 y [0..i) implica [0..i) == [0]. Luego, ${(\forall j \leftarrow [0..i))} \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry)$
+        Finalmente, como i == 1 por Pc, podemos tomar la lista [0..i) y extender la definicion de escalerado para todos los miembros de la lista, puesto que $ i == 1 \land [0..i) $ implica $ [0..i) == [0]$. Luego, 
+        
+        \bigskip
+        ${(\forall j \leftarrow [0..i))} (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry)$
 
         \bigskip
-        De este modo, nos queda exactamente el invariante. Por lo tanto, Pc implica I
+        De este modo, nos queda exactamente el invariante. Por lo tanto, Pc implica I.
         
         \newpage
         
@@ -104,34 +105,41 @@
         \bigskip
         \textbf{(I $\land \neg$ B) $\implica$ Qc}
 
-        Al ser $\neg$B=$ \neg escalerado \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2 $, basta con que ocurra una de las dos cosas para que se cumpla $\neg$B. Por lo tanto, podemos abrir el problema en dos casos.
+        Por $\neg$B, sabemos que $ \neg escalerado \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2 $. Por reglas l\'ogicas, basta con que ocurra una de las dos cosas para que se cumpla $\neg$B. Por lo tanto, podemos abrir el problema en dos casos.
 
         \bigskip
-        Caso $\neg escalerado$
+        \underline{Caso $\neg escalerado$}
 
         \bigskip
-        Por I, $escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i) (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} \\ == dirx \ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) $ y por $\neg$B, $\neg$escalerado.
+        Por I, $escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i) (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} \\ == dirx \ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) $ y por $\neg$B, $\neg$escalerado. Luego,
 
         \bigskip
-        Por lo tanto, como $\neg(abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i) (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry)$, si le agregamos \\$(((\forall j \leftarrow [i..\longitud{vueloRealizado(this)} - 2)$\\ $(\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{ji+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry)))$\\ sigue siendo $\neg$escalerado (mas alla de si la nueva condicion es true o false).
+        $\neg(abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i) (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry)$
+        
+        \bigskip
+        Podemos agregarle $(((\forall j \leftarrow [i..\longitud{vueloRealizado(this)} - 2)$\\ $(\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{ji+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry)))$
+        
+        ya que $p \land false == false$, y seguir\'ia valiendo $\neg$escalerado.
 
         \bigskip
         Luego, $escalerado == (abs(dirx) == abs(diry) \ \land \ ((\forall j \leftarrow [0..i)) \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry)) \\ \land (((\forall j \leftarrow [i..\longitud{vueloRealizado(this)} - 2))(\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry))$
 
         \bigskip
-        Por otro lado, como tenemos la misma condicion para $((\forall j \leftarrow [0..i))$ y $(((\forall j \leftarrow [i..\longitud{vueloRealizado(this)} - 2))$ podemos concatenar ambas listas.
+        Por otro lado, como aplicamos la misma condicion para $((\forall j \leftarrow [0..i))$ y $(((\forall j \leftarrow [i..\longitud{vueloRealizado(this)} - 2))$, podemos concatenar ambas listas.
 
         \bigskip
         Luego, $ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx  \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) $
 
         \bigskip
-        De este modo, el caso $\neg escalerado$ implica Qc
+        De este modo, el caso $\neg escalerado \land I$ implica Qc
 
         \bigskip
-        Caso $\ i \geq \longitud{vueloRealizado(this)} - 2$
+        \underline{Caso $\ i \geq \longitud{vueloRealizado(this)} - 2$}
 
         \bigskip
-        Por I,  $ 1 \leq i \leq \longitud{vueloRealizado(this)} -2$ y por $\neg$B, $i \geq \longitud{vueloRealizado(this)} - 2 $. Luego, i == $\longitud{vueloRealizado(this)} - 2$
+        Por I,  $ 1 \leq i \leq \longitud{vueloRealizado(this)} -2$ y por $\neg$B, $i \geq \longitud{vueloRealizado(this)} - 2 $.
+        
+        Luego, i == $\longitud{vueloRealizado(this)} - 2$.
 
         \bigskip
         Por lo tanto, la condicion $(\forall j \leftarrow [0..i)$ es igual a $(\forall j \leftarrow [0..\longitud{vueloRealizado(this)} - 2))$
@@ -140,11 +148,11 @@
         Luego, $ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx  \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) $
 
         \bigskip
-        De este modo, obtuvimos Qc a traves del caso $\ i \geq \longitud{vueloRealizado(this)} - 2$.
-
-        Finalmente, al unir ambos casos, tenemos Qc $\lor$ Qc. Es decir que ambos caminos permiten implicar Qc.
+        De este modo, el caso $\ i \geq \longitud{vueloRealizado(this)} - 2 \land I$ tambi\'en implica Qc.
 
         \bigskip
+        Finalmente, al unir ambos casos, tenemos Qc $\lor$ Qc. Es decir, que ambos caminos permiten implicar Qc.
+
         Por lo tanto I y $\neg$B implica Qc.
 
         \newpage
@@ -176,7 +184,7 @@
         Por $fv \leq cota$, sabemos que $\longitud{vueloRealizado(this)} - i - 2 \leq 0$.
 
         \bigskip
-        Luego, pasando la i para el otro lado, obtenemos $\longitud{vueloRealizado(this)} - 2 {\leq i}$
+        Luego, sumando i de ambos lados, obtenemos $\longitud{vueloRealizado(this)} - 2 {\leq i}$
 
         \bigskip
         Del mismo modo, por reglas logicas $\longitud{vueloRealizado(this)} - 2 {\leq i}$ implica $\longitud{vueloRealizado(this)} - 2 {\leq i} \lor q$ (porque basta que se cumpla una de las condiciones para que el $\lor$ devuelva $true$).
@@ -185,7 +193,7 @@
         Luego, $\longitud{vueloRealizado(this)} - 2 {\leq i} \lor \neg$escalerado, que es exactamente $\neg$B.
 
         \bigskip
-        De este modo, demostramos que $(I \land fv \leq cota) \implica \neg B$
+        De este modo, demostramos que $(I \land fv \leq cota)$ implica $\neg$B
 
 \newpage
 
@@ -221,18 +229,18 @@
         \bigskip
         \textbf{Pc $\implica$ I}
 
-        Por Pc, sabemos que $ cantCosechables == 0 \land i == 0$. Por lo tanto, $0 \leq i$ (porque que sea igual, implica que sea igual o mayor) y $i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))$ (porque que sea mayor, implica que sea igual o mayor).
+        Por Pc, sabemos que $i == 0$. Por lo tanto, $0 \leq i$ (porque que sea igual, implica que sea igual o mayor) y \\ $i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))$ (porque que sea mayor, implica que sea igual o mayor).
 
         Luego, $0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))$.
 
         \bigskip
-        Por otro lado, sabiendo que $i == 0$, podemos tomar la lista [0..i] como la lista [0], y la lista [0.0) como la lista vac\'ia. De esta manera, podemos formar la lista
+        Por otro lado, sabiendo que $i == 0$, podemos tomar la lista [0..i] como la lista [0], y la lista [0..0) como la lista vac\'ia. De esta manera, podemos formar la lista
 
         \bigskip
         $[1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]$
 
         \bigskip
-        de longitud 0 (la lista est\'a vac\'ia ya que y no toma ning\'un valor). Al tener longitud 0, la misma es equivalente a \\ cantCosechables, por lo que podemos afirmar
+        de longitud 0 (la lista est\'a vac\'ia ya que $y$ no toma ning\'un valor). Por Pc, $cantCosechables == 0$, que es equivalente a la longitud de esta lista, por lo que podemos afirmar
 
         \bigskip
         $cantCosechables == |[1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]|$
@@ -270,7 +278,7 @@
         \bigskip
         \textbf{(I $\land \neg$ B) $\implica$ Qc}
 
-        Por I, sabemos que $\land 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))$. Adem\'as, por $\neg$B, sabemos que $(prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i$.
+        Por I, sabemos que $0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))$. Adem\'as, por $\neg$B, sabemos que $(prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i$.
 
         De esta conjunci\'on deducimos que $ i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))))$ (si un n\'umero es menor o igual y mayor o igual que otro, entonces son iguales).
 
@@ -287,7 +295,7 @@
         $i \div sgd(dimensiones(campo(this))) == prm(dimensiones(campo(this)))$
 
         \bigskip
-        Por lo tanto, $x \leftarrow [0..i \div sgd(dimensiones(campo(this)))]$. Por otro lado
+        Por lo tanto, $x \leftarrow [0..prm(dimensiones(campo(this)))]$. Por otro lado, considerando nuevamente el valor de i y sacando factor com\'un $sgd(dimensiones(campo(this)))$
 
         \bigskip
         $i - x * sgd(dimensiones(campo(this)))) == (prm(dimensiones(campo(this)) - x) * sgd(dimensiones(campo(this)))$
@@ -300,24 +308,42 @@
         Ahora, podemos dividir el min en dos casos
 
         \bigskip
-        $x == prm(dimensiones(campo(this))) \implica i - x * sgd(dimensiones(campo(this)))) == 0 $
-
-        $(\forall x \leftarrow [0..prm(dimensiones(campo(this))))) \ sgd(dimensiones(campo(this))) \leq i - x * sgd(dimensiones(campo(this)))) $
+        \underline{Caso $x == \prm{dimensiones(campo(this))}$}
 
         \bigskip
-        Es decir, podemos expresar cantCosechables como
+        Como $i - x * sgd(dimensiones(campo(this)))) == (prm(dimensiones(campo(this)) - x) * sgd(dimensiones(campo(this)))$
+        
+        \bigskip
+        $(\prm{dimensiones(campo(this))} - x) * sgd(dimensiones(campo(this))) == 0 $
+        
+        \bigskip
+        y dado que $sgd(dimensiones(campo(this))$ es positivo, en este caso el $min$ devuelve 0.
 
         \bigskip
-        $ cantCosechables == | [1| x \leftarrow [0..\prm{dimensiones(campo(this))}), y \leftarrow [0..\sgd{dimensiones(campo(this))}), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar] \\ ++ [ 1| x \leftarrow [\prm{dimensiones(campo(this))}], y \leftarrow [0..0), estadoDelCultivo((x,y), this) == ListoParaCosechar] | $
+        \underline{Caso $x \neq \prm{dimensiones(campo(this))}$}
 
         \bigskip
-        Sin embargo, [0..0) resulta en la lista vac\'ia, por lo que la segunda lista de esta suma no tiene elementos y podemos quitarla. 
+        Dado $x \leftarrow [0..prm(dimensiones(campo(this)))]$ y $x \neq \prm{dimensiones(campo(this))}$, \\ se toman valores de la lista $[0..prm(dimensiones(campo(this))))$ (sin incluir el extremo).
+
+        Como $(\prm{dimensiones(campo(this))} - x)$ es natural y positivo, deducimos que
+
+        \bigskip
+        $sgd(dimensiones(campo(this))) \leq (prm(dimensiones(campo(this)) - x) * sgd(dimensiones(campo(this))) $
+
+        \bigskip
+        Uniendo ambos casos, podemos expresar cantCosechables como
+
+        \bigskip
+        $ cantCosechables == | [1| x \leftarrow [0..\prm{dimensiones(campo(this))}), y \leftarrow [0..\sgd{dimensiones(campo(this))}), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar] \\ ++ [ 1| x \leftarrow [\prm{dimensiones(campo(this))}], y \leftarrow [0..$$0), estadoDelCultivo((x,y), this) == ListoParaCosechar] | $
+
+        \bigskip
+        Sin embargo, [0..0) resulta en la lista vac\'ia, por lo que la segunda lista de esta concatenaci\'on no tiene elementos y podemos quitarla. 
 
         \bigskip
         $ cantCosechables == | [1| x \leftarrow [0..prm(dimensiones(campo(this)))), y \leftarrow [0..sgd(dimensiones(campo(this)))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar] | $
 
         \bigskip
-        Considerando ambas variables, tenemos que
+        Considerando los valores de i y cantCosechables, tenemos que
 
         \bigskip
         $ i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \land cantCosechables == \\ | [1| x \leftarrow [0..prm(dimensiones(campo(this)))), y \leftarrow [0..sgd(dimensiones(campo(this)))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar] | $
@@ -354,10 +380,13 @@
         Por $fv \leq cota$, sabemos que $prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) - i \leq 0 $.
 
         \bigskip
-        Luego, pasando la i para el otro lado, obtenemos $prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) \leq i$, que es exactamente $\neg$B.
-
+        Luego, sumando i de ambos lados, obtenemos 
+        
         \bigskip
-        De este modo, demostramos que $(I \land fv \leq cota) \implica \neg B$
+        $prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) \leq i$
+        
+        \bigskip
+        que es exactamente $\neg$B. De este modo, demostramos que $(I \land fv \leq cota)$ implica $\neg B$
 
 \newpage
 
