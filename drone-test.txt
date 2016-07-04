@@ -1,1 +1,0 @@
-{ D 12 83 [[1,2],[1,1],[0,1],[0,0]] [Plaguicida, PlaguicidaBajoConsumo, Herbicida, Fertilizante] true [0,0]}
