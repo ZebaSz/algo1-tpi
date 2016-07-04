@@ -34,6 +34,12 @@ CLion reconoce los tests. Entre las configuraciones de ejecución (arriba a la d
 
 Los profes nos dieron su propio  `CMakeLists.txt`. Pros: tests en CLion lindos. Cons: chau configuraciones viejas. Igual lo vale, ya no hace falta usar main.
 
+## Las demostraciones
+
+Para compilar los LaTeX a PDF en Linux sin usar TeXMaker, pueden correr (dentro de la carpeta de demostraciones) `pdflatex resolucion.pdf`. Eso produce muchísimo output y es bastante feo. Si tienen TeXMaker instalado, deberían tener un script que lo hace más lindo: `texfot pdflatex resolucion.pdf`. El output que queda son mayormente errores que estaría piola corregir.
+
+O pueden usar el script que dejé hecho que hace exactamente eso. Y además abre el PDF inmediatamente después.
+
 ## Consideraciones
 
 - Si compilan a mano/sin usar `make`, tratar que los ejecutables estén en una carpeta `bin`, o tengan extensión `.exe`,  `.out` o  `.app`. De la misma manera, los objetos no linkeados deben ser `.obj`, `.o` o estar en una carpeta `obj`. Si no, hay que agregar la extensión (o carpeta) al `.gitignore`. NO PUSHEAR COMPILADOS.
