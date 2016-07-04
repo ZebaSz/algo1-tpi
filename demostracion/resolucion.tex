@@ -46,15 +46,19 @@
         \end{Large}
 
         \bigskip
-        \textbf{Pc} \\
+        \textbf{Pc}
+
         $ i = 1 \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (abs(dirx) == abs(diry)) \\ \land dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2} $
 
         \bigskip
-		\textbf{I} \\
+		\textbf{I}
+
         $ 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i)) \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \  \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) $
 
         \bigskip
-        Por Pc, sabemos que i = 1 y |vueloRealizado(this)| > 2. Por lo tanto, $1 \leq i$ (porque que sea igual, implica que sea igual o mayor) y $i \leq 2 \leq |vueloRealizado(this)|$ (porque que sea mayor, implica que sea igual o mayor).
+        \textbf{Pc $\implica$ I}
+
+        Por Pc, sabemos que i = 1 y $|vueloRealizado(this)| > 2$. Por lo tanto, $1 \leq i$ (porque que sea igual, implica que sea igual o mayor) y $i \leq 2 \leq |vueloRealizado(this)|$ (porque que sea mayor, implica que sea igual o mayor).
 
         Luego, $1 \leq i \leq |vueloRealizado(this)|$
 
@@ -75,18 +79,6 @@
 
         \bigskip
         De este modo, nos queda exactamente el invariante. Por lo tanto, Pc implica I
-
-        \bigskip
-        \textbf{Pc $\implica$ I} \\
-        $ Pc \implica i == 1 \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (abs(dirx) == abs(diry)) \\ \land dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2} \\
-        \explicacion{vueloRealizado(this) - 2 $\geq$ 1} \\
-        \implica \bm{1 \leq i \leq \longitud{vueloRealizado(this)} -2} \land escalerado == (abs(dirx) == abs(diry)) \\ \land dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2} \\
-        \explicacion{$(escalerado == p) == (escalerado == p \land true)$} \\
-        \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \\ \bm{\land (\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}) == dirx \\ \land \ (\sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2}) == diry)} \\
-        \explicacion{dado $ i == 1$, $[0..i) == [0]$} \\
-        \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ \bm{(\forall j \leftarrow [0..i))} \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) \\
-        \explicacion{por definicion} \\
-        \implica I $
         
         \newpage
         
@@ -95,18 +87,23 @@
         \end{Large}
 
         \bigskip
-        \textbf{I} \\
+        \textbf{I}
+
         $ 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i) (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) $   
 
         \bigskip
-        \textbf{$\neg$B} \\
+        \textbf{$\neg$B}
+
         $ \neg escalerado \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2 $
 
         \bigskip
-        \textbf{Qc} \\
+        \textbf{Qc}
+
         $ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..\longitud{vueloRealizado(this)} - 2)) \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx  \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) $
 
         \bigskip
+        \textbf{(I $\land \neg$ B) $\implica$ Qc}
+
         Al ser $\neg$B=$ \neg escalerado \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2 $, basta con que ocurra una de las dos cosas para que se cumpla $\neg$B. Por lo tanto, podemos abrir el problema en dos casos.
 
         \bigskip
@@ -150,8 +147,239 @@
         \bigskip
         Por lo tanto I y $\neg$B implica Qc.
 
+        \newpage
+
+        \begin{Large}
+        {$(I \land fv \leq cota) \implica \neg B$}
+        \end{Large}
+
         \bigskip
-        \textbf{(I $\land \neg$ B) $\implica$ Qc} \\
+        \textbf{I}
+
+        $ 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i) \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) $
+
+        \bigskip
+        \textbf{fv}
+
+        $ \longitud{vueloRealizado(this)} - i - 2 $\\
+        Cota: $0$
+
+        \bigskip
+        \textbf{$\neg$B}
+
+        $\neg escalerado \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2$
+
+        \bigskip
+        \textbf{I $\land$ fv $\leq$ cota $\implica \neg$ B}
+
+        \bigskip
+        Por $fv \leq cota$, sabemos que $\longitud{vueloRealizado(this)} - i - 2 \leq 0$.
+
+        \bigskip
+        Luego, pasando la i para el otro lado, obtenemos $\longitud{vueloRealizado(this)} - 2 {\leq i}$
+
+        \bigskip
+        Del mismo modo, por reglas logicas $\longitud{vueloRealizado(this)} - 2 {\leq i}$ implica $\longitud{vueloRealizado(this)} - 2 {\leq i} \lor q$ (porque basta que se cumpla una de las condiciones para que el $\lor$ devuelva $true$).
+
+        \bigskip
+        Luego, $\longitud{vueloRealizado(this)} - 2 {\leq i} \lor \neg$escalerado, que es exactamente $\neg$B.
+
+        \bigskip
+        De este modo, demostramos que $(I \land fv \leq cota) \implica \neg B$
+
+\newpage
+
+\section{listoParaCosechar}
+
+    \subsection{C\'odigo}
+        \lstinputlisting{listoParaCosechar.cpp}
+
+        \bigskip
+        Para estas demostraciones, se utiliza la siguiente funci\'on auxiliar:
+
+        \bigskip
+        \aux{min}{a, b: \ent}{\ent}{\IfThenElse{a < b}{a}{b}}
+
+    \newpage
+
+    \subsection{Demostraci\'on}
+        
+        \begin{large}
+        {$P_c \rightarrow I$}
+        \end{large}
+
+        \bigskip
+        \textbf{Pc}
+
+        $ cantCosechables == 0 \land i == 0$
+
+        \bigskip
+		\textbf{I}
+
+        $ 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables $
+
+        \bigskip
+        \textbf{Pc $\implica$ I}
+
+        Por Pc, sabemos que $ cantCosechables == 0 \land i == 0$. Por lo tanto, $0 \leq i$ (porque que sea igual, implica que sea igual o mayor) y $i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))$ (porque que sea mayor, implica que sea igual o mayor).
+
+        Luego, $0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))$.
+
+        \bigskip
+        Por otro lado, sabiendo que $i == 0$, podemos tomar la lista [0..i] como la lista [0], y la lista [0.0) como la lista vac\'ia. De esta manera, podemos formar la lista
+
+        \bigskip
+        $[1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]$
+
+        \bigskip
+        de longitud 0 (la lista est\'a vac\'ia ya que y no toma ning\'un valor). Al tener longitud 0, la misma es equivalente a \\ cantCosechables, por lo que podemos afirmar
+
+        \bigskip
+        $cantCosechables == |[1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]|$
+
+        \bigskip
+        Tomando ambos datos, afirmamos que
+
+        \bigskip
+        $ 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \ \land \ cantCosechables == \\ |[1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| $
+
+        \bigskip
+        que es equivalente a I. De esta manera, demostramos que Pc $\implica$ I.
+
+        \newpage
+
+		\begin{Large}
+        {$(I \land \neg B) \implica Q_c$}
+        \end{Large}
+
+        \bigskip
+        \textbf{I}
+
+        $ 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables $
+
+        \bigskip
+        \textbf{$\neg$B}
+
+        $ (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i $
+
+        \bigskip
+        \textbf{Qc}
+
+        $ i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \ \land cantCosechables == \\ | [1| x \leftarrow [0..prm(dimensiones(campo(this)))), y \leftarrow [0..sgd(dimensiones(campo(this)))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar] | $
+
+        \bigskip
+        \textbf{(I $\land \neg$ B) $\implica$ Qc}
+
+        Por I, sabemos que $\land 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))$. Adem\'as, por $\neg$B, sabemos que $(prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i$.
+
+        De esta conjunci\'on deducimos que $ i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))))$ (si un n\'umero es menor o igual y mayor o igual que otro, entonces son iguales).
+
+        \bigskip
+        Teniendo esto, y sabiendo por I que
+
+        \bigskip
+        $ cantCosechables == | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| $
+
+        \bigskip
+        podemos modificar las listas de los selectores. Por un lado
+
+        \bigskip
+        $i \div sgd(dimensiones(campo(this))) == prm(dimensiones(campo(this)))$
+
+        \bigskip
+        Por lo tanto, $x \leftarrow [0..i \div sgd(dimensiones(campo(this)))]$. Por otro lado
+
+        \bigskip
+        $i - x * sgd(dimensiones(campo(this)))) == (prm(dimensiones(campo(this)) - x) * sgd(dimensiones(campo(this)))$
+
+        \bigskip
+        Por lo tanto,
+
+        $y \leftarrow [0..min(sgd(dimensiones(campo(this))), (prm(dimensiones(campo(this)) - x) * sgd(dimensiones(campo(this))))$.
+
+        Ahora, podemos dividir el min en dos casos
+
+        \bigskip
+        $x == prm(dimensiones(campo(this))) \implica i - x * sgd(dimensiones(campo(this)))) == 0 $
+
+        $(\forall x \leftarrow [0..prm(dimensiones(campo(this))))) \ sgd(dimensiones(campo(this))) \leq i - x * sgd(dimensiones(campo(this)))) $
+
+        \bigskip
+        Es decir, podemos expresar cantCosechables como
+
+        \bigskip
+        $ cantCosechables == | [1| x \leftarrow [0..\prm{dimensiones(campo(this))}), y \leftarrow [0..\sgd{dimensiones(campo(this))}), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar] \\ ++ [ 1| x \leftarrow [\prm{dimensiones(campo(this))}], y \leftarrow [0..0), estadoDelCultivo((x,y), this) == ListoParaCosechar] | $
+
+        \bigskip
+        Sin embargo, [0..0) resulta en la lista vac\'ia, por lo que la segunda lista de esta suma no tiene elementos y podemos quitarla. 
+
+        \bigskip
+        $ cantCosechables == | [1| x \leftarrow [0..prm(dimensiones(campo(this)))), y \leftarrow [0..sgd(dimensiones(campo(this)))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar] | $
+
+        \bigskip
+        Considerando ambas variables, tenemos que
+
+        \bigskip
+        $ i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \land cantCosechables == \\ | [1| x \leftarrow [0..prm(dimensiones(campo(this)))), y \leftarrow [0..sgd(dimensiones(campo(this)))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar] | $
+
+        \bigskip
+        que por definici\'on es equivalente a Qc. Por lo tanto I y $\neg$B implica Qc.
+
+        \newpage
+
+        \begin{Large}
+        {$(I \land fv \leq cota) \implica \neg B$}
+        \end{Large}
+
+        \bigskip
+        \textbf{I}
+
+        $ 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables $
+
+        \bigskip
+        \textbf{fv}
+
+        $ prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) - i $\\
+        Cota: $0$
+
+        \bigskip
+        \textbf{$\neg$B}
+
+        $(prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i$
+
+        \bigskip
+        \textbf{I $\land$ fv $\leq$ cota $\implica \neg$B}
+
+        \bigskip
+        Por $fv \leq cota$, sabemos que $prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) - i \leq 0 $.
+
+        \bigskip
+        Luego, pasando la i para el otro lado, obtenemos $prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) \leq i$, que es exactamente $\neg$B.
+
+        \bigskip
+        De este modo, demostramos que $(I \land fv \leq cota) \implica \neg B$
+
+\newpage
+
+\section{Ap\'endice I: demostraciones formales}
+
+    \subsection{vueloEscalerado}
+
+        \textbf{Pc $\implica$ I}
+
+        $ Pc \implica i == 1 \land \longitud{vueloRealizado(this)} > 2 \land escalerado == (abs(dirx) == abs(diry)) \\ \land dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2} \\
+        \explicacion{vueloRealizado(this) - 2 $\geq$ 1} \\
+        \implica \bm{1 \leq i \leq \longitud{vueloRealizado(this)} -2} \land escalerado == (abs(dirx) == abs(diry)) \\ \land dirx == \prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2} \\ \land diry == \sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2} \\
+        \explicacion{$(escalerado == p) == (escalerado == p \land true)$} \\
+        \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \\ \bm{\land (\prm{vueloRealizado(this)_0} - \prm{vueloRealizado(this)_2}) == dirx \\ \land \ (\sgd{vueloRealizado(this)_0} - \sgd{vueloRealizado(this)_2}) == diry)} \\
+        \explicacion{dado $ i == 1$, $[0..i) == [0]$} \\
+        \implica 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ \bm{(\forall j \leftarrow [0..i))} \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) \\
+        \explicacion{por definicion} \\
+        \implica I $
+
+        \bigskip
+        \textbf{(I $\land \neg$ B) $\implica$ Qc}
+
         $I \land \neg B \\
         \implica (\neg escalerado \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2) \land 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \\ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i)) (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} \\ == dirx \ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) \\
         \\
@@ -195,44 +423,9 @@
         $ Q_c \lor Q_c \implica Q_c $ \\
         \explicacion{Q.E.D.}
 
-        \newpage
-
-        \begin{Large}
-        {$(I \land fv \leq cota) \implica \neg B$}
-        \end{Large}
-
-        \bigskip
-        \textbf{I} \\
-        $ 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i) \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) $
-
-        \bigskip
-        \textbf{fv} \\
-        $ \longitud{vueloRealizado(this)} - i - 2 $\\
-        Cota: $0$
-
-        \bigskip
-        \textbf{$\neg$B} \\
-        $\neg escalerado \ \lor \ i \geq \longitud{vueloRealizado(this)} - 2$
-
         \bigskip
         \textbf{I $\land$ fv $\leq$ cota $\implica \neg$ B}
 
-        \bigskip
-        Por $fv \leq cota$, sabemos que $\longitud{vueloRealizado(this)} - i - 2 \leq 0$.
-
-        \bigskip
-        Luego, pasando la i para el otro lado, obtenemos $\longitud{vueloRealizado(this)} - 2 {\leq i}$
-
-        \bigskip
-        Del mismo modo, por reglas logicas $\longitud{vueloRealizado(this)} - 2 {\leq i}$ implica $\longitud{vueloRealizado(this)} - 2 {\leq i} \lor q$ (porque basta que se cumpla una de las condiciones para que el $\lor$ devuelva $true$).
-
-        \bigskip
-        Luego, $\longitud{vueloRealizado(this)} - 2 {\leq i} \lor \neg$escalerado, que es exactamente $\neg$B.
-
-        \bigskip
-        De este modo, demostramos que $(I \land fv \leq cota) \implica \neg B$
-
-        \bigskip
         $I \land f_v \leq cota \\
         \implica \longitud{vueloRealizado(this)} - i - 2 \leq 0 \ \land \ 1 \leq i \leq \longitud{vueloRealizado(this)} -2 \\ \land \ escalerado == (abs(dirx) == abs(diry) \ \land \ (\forall j \leftarrow [0..i) \\ (\prm{vueloRealizado(this)_j} - \prm{vueloRealizado(this)_{j+2}} == dirx \\ \land \ \sgd{vueloRealizado(this)_j} - \sgd{vueloRealizado(this)_{j+2}} == diry) \\
         \explicacion{$p \land q \implica p$}\\
@@ -243,65 +436,23 @@
         \implica \longitud{vueloRealizado(this)} - 2 \leq i \lor \bm{\neg escalerado} \\
         \explicacion{por definicion} \\
         \implica \neg B $
-\newpage
 
-\section{listoParaCosechar}
+    \subsection{listoParaCosechar}
 
-    \subsection{C\'odigo}
-        \lstinputlisting{listoParaCosechar.cpp}
+        \textbf{Pc $\implica$ I}
 
-        \bigskip
-        Para estas demostraciones, se utiliza la siguiente funci\'on auxiliar:
-
-        \aux{min}{a, b: \ent}{\ent}{\IfThenElse{a < b}{a}{b}}
-
-    \newpage
-
-    \subsection{Demostraci\'on}
-        
-        \begin{large}
-        {$P_c \rightarrow I$}
-        \end{large}
-
-        \bigskip
-        \textbf{Pc} \\
-        $ cantCosechables == 0 \land i == 0$
-
-        \bigskip
-		\textbf{I} \\
-        $ 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables $
-
-        \bigskip
-        \textbf{Pc $\implica$ I} \\
         $P_c \\
         \implica cantCosechables == 0 \land i == 0 \\
-         \explicacion{$x \leftarrow [0], y \leftarrow [], \longitud{[]} == 0$} \\
-        \implica i == 0 \land cantCosechables == \bm{[1| x \leftarrow [0..i) \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]|} \\
+        \explicacion{$x \leftarrow [0], y \leftarrow [], \longitud{[]} == 0$} \\
+        \implica i == 0 \land cantCosechables == \bm{|[1| x \leftarrow [0..i) \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]|} \\
         \explicacion{$i = 0 \implica i = 0 \lor i > 0$} \\
-        \implica \bm{0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))} \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables \\
+        \implica \bm{0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this)))} \ \land \ cantCosechables == \\ |[1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| \\
         \explicacion{por definicion} \\
         \implica I $
 
-        \newpage
-
-		\begin{Large}
-        {$(I \land \neg B) \implica Q_c$}
-        \end{Large}
-
         \bigskip
-        \textbf{I} \\
-        $ 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables $
+        \textbf{(I $\land \neg$ B) $\implica$ Qc}
 
-        \bigskip
-        \textbf{$\neg$B} \\
-        $ (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i $
-
-        \bigskip
-        \textbf{Qc} \\
-        $ i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \\ \land \longitud{[1| pos \leftarrow parcelasCultivo(campo(this)), estadoDelCultivo(pos, this) == ListoParaCosechar]} == cantCosechables $
-
-        \bigskip
-        \textbf{(I $\land \neg$ B) $\implica$ Qc} \\
         $(I \land \neg B) \\
         \implica (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i \\ \land 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \land cantCosechables == \\ | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| \\
         \explicacion{$ a \geq b \land a \leq b \implica a == b $} \\
@@ -319,39 +470,13 @@
         \explicacion{$(\forall x \leftarrow [0..prm(dimensiones(campo(this))))) \ sgd(dimensiones(campo(this))) \leq i - x * sgd(dimensiones(campo(this)))) $}
 
         \bigskip
-        $\implica (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) == i \land cantCosechables == \\ | [1| x \leftarrow [0..prm(dimensiones(campo(this)))), y \leftarrow [0..\bm{sgd(dimensiones(campo(this)))}), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| $
-
-        \bigskip
-        \explicacion{$parcelasCultivo(campo(this)) == [(x,y) | x \leftarrow [0..prm(dimensiones(campo(this)))$}
-        
-        \explicacion{$y \leftarrow [0..sgd(dimensiones(campo(this)))), contenido(campo(this),x,y) == Cultivo]$}
-
-        \bigskip
-        $\implica i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \land cantCosechables == \\ \bm{\longitud{[1| pos \leftarrow parcelasCultivo(campo(this)), estadoDelCultivo(pos, this) == ListoParaCosechar]}} \\
+        $\implica (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) == i \land cantCosechables == \\ | [1| x \leftarrow [0..prm(dimensiones(campo(this)))), y \leftarrow [0..\bm{sgd(dimensiones(campo(this)))}), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| \\
         \explicacion{por definicion} \\
         \implica Q_c $
 
-        \newpage
-
-        \begin{Large}
-        {$(I \land fv \leq cota) \implica \neg B$}
-        \end{Large}
-
         \bigskip
-        \textbf{I} \\
-        $ 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables $
+        \textbf{I $\land$ fv $\leq$ cota $\implica \neg$B}
 
-        \bigskip
-        \textbf{fv} \\
-        $ prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) - i $\\
-        Cota: $0$
-
-        \bigskip
-        \textbf{$\neg$B} \\
-        $(prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \leq i$
-
-        \bigskip
-        \textbf{I $\land$ fv $\leq$ cota $\implica \neg$B} \\
         $(I \land fv < cota) \\
         \implica prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) - i \leq 0 \\ \land 0 \leq i \leq (prm(dimensiones(campo(this))) \times sgd(dimensiones(campo(this))) \\ \land | [1| x \leftarrow [0..i \div sgd(dimensiones(campo(this)))], \\ y \leftarrow [0..min(sgd(dimensiones(campo(this))), i - x * sgd(dimensiones(campo(this))))), \\ estadoDelCultivo((x,y), this) == ListoParaCosechar]| == cantCosechables \\
         \explicacion{$p \land q \implica p$} \\
@@ -360,4 +485,5 @@
         \implica prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this))) \bm{\leq i} \\
         \explicacion{por definicion} \\
         \implica \neg B $
+
 \end{document} %Termin�!

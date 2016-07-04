@@ -18,7 +18,6 @@ bool Sistema::listoParaCosechar() const
         ++i;
     }
 
-// vale $ Q_c : i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \ \land $ $ \longitud{[1| pos \leftarrow parcelasCultivo(campo(this)), estadoDelCultivo(pos, this) == ListoParaCosechar]} == cantCosechables $
-
+// vale $ Q_c : i == (prm(dimensiones(campo(this)) \times sgd(dimensiones(campo(this)))) \ \land cantCosechables == $$ | [1| x \leftarrow [0..prm(dimensiones(campo(this)))), y \leftarrow [0..sgd(dimensiones(campo(this)))), $$ estadoDelCultivo((x,y), this) == ListoParaCosechar] | $
     return (cantCosechables /(double) cantCultivos >= 0.9);
 }
